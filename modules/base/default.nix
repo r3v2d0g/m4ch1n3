@@ -10,8 +10,6 @@
             ''
                experimental-features = nix-command flakes
             '';
-
-          registry.nixpkgs.flake = inputs.nixpkgs;
         };
     };
 
