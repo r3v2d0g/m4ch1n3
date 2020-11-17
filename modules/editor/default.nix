@@ -2,10 +2,9 @@
     { nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
     };
 
-  users = { config, inputs, lib, ... }:
-    let doom-emacs = { pkgs, ... }@args: lib.recursiveUpdate
-      (inputs.nix-doom-emacs.hmModule args)
-      { options.programs.doom-emacs.doomPrivateDir.apply = v: v; };
+  users = { config, inputs, lib, pkgs, ... }:
+    { imports = [ inputs.nix-doom-emacs.hmModule ];
 
-    in { imports = [ doom-emacs ]; };
+      home.packages = [ pkgs.vim ];
+    };
 }
