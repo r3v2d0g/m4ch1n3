@@ -1,0 +1,6 @@
+{ ... }:
+
+{ flags = [ "light" ];
+
+  packages = [];
+}

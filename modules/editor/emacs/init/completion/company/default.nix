@@ -1,0 +1,9 @@
+{ ... }:
+
+{ flags =
+    [ "childframe"
+      "tng"
+    ];
+
+  packages = [];
+}

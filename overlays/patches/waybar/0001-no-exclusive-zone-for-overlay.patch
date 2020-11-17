@@ -1,0 +1,12 @@
+diff --git a/src/bar.cpp b/src/bar.cpp
+index 771adab..124a10f 100644
+--- a/src/bar.cpp
++++ b/src/bar.cpp
+@@ -481,7 +481,7 @@ void waybar::Bar::setVisible(bool value) {
+     window.set_opacity(1);
+     surface_impl_->setLayer(layer_);
+   }
+-  surface_impl_->setExclusiveZone(visible);
++  surface_impl_->setExclusiveZone(visible && layer_ != bar_layer::OVERLAY);
+   surface_impl_->commit();
+ }

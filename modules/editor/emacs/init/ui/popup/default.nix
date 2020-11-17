@@ -1,0 +1,9 @@
+{ ... }:
+
+{ flags =
+    [ "all"
+      "defaults"
+    ];
+
+  packages = [];
+}

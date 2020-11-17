@@ -1,0 +1,6 @@
+{ ... }:
+
+{ flags = [ "lsp" ];
+
+  packages = [];
+}

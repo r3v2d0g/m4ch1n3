@@ -1,0 +1,9 @@
+{ ... }:
+
+{ flags =
+    [ "icons"
+      "ranger"
+    ];
+
+  packages = [];
+}

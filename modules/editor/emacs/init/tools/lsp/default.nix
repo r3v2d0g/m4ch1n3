@@ -1,0 +1,9 @@
+{ ... }:
+
+{ flags =
+    [ "eglot"
+      "peek"
+    ];
+
+  packages = [];
+}

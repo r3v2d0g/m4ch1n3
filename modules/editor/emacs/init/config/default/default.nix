@@ -1,0 +1,9 @@
+{ ... }:
+
+{ flags =
+    [ "bindings"
+      "smartparens"
+    ];
+
+  packages = [];
+}
