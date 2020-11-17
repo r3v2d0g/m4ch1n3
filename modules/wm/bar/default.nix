@@ -78,6 +78,9 @@
                                format-muted = "<span fgcolor=\"${colors.${theme.colors.audio.muted}}\">{volume}%</span>   {format_source}";
                                format-source = "{volume}%";
                                format-source-muted = "<span fgcolor=\"${colors.${theme.colors.audio.muted}}\">{volume}%</span>";
+                               on-scroll-up = "echo";
+                               on-scroll-down = "echo";
+                               tooltip = false;
                              };
                          };
                      }
