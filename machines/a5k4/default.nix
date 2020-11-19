@@ -31,6 +31,7 @@
     };
 
   gpg.yubikey = true;
+  security.yubico.enable = true;
 
   users.r3v2d0g =
     { enable = true;

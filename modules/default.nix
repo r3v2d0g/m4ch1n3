@@ -20,6 +20,9 @@ let modules =
 
         ./gpg
 
+        ./security
+        ./security/yubico
+
         ./shell
         ./shell/git
         ./shell/ssh
