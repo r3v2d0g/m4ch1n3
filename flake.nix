@@ -18,6 +18,11 @@
           flake = false;
         };
 
+      proton-bridge =
+        { url = "github:ProtonMail/proton-bridge/br-1.5.0";
+          flake = false;
+        };
+
       rtl8723de =
         { url = "github:smlinux/rtl8723de";
           flake = false;

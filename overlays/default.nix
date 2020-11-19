@@ -1,4 +1,5 @@
-{ rtl8723de
+{ proton-bridge
+, rtl8723de
 , waybar
 , ...
 }:
@@ -13,6 +14,9 @@ self: super:
           ++ [ ./patches/emacsGcc/0001-emacsgcc-fix-doom-emacs-install.patch ];
       }
     );
+
+  protonmail-bridge = self.callPackage ./protonmail-bridge
+    { source = proton-bridge; };
 
   rtl8723de = self.callPackage ./rtl8723de
     { source = rtl8723de;

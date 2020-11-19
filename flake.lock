@@ -342,6 +342,23 @@
         "type": "github"
       }
     },
+    "proton-bridge": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1604489167,
+        "narHash": "sha256-lHqwKlFwz9iO7LJMGFTGCauw12z/BKnQte2sVoVkOaY=",
+        "owner": "ProtonMail",
+        "repo": "proton-bridge",
+        "rev": "9a7765000489155f89844fe1fea75b971f9560ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ProtonMail",
+        "ref": "br-1.5.0",
+        "repo": "proton-bridge",
+        "type": "github"
+      }
+    },
     "reveal.js": {
       "flake": false,
       "locked": {
@@ -366,6 +383,7 @@
         "jq-zsh-plugin": "jq-zsh-plugin",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs",
+        "proton-bridge": "proton-bridge",
         "rtl8723de": "rtl8723de",
         "waybar": "waybar",
         "zsh-autopair": "zsh-autopair",
