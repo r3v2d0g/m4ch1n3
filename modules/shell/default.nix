@@ -45,12 +45,18 @@
             { "PROMPT"  = " %B%F{11}%n%f@%F{13}%M%f:%F{12}%3~ %f%b ";
               "RPROMPT" = "%(?.%F{7}.%F{9})\\$(printf \"%03d\" \\$?)%f ";
 
-              "EDITOR" = "emacs -nw";
+              "ALTERNATE_EDITOR" = "emacs";
+              "EDITOR" = "emacsclient -c";
               "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE" = "fg=7";
             };
 
           shellAliases =
-            { "du" = "${pkgs.du-dust}/bin/dust";
+            { "c" = "clear";
+              "em" = "emacs";
+              "emc" = "emacsclient";
+              "emt" = "emacs -nw";
+
+              "du" = "${pkgs.du-dust}/bin/dust";
               "l"    = "${pkgs.exa}/bin/exa -l";
               "ls"   = "${pkgs.exa}/bin/exa";
               "quit" = "exit";
