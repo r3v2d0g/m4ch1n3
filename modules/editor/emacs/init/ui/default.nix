@@ -19,7 +19,7 @@ args:
   tabs = null;
   treemacs = import ./treemacs args;
   unicode = null;
-  vc-gutter = null;
+  vc-gutter = import ./vc-gutter args;
   vi-tilde-fringe = import ./vi-tilde-fringe args;
   window-select = null;
   workspaces = null;
