@@ -1,4 +1,7 @@
-{ rtl8723de, vetur, waybar, ... }:
+{ rtl8723de
+, waybar
+, ...
+}:
 
 self: super:
 
@@ -15,8 +18,6 @@ self: super:
     { source = rtl8723de;
       kernel = self.linux;
     };
-
-  vls = (self.callPackage "${vetur}/server" {}).package;
 
   waybar = super.waybar
     .overrideAttrs

@@ -10,7 +10,5 @@ in { flags = [ "lsp" ];
          pkgs.yarn
        ]
        ++ lib.optionals flags.lsp
-         [ pkgs.nodePackages.typescript-language-server
-           pkgs.vls
-         ];
+         [ pkgs.nodePackages.typescript-language-server ];
 }
