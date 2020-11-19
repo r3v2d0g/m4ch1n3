@@ -2,10 +2,6 @@
 
 let user = path: { pkgs, ... }@args: import path (args // { inherit lib; });
 
-    enabledUsers = lib.filterAttrs
-      (_: { enable, ... }: enable)
-      config.m4ch1n3.users;
-
     modules = args:
       (import ../modules).users
         (args // { inherit inputs lib;
@@ -15,13 +11,15 @@ let user = path: { pkgs, ... }@args: import path (args // { inherit lib; });
 in { imports =
        [ inputs.home-manager.nixosModules.home-manager
 
+         (user ./all)
          (user ./r3v2d0g)
          (user ./root)
        ];
 
-     home-manager.users = lib.mapAttrs
+     home-manager.users = lib.mapFilterAttrs
        (_: _: modules)
-       enabledUsers;
+       (_: { enable ? false, ... }: enable)
+       config.m4ch1n3.users;
 
      users.mutableUsers = false;
 
