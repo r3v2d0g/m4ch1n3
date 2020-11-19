@@ -13,18 +13,13 @@
           flake = false;
         };
 
+      jq-zsh-plugin =
+        { url = "github:reegnz/jq-zsh-plugin";
+          flake = false;
+        };
+
       rtl8723de =
         { url = "github:smlinux/rtl8723de";
-          flake = false;
-        };
-
-      tidal-hifi =
-        { url = "github:r3v2d0g/tidal-hifi"; # NOTE: forked
-          flake = false;
-        };
-
-      vetur =
-        { url = "github:r3v2d0g/vetur"; # NOTE: forked
           flake = false;
         };
 
@@ -35,6 +30,11 @@
 
       zsh-autopair =
         { url = "github:hlissner/zsh-autopair";
+          flake = false;
+        };
+
+      zsh-nix-shell =
+        { url = "github:chisui/zsh-nix-shell";
           flake = false;
         };
 

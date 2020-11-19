@@ -180,6 +180,22 @@
         "type": "github"
       }
     },
+    "jq-zsh-plugin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1603096902,
+        "narHash": "sha256-l4vmgQu7M/oxGtqK/YqaCEnWQsxLRsRXbCeFeGAuaR0=",
+        "owner": "reegnz",
+        "repo": "jq-zsh-plugin",
+        "rev": "bd2a4aff9eca35c4b3f98d76ac367bd2fd43280a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "reegnz",
+        "repo": "jq-zsh-plugin",
+        "type": "github"
+      }
+    },
     "nix-doom-emacs": {
       "inputs": {
         "doom-emacs": "doom-emacs",
@@ -347,13 +363,13 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "ion-mode": "ion-mode",
+        "jq-zsh-plugin": "jq-zsh-plugin",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs",
         "rtl8723de": "rtl8723de",
-        "tidal-hifi": "tidal-hifi",
-        "vetur": "vetur",
         "waybar": "waybar",
         "zsh-autopair": "zsh-autopair",
+        "zsh-nix-shell": "zsh-nix-shell",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       }
     },
@@ -389,38 +405,6 @@
         "type": "github"
       }
     },
-    "tidal-hifi": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1602095619,
-        "narHash": "sha256-P32+SohVFhr6pcgQFw0WBUUvzd5nYH/SJppIcTyRZAU=",
-        "owner": "r3v2d0g",
-        "repo": "tidal-hifi",
-        "rev": "9f26db22fc958e9884a1617657c995c939fb9c91",
-        "type": "github"
-      },
-      "original": {
-        "owner": "r3v2d0g",
-        "repo": "tidal-hifi",
-        "type": "github"
-      }
-    },
-    "vetur": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1605530425,
-        "narHash": "sha256-KJfbIjB6Z2IbGFjYRcVNJxNLyD4CcTc8Hz94elBjxeQ=",
-        "owner": "r3v2d0g",
-        "repo": "vetur",
-        "rev": "f98d167e6e4509dca69a668edca9b5bdadb56526",
-        "type": "github"
-      },
-      "original": {
-        "owner": "r3v2d0g",
-        "repo": "vetur",
-        "type": "github"
-      }
-    },
     "waybar": {
       "flake": false,
       "locked": {
@@ -450,6 +434,22 @@
       "original": {
         "owner": "hlissner",
         "repo": "zsh-autopair",
+        "type": "github"
+      }
+    },
+    "zsh-nix-shell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600944392,
+        "narHash": "sha256-C+6zHE0xDX2RndaR4T1b0hJ4xcf4bhBiADIc0amXw4M=",
+        "owner": "chisui",
+        "repo": "zsh-nix-shell",
+        "rev": "5dc081265cdd0d03631e9dc20b5e656530ae3af2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chisui",
+        "repo": "zsh-nix-shell",
         "type": "github"
       }
     },
