@@ -1,16 +1,14 @@
 { config, inputs, lib, ... }:
 
-let user = path: { lib, pkgs, ... }@args:
-      import path
-        (args // { lib = import ../lib { inherit lib; }; });
+let user = path: { pkgs, ... }@args: import path (args // { inherit lib; });
 
     enabledUsers = lib.filterAttrs
       (_: { enable, ... }: enable)
       config.m4ch1n3.users;
 
-    modules = { lib, ... }@args:
+    modules = args:
       (import ../modules).users
-        (args // { inherit inputs;
+        (args // { inherit inputs lib;
                    mconfig = config;
                  });
 

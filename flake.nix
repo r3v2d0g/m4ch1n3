@@ -45,16 +45,17 @@
     };
 
   outputs = { nixpkgs, ... }@inputs:
-    let withInputs = path: args:
-          import path (args // { inherit inputs; });
+    let withInputsAndLib = path: args:
+          let lib = import ./lib { lib = args.lib; };
+          in import path (args // { inherit inputs lib; });
 
     in { nixosConfigurations =
            { a5k4 = nixpkgs.lib.nixosSystem
                { system = "x86_64-linux";
 
                  modules =
-                   [ (withInputs ./machines)
-                     (withInputs ./users)
+                   [ (withInputsAndLib ./machines)
+                     (withInputsAndLib ./users)
 
                      (args:
                        { config.m4ch1n3 = import ./machines/a5k4 args; }

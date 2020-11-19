@@ -43,23 +43,15 @@ let modules =
 
 in { machine = { inputs, lib, ... }:
        { imports = builtins.map
-         (mod: { lib, pkgs, ... }@args:
-             (import mod).machine
-               (args // { inherit inputs;
-                          lib = import ../lib { inherit lib; };
-                        }
-               )
+           (mod: { pkgs, ... }@args:
+             (import mod).machine (args // { inherit inputs lib; })
            ) modules;
        };
 
-     users = { inputs, mconfig, ... }:
+     users = { inputs, lib, mconfig, ... }:
        { imports = builtins.map
-           (mod: { lib, pkgs, ... }@args:
-             (import mod).users
-               (args // { inherit inputs mconfig;
-                          lib = import ../lib { inherit lib; };
-                        }
-               )
+           (mod: { pkgs, ... }@args:
+             (import mod).users (args // { inherit inputs lib mconfig; })
            ) modules;
        };
    }
