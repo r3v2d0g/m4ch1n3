@@ -369,6 +369,7 @@
         "rtl8723de": "rtl8723de",
         "waybar": "waybar",
         "zsh-autopair": "zsh-autopair",
+        "zsh-bd": "zsh-bd",
         "zsh-nix-shell": "zsh-nix-shell",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       }
@@ -434,6 +435,22 @@
       "original": {
         "owner": "hlissner",
         "repo": "zsh-autopair",
+        "type": "github"
+      }
+    },
+    "zsh-bd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1530736382,
+        "narHash": "sha256-iznyTYDvFr1wuDZVwd1VTcB179SZQ2L0ZSY9g7BFDgg=",
+        "owner": "Tarrasch",
+        "repo": "zsh-bd",
+        "rev": "d4a55e661b4c9ef6ae4568c6abeff48bdf1b1af7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Tarrasch",
+        "repo": "zsh-bd",
         "type": "github"
       }
     },

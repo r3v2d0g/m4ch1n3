@@ -33,6 +33,11 @@
           flake = false;
         };
 
+      zsh-bd =
+        { url = "github:Tarrasch/zsh-bd";
+          flake = false;
+        };
+
       zsh-nix-shell =
         { url = "github:chisui/zsh-nix-shell";
           flake = false;

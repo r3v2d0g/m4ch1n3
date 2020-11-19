@@ -40,6 +40,11 @@
                 src = inputs.zsh-autopair;
               }
 
+              { name = "zsh-bd";
+                file = "bd.zsh";
+                src = inputs.zsh-bd;
+              }
+
               { name = "zsh-nix-shell";
                 file = "nix-shell.plugin.zsh";
                 src = inputs.zsh-nix-shell;
