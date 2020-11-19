@@ -35,6 +35,11 @@ in { options.m4ch1n3.users.r3v2d0g =
          keys.git = lib.mkStrOption
            { default = "0x14D54AAE149D1DC9"; };
 
+         mail = { enable = lib.mkEnableOption "mail"; };
+
+         security.pass =
+           { enable = lib.mkEnableOption "password-store"; };
+
          wm = lib.optionalAttrs mcfg.wm.enable
            { enable = lib.mkDisableOption "window manager";
 
@@ -84,7 +89,14 @@ in { options.m4ch1n3.users.r3v2d0g =
                  #  };
                };
 
-             m4ch1n3.gpg.agent.enable = true;
+             m4ch1n3.gpg.agent =
+               { enable = true;
+                 pinentry = "emacs";
+               };
+
+             m4ch1n3.mail.enable = cfg.mail.enable;
+
+             m4ch1n3.security.pass.enable = cfg.security.pass.enable;
 
              m4ch1n3.wm = lib.mkIf (mcfg.wm.enable && cfg.wm.enable)
                { enable = true;

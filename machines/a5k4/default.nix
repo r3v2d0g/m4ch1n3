@@ -37,6 +37,9 @@
     { enable = true;
       password = "local";
 
+      mail.enable = true;
+      security.pass.enable = true;
+
       wm.autostart.enable = true;
       wm.onepassword.enable = true;
     };
