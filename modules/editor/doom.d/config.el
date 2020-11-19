@@ -77,6 +77,19 @@
 ;;(use-package! ox-gfm
 ;;  :after-call org-export-dispatch)
 
+(setq! +mu4e-mu4e-mail-path "~/email")
+(set-email-account!
+ "pm"
+ '((mu4e-sent-folder      . "/pm/sent")
+   (mu4e-drafts-folder    . "/pm/drafts")
+   (mu4e-trash-folder     . "/pm/trash")
+   (mu4e-refile-folder    . "/pm/all")
+   (mu4e-attachment-dir   . "~/email/attachment")
+   (smtpmail-smtp-user    . "r3v2d0g@jesus.gg")
+   (smtpmail-smtp-server  . "127.0.0.1")
+   (smtpmail-smtp-service . 1025))
+ t)
+
 ;;(after! (mu4e gnutls)
 ;;  (pushnew! gnutls-trustfiles "~/.mbsync-pm-bridge.crt")
 ;;  (pushnew! mu4e-bookmarks
