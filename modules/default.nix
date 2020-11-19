@@ -20,7 +20,11 @@ let modules =
 
         ./gpg
 
+        ./mail
+        ./mail/pm
+
         ./security
+        ./security/pass
         ./security/yubico
 
         ./shell
