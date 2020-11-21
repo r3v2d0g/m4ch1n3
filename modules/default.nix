@@ -12,6 +12,7 @@ let modules =
         ./comm/slack
 
         ./dev
+        ./dev/docker
         ./dev/haskell
         ./dev/nodejs
         ./dev/python

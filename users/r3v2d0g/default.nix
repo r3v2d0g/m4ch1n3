@@ -37,6 +37,9 @@ in { options.m4ch1n3.users.r3v2d0g =
 
          comm = { enable = lib.mkEnableOption "communication"; };
 
+         dev.docker = lib.optionalAttrs mcfg.dev.docker.enable
+           { enable = lib.mkDisableOption "docker"; };
+
          security.pass =
            { enable = lib.mkEnableOption "password-store"; };
 
@@ -64,7 +67,12 @@ in { options.m4ch1n3.users.r3v2d0g =
 
      config = lib.mkIf cfg.enable
        { home-manager.users.r3v2d0g =
-           { m4ch1n3.editor.emacs =
+           { m4ch1n3.comm.enable = cfg.comm.enable;
+
+             m4ch1n3.dev.docker = lib.mkIf mcfg.dev.docker.enable
+               { enable = cfg.dev.docker.enable; };
+
+             m4ch1n3.editor.emacs =
                { enable = true;
 
                  #config =
@@ -89,9 +97,15 @@ in { options.m4ch1n3.users.r3v2d0g =
                  #  };
                };
 
-             m4ch1n3.gpg.agent.enable = true;
+             programs.git =
+               { userName = cfg.name;
+                 userEmail = cfg.email;
 
-             m4ch1n3.comm.enable = cfg.comm.enable;
+                 signing.key = cfg.keys.git;
+                 signing.signByDefault = true;
+               };
+
+             m4ch1n3.gpg.agent.enable = true;
 
              m4ch1n3.security.pass.enable = cfg.security.pass.enable;
 
@@ -109,14 +123,6 @@ in { options.m4ch1n3.users.r3v2d0g =
 
                  onepassword.enable = cfg.wm.onepassword.enable;
                  term.enable = cfg.wm.term.enable;
-               };
-
-             programs.git =
-               { userName = cfg.name;
-                 userEmail = cfg.email;
-
-                 signing.key = cfg.keys.git;
-                 signing.signByDefault = true;
                };
            };
 
@@ -140,7 +146,10 @@ in { options.m4ch1n3.users.r3v2d0g =
              uid = cfg.uid;
              group = "users";
              extraGroups = cfg.groups
-                           ++ lib.optional cfg.wheel "wheel";
+                           ++ lib.optional cfg.wheel "wheel"
+                           ++ lib.optional
+                             (mcfg.dev.docker.enable && cfg.dev.docker.enable)
+                             "docker";
 
              home = cfg.home.path;
              createHome = cfg.home.create;
