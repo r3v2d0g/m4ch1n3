@@ -44,8 +44,10 @@
 
              package = ungoogled-chromium
                .override (_:
-                 { proprietaryCodecs = true;
+                 { useOzone = true;
+                   enableVaapi = true;
                    enableWideVine = true;
+                   proprietaryCodecs = true;
                  }
                );
            };
