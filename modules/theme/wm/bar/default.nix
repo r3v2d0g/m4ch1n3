@@ -16,20 +16,6 @@
                  bar.bg = lib.mkColorOption
                    { default = "bg_alt"; };
 
-                 workspaces =
-                   { normal.fg = lib.mkColorOption
-                       { default = "fg_alt"; };
-
-                     normal.bg = lib.mkColorOption
-                       { default = "bg_alt"; };
-
-                     visible.fg = lib.mkColorOption
-                       { default = "fg"; };
-
-                     visible.bg = lib.mkColorOption
-                       { default = "bg_alt"; };
-                   };
-
                  audio.normal = lib.mkColorOption
                    { default = "fg"; };
 
@@ -64,25 +50,6 @@
                   window#waybar {
                       border: none;
                       background-color: ${colors.${cfg.colors.bar.bg}};
-                  }
-
-                  #workspaces button {
-                      min-width: 50px;
-                      padding: 0;
-                      color: ${colors.${cfg.colors.workspaces.normal.fg}};
-                      background-color: ${colors.${cfg.colors.workspaces.normal.bg}};
-                  }
-
-                  #workspaces button:hover {
-                      box-shadow: inherit;
-                      text-shadow: inherit;
-                  }
-
-                  #workspaces button.visible {
-                      padding-left: 15px;
-                      padding-right: 15px;
-                      color: ${colors.${cfg.colors.workspaces.visible.fg}};
-                      background-color: ${colors.${cfg.colors.workspaces.visible.bg}};
                   }
 
                   #pulseaudio {

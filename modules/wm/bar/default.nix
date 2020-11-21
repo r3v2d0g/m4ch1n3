@@ -47,7 +47,7 @@
                          ];
 
                        modules-center =
-                         [ "sway/workspaces"
+                         [
                          ];
 
                        modules-right =
@@ -65,12 +65,6 @@
                            "network" =
                              { format = "{ifname}: {ipaddr}";
                                format-disconnected = "{ifname}: disconnected";
-                             };
-
-                           "sway/workspaces" =
-                             { format = "{name}";
-                               disable-click = true;
-                               disable-scroll = true;
                              };
 
                            "pulseaudio" =
