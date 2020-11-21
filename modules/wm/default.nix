@@ -43,6 +43,28 @@
     let cfg = config.m4ch1n3.wm;
         mcfg = mconfig.m4ch1n3.wm;
 
+        workspace-next-or-new = pkgs.writeTextFile
+          { name = "workspace-next-or-new";
+            destination = "/bin/workspace-next-or-new";
+            executable = true;
+
+            text =
+              ''
+                 #! ${pkgs.zsh}/bin/zsh
+
+                 workspaces=$(swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq 'map({num, focused, representation, output}) | sort_by(.num)')
+                 output=$(echo $workspaces | ${pkgs.jq}/bin/jq -r 'map(select(.focused).output)[]')
+                 last_on_output=($(echo $workspaces | jq "map(select(.output == \"$output\"))[-1][]"))
+                 last_num=($(echo $workspaces | jq -r '.[-1].num'))
+
+                 if [[ ''${last_on_output[2]} == "true" && ''${last_on_output[3]} != "null" ]]; then
+                     swaymsg workspace $(( $last_num + 1 ))
+                 else
+                     swaymsg workspace next_on_output
+                 fi
+              '';
+          };
+
     in { options.m4ch1n3.wm = lib.optionalAttrs mcfg.enable
            { enable = lib.mkEnableOption "window manager";
 
@@ -133,7 +155,7 @@
 
                    config.floating.modifier = cfg.mod;
                    config.keybindings =
-                     { "${cfg.mod}+Tab"       = "workspace next_on_output";
+                     { "${cfg.mod}+Tab"       = "exec ${workspace-next-or-new}/bin/workspace-next-or-new";
                        "${cfg.mod}+Shift+Tab" = "workspace prev_on_output";
 
                        "${cfg.mod}+h" = "focus left";
