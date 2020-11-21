@@ -37,7 +37,7 @@
     { enable = true;
       password = "local";
 
-      mail.enable = true;
+      comm.enable = true;
       security.pass.enable = true;
 
       wm.autostart.enable = true;

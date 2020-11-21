@@ -35,7 +35,7 @@ in { options.m4ch1n3.users.r3v2d0g =
          keys.git = lib.mkStrOption
            { default = "0x14D54AAE149D1DC9"; };
 
-         mail = { enable = lib.mkEnableOption "mail"; };
+         comm = { enable = lib.mkEnableOption "communication"; };
 
          security.pass =
            { enable = lib.mkEnableOption "password-store"; };
@@ -94,7 +94,7 @@ in { options.m4ch1n3.users.r3v2d0g =
                  pinentry = "emacs";
                };
 
-             m4ch1n3.mail.enable = cfg.mail.enable;
+             m4ch1n3.comm.enable = cfg.comm.enable;
 
              m4ch1n3.security.pass.enable = cfg.security.pass.enable;
 

@@ -6,6 +6,9 @@ let modules =
         ./base/luks
         ./base/net
 
+        ./comm
+        ./comm/pm
+
         ./dev
         ./dev/haskell
         ./dev/nodejs
@@ -19,9 +22,6 @@ let modules =
         ./editor/emacs/init
 
         ./gpg
-
-        ./mail
-        ./mail/pm
 
         ./security
         ./security/pass
