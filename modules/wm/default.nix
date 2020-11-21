@@ -50,6 +50,7 @@
   users = { config, lib, mconfig, pkgs, ... }:
     let cfg = config.m4ch1n3.wm;
         mcfg = mconfig.m4ch1n3.wm;
+        commCfg = config.m4ch1n3.comm;
 
         workspace-next-or-new = pkgs.writeTextFile
           { name = "workspace-next-or-new";
@@ -213,6 +214,10 @@
                          { "${cfg.mod}+c" = "exec chromium"; }
                        // lib.optionalAttrs cfg.onepassword.enable
                          { "${cfg.mod}+1" = "exec 1password"; }
+                       // lib.optionalAttrs (commCfg.enable && commCfg.discord.enable)
+                         { "${cfg.mod}+Shift+d" = "exec Discord"; }
+                       // lib.optionalAttrs (commCfg.enable && commCfg.slack.enable)
+                         { "${cfg.mod}+Shift+s" = "exec slack"; }
                        // lib.optionalAttrs cfg.audio.enable
                          { "XF86AudioMute"        = "exec pamixer -t";
                            "XF86AudioRaiseVolume" = "exec pamixer -i 5";
