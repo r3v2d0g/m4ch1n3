@@ -72,6 +72,7 @@
                  maxCacheTtl = 120;
                  maxCacheTtlSsh = 120;
 
+                 grabKeyboardAndMouse = true;
                  pinentryFlavor = cfg.agent.pinentry;
 
                  extraConfig =
