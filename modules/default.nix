@@ -7,7 +7,9 @@ let modules =
         ./base/net
 
         ./comm
+        ./comm/discord
         ./comm/pm
+        ./comm/slack
 
         ./dev
         ./dev/haskell
