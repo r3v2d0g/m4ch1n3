@@ -89,10 +89,7 @@ in { options.m4ch1n3.users.r3v2d0g =
                  #  };
                };
 
-             m4ch1n3.gpg.agent =
-               { enable = true;
-                 pinentry = "emacs";
-               };
+             m4ch1n3.gpg.agent.enable = true;
 
              m4ch1n3.comm.enable = cfg.comm.enable;
 
