@@ -30,7 +30,15 @@
            };
 
          config = lib.mkIf cfg.enable
-           { hardware.opengl.enable = true;
+           { hardware.opengl =
+               { enable = true;
+                 extraPackages =
+                   [ pkgs.intel-media-driver
+                     pkgs.vaapiIntel
+                     pkgs.vaapiVdpau
+                     pkgs.libvdpau-va-gl
+                   ];
+               };
 
              environment.systemPackages =
                [ pkgs.gnome3.dconf
