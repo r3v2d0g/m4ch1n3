@@ -1,40 +1,25 @@
 { machine = { config, lib, ... }:
     let cfg = config.m4ch1n3.base.luks;
 
-        style =
-          { reset = ''\e[0m'';
-            progress = ''\e[33m'';
-            success = ''\e[32m'';
-            failure = ''\e[31m'';
-            device = ''\e[1m'';
-            clear = ''\e[2K\r'';
-            up = ''\e[1A'';
-          };
+        msg = with lib.term;
+          let device = name: ''${clear.line.all}${cursor.col 1}LUKS device ${fmt.weight.bold}${name}${fmt.reset}:'';
+              yellow = name: msg: ''${device name} ${fmt.fg.set colors.yellow}${msg}${fmt.fg.default}'';
+              green = name: msg: ''${device name} ${fmt.fg.set colors.green}${msg}${fmt.fg.default}'';
+              red = name: msg: ''${device name} ${fmt.fg.set colors.red}${msg}${fmt.fg.default}'';
 
-        msg =
-          { opening = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.progress}opening${style.reset}'';
+          in { opening = name: yellow name "opening";
+               opened = name: green name "opened";
 
-            closing = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.progress}closing${style.reset}'';
+               closing = name: yellow name "closing";
+               closed = name: red name "closed";
 
-            opened = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.success}opened${style.reset}'';
-
-            closed = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.failure}closed${style.reset}'';
-
-            waiting = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.progress}waiting on key${style.reset}'';
-
-            pass = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.failure}password required${style.reset}'';
-
-            wrong = name:
-              ''${style.clear}LUKS device ${style.device}${name}${style.reset}: ${style.failure}wrong password${style.reset}'';
-          };
+               waiting = name: yellow name "waiting";
+               pass = name: red name "password required";
+               wrong = name: red name "wrong password";
+             };
 
         openKey = key: dev:
+          with lib.term;
           let device = cfg.keys.${key}.device;
 
           in ''
@@ -45,7 +30,7 @@
                     echo -e "${msg.pass key}"
 
                     while true; do
-                        echo -en "Password for ${style.device}${key}${style.reset}: "
+                        echo -en "Password for ${fmt.weight.bold}${key}${fmt.reset}: "
                         passphrase=
 
                         while true; do
@@ -57,11 +42,11 @@
                             fi
                         done
 
-                        echo -en "${style.clear}${style.up}${msg.opening key}"
+                        echo -en "${clear.line.all}${cursor.up 1}${msg.opening key}"
                         echo -n "$passphrase" | cryptsetup luksOpen ${device} ${key} --key-file=- >/dev/null 2>/dev/null
 
                         if [ $? == 0 ]; then
-                            echo -en "${style.clear}${style.up}${msg.opening dev}"
+                            echo -en "${clear.line.all}${cursor.up 1}${msg.opening dev}"
                             rm -f /crypt-ramfs/passphrase
                             break
                         else
