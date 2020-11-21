@@ -117,7 +117,7 @@
                  };
 
                programs.zsh = lib.mkIf cfg.autostart.enable
-                 { profileExtra =
+                 { loginExtra =
                      ''
                         if [[ -z $DEVICE ]] && [[ $(tty) = ${cfg.autostart.tty} ]]; then
                             exec sway
