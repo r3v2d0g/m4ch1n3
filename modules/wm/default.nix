@@ -52,6 +52,28 @@
         mcfg = mconfig.m4ch1n3.wm;
         commCfg = config.m4ch1n3.comm;
 
+        workspace-prev-or-new = pkgs.writeTextFile
+          { name = "workspace-prev-or-new";
+            destination = "/bin/workspace-prev-or-new";
+            executable = true;
+
+            text =
+              ''
+                 #! ${pkgs.zsh}/bin/zsh
+
+                 workspaces=$(swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq 'map({num, focused, representation, output}) | sort_by(.num)')
+                 output=$(echo $workspaces | ${pkgs.jq}/bin/jq -r 'map(select(.focused).output)[]')
+                 first_on_output=($(echo $workspaces | jq "map(select(.output == \"$output\"))[0][]"))
+                 last_num=($(echo $workspaces | jq -r '.[-1].num'))
+
+                 if [[ ''${first_on_output[2]} == "true" ]]; then
+                     swaymsg workspace $(( $last_num + 1 ))
+                 else
+                     swaymsg workspace prev_on_output
+                 fi
+              '';
+          };
+
         workspace-next-or-new = pkgs.writeTextFile
           { name = "workspace-next-or-new";
             destination = "/bin/workspace-next-or-new";
@@ -165,7 +187,7 @@
                    config.floating.modifier = cfg.mod;
                    config.keybindings =
                      { "${cfg.mod}+Tab"       = "exec ${workspace-next-or-new}/bin/workspace-next-or-new";
-                       "${cfg.mod}+Shift+Tab" = "workspace prev_on_output";
+                       "${cfg.mod}+Shift+Tab" = "exec ${workspace-prev-or-new}/bin/workspace-prev-or-new";
 
                        "${cfg.mod}+h" = "focus left";
                        "${cfg.mod}+j" = "focus down";
