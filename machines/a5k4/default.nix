@@ -33,6 +33,11 @@
   gpg.yubikey = true;
   security.yubico.enable = true;
 
+  security.ssh =
+    { enable = true;
+      address = "192.168.1.2";
+    };
+
   users.r3v2d0g =
     { enable = true;
       password = "local";
