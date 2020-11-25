@@ -37,8 +37,17 @@ in { options.m4ch1n3.users.r3v2d0g =
 
          comm = { enable = lib.mkEnableOption "communication"; };
 
-         dev.docker = lib.optionalAttrs mcfg.dev.docker.enable
-           { enable = lib.mkDisableOption "docker"; };
+         dev =
+           { docker = lib.optionalAttrs mcfg.dev.docker.enable
+               { enable = lib.mkDisableOption "docker"; };
+
+             jetbrains = lib.optionalAttrs mcfg.wm.enable
+               { enable = lib.mkDisableOption "JetBrains tools";
+
+                 webstorm.enable = lib.mkDisableOption "WebStorm";
+                 webstorm.eap = lib.mkDisableOption "EAP";
+               };
+           };
 
          security.pass =
            { enable = lib.mkEnableOption "password-store"; };
@@ -69,8 +78,16 @@ in { options.m4ch1n3.users.r3v2d0g =
        { home-manager.users.r3v2d0g =
            { m4ch1n3.comm.enable = cfg.comm.enable;
 
-             m4ch1n3.dev.docker = lib.mkIf mcfg.dev.docker.enable
-               { enable = cfg.dev.docker.enable; };
+             m4ch1n3.dev =
+               { docker.enable = lib.mkIf mcfg.dev.docker.enable cfg.dev.docker.enable;
+
+                 jetbrains = lib.mkIf (mcfg.wm.enable && cfg.wm.enable)
+                   { enable = cfg.dev.jetbrains.enable;
+
+                     webstorm.enable = cfg.dev.jetbrains.webstorm.enable;
+                     webstorm.eap = cfg.dev.jetbrains.webstorm.eap;
+                   };
+               };
 
              m4ch1n3.editor.emacs =
                { enable = true;
