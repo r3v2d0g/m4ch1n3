@@ -14,6 +14,7 @@ let modules =
         ./dev
         ./dev/docker
         ./dev/haskell
+        ./dev/jetbrains
         ./dev/nodejs
         ./dev/python
         ./dev/rust
