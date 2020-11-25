@@ -72,6 +72,19 @@
                      )
                    ];
                };
+
+            sf4r = nixpkgs.lib.nixosSystem
+               { system = "x86_64-linux";
+
+                 modules =
+                   [ (withInputsAndLib ./machines)
+                     (withInputsAndLib ./users)
+
+                     ({ pkgs, ... }@args:
+                       { config.m4ch1n3 = import ./machines/sf4r args; }
+                     )
+                   ];
+               };
            };
        };
 }
