@@ -29,6 +29,7 @@ let modules =
 
         ./security
         ./security/pass
+        ./security/ssh
         ./security/yubico
 
         ./shell
