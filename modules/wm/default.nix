@@ -112,7 +112,9 @@
 
          config =
            lib.mkIf (mcfg.enable && cfg.enable)
-             { gtk =
+             { home.packages = [ pkgs.light ];
+
+               gtk =
                  { enable = true;
 
                    font = mconfig.m4ch1n3.theme.fonts.default;
