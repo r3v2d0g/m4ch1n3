@@ -106,6 +106,9 @@ rec {
     mkOption { type = types.nullOr (types.enum enum); }
     // attrs;
 
+  mkNullOrEnumFromAttrNamesOption = attrs: from:
+    mkNullOrEnumOption (attrNames from) attrs;
+
   mkFontOption = name: package:
     { name = lib.mkOption
         { type = types.str;
