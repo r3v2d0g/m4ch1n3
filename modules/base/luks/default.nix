@@ -103,7 +103,8 @@
                { default = {}; }
                { device = lib.mkStrOption {};
 
-                 key.name = lib.mkEnumFromAttrNamesOption {}
+                 key.name = lib.mkNullOrEnumFromAttrNamesOption
+                   { default = null; }
                    cfg.keys;
 
                  key.size = lib.mkIntOption {};
@@ -116,22 +117,22 @@
                (_: { name, device, key }:
                  { inherit name device;
 
-                   keyFile = "/dev/mapper/${key.name}";
-                   keyFileSize = key.size;
-                   keyFileOffset = key.offset;
-
                    preOpenCommands =
                      ''
                         echo -en "${msg.opening name}"
-                        ${openKey key.name name}
+                        ${lib.optionalString (! isNull key.name) (openKey key.name name)}
                      '';
 
                    postOpenCommands =
                      ''
                         echo -e "${msg.opened name}"
-                        ${closeKey key.name}
+                        ${lib.optionalString (! isNull key.name) (closeKey key.name)}
                      '';
-                 }
+                 } // lib.optionalAttrs (! isNull key.name)
+                   { keyFile = "/dev/mapper/${key.name}";
+                     keyFileSize = key.size;
+                     keyFileOffset = key.offset;
+                   }
                ) cfg.devices;
            };
        };
