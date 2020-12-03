@@ -55,7 +55,7 @@
     };
 
   outputs = { nixpkgs, ... }@inputs:
-    let withInputsAndLib = path: args:
+    let withInputsAndLib = path: { pkgs, ... }@args:
           let lib = import ./lib { lib = args.lib; };
           in import path (args // { inherit inputs lib; });
 
