@@ -1,6 +1,9 @@
 { ... }:
 
-{ flags = [ "tree" ];
+{
+  default = true;
+
+  flags.tree = true;
 
   packages = [];
 }

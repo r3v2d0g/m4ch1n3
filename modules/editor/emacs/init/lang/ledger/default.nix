@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
-{ flags = [];
+{
+  default = false;
+
+  flags = {};
 
   packages = [ pkgs.ledger ];
 }

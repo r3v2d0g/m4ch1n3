@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
-{ flags = [ "osc" ];
+{
+  default = true;
+
+  flags.osc = true;
 
   packages = [ pkgs.wl-clipboard ];
 }

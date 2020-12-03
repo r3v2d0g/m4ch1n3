@@ -1,6 +1,7 @@
 args:
 
-{ evil = import ./evil args;
+{
+  evil = import ./evil args;
   file-templates = null;
   fold = null;
   format = import ./format args;

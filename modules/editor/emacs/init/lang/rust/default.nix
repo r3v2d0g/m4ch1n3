@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ lib, mcfg, pkgs, ucfg, ... }:
 
-let flags = config.m4ch1n3.editor.emacs.init.lang.rust.flags;
+let
+  default = mcfg.dev.enable && ucfg.dev.enable
+            && ucfg.dev.rust.enable;
+  flags = ucfg.editor.emacs.init.lang.rust.flags;
+in {
+  inherit default;
 
-in { flags = [ "lsp" ];
+  flags.lsp = true;
 
-     packages = lib.optional flags.lsp pkgs.rust-analyzer;
-   }
+  packages = lib.optional flags.lsp pkgs.rust-analyzer;
+}

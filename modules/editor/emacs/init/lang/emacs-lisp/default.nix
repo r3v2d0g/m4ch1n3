@@ -1,6 +1,9 @@
 { ... }:
 
-{ flags = [];
+{
+  default = true;
+
+  flags = {};
 
   packages = [];
 }

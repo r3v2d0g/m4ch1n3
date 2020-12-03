@@ -1,6 +1,9 @@
 { ... }:
 
-{ flags = [ "everywhere" ];
+{
+  default = true;
+
+  flags.everywhere = true;
 
   packages = [];
 }

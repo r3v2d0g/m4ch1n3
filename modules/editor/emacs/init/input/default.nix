@@ -1,6 +1,7 @@
 args:
 
-{ chinese = null;
+{
+  chinese = null;
   japanese = null;
   layout = null;
 }

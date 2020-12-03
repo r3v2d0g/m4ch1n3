@@ -1,6 +1,7 @@
 args:
 
-{ ansible = null;
+{
+  ansible = null;
   biblio = null;
   debugger = null;
   direnv = null;

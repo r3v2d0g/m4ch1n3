@@ -1,6 +1,7 @@
 args:
 
-{ calendar = null;
+{
+  calendar = null;
   irc = null;
   rss = null;
   twitter = null;

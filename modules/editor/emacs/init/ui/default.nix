@@ -1,6 +1,7 @@
 args:
 
-{ deft = null;
+{
+  deft = null;
   doom = import ./doom args;
   doom-dashboard = import ./doom-dashboard args;
   doom-quit = null;

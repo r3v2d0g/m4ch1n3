@@ -1,76 +1,74 @@
-{ machine = { ... }: {};
+{
+  machine = { inputs, lib, mcfg, ... }:
+    let
+      cfg = mcfg.editor.emacs;
+    in {
+      options.m4ch1n3.editor.emacs.enable = lib.mkOptBool true;
+      config.nixpkgs.overlays = lib.mkIf cfg.enable [ inputs.emacs-overlay.overlay ];
+    };
 
-  users = { config, inputs, lib, pkgs, ... }@args:
-    let cfg = config.m4ch1n3.editor.emacs;
+  users = { inputs, lib, mcfg, pkgs, ucfg, ... }:
+    let
+      cfg = ucfg.editor.emacs;
+      enable = mcfg.editor.emacs.enable;
 
-        doom-d = pkgs.runCommand "doom.d"
-          { configEl = cfg.config-el;
-            customEl = cfg.custom-el;
-            funcsEl = cfg.funcs-el;
-            initEl = cfg.init-el;
-            packagesEl = cfg.packages-el;
+      doom-d = pkgs.runCommand "doom.d" {
+        inherit (cfg) configel customel funcsel initel packagesel;
 
-            preferLocalBuild = true;
-            allowSubstitutes = false;
-          } ''
-               mkdir -p $out
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      } ''
+        mkdir -p $out
 
-               echo "$configEl" > $out/config.el
-               echo "$customEl" > $out/custom.el
-               echo "$funcsEl" > $out/funcs.el
-               echo "$initEl" > $out/init.el
-               echo "$packagesEl" > $out/packages.el
-            '';
+        echo "$configel" > $out/config.el
+        echo "$customel" > $out/custom.el
+        echo "$funcsel" > $out/funcs.el
+        echo "$initel" > $out/init.el
+        echo "$packagesel" > $out/packages.el
+      '';
+    in {
+      options.m4ch1n3.editor.emacs = lib.optionalAttrs enable {
+        enable = lib.mkOptBool true;
 
+        initel = lib.mkOption { internal = true; };
 
-    in { options.m4ch1n3.editor.emacs =
-           { enable = lib.mkDisableOption "emacs";
+        configel = lib.mkOptStr (builtins.readFile ./config.el);
+        customel = lib.mkOptStr (builtins.readFile ./custom.el);
+        funcsel = lib.mkOptStr (builtins.readFile ./funcs.el);
+        packagesel = lib.mkOptStr (builtins.readFile ./packages.el);
 
-             init-el = lib.mkInternalOption {};
+        user.name = lib.mkOptStr null;
+        user.email = lib.mkOptStr null;
+      };
 
-             config-el = lib.mkStrOption
-               { default = builtins.readFile ../doom.d/config.el; };
+      imports = lib.optional enable inputs.nix-doom-emacs.hmModule;
 
-             custom-el = lib.mkStrOption
-               { default = builtins.readFile ../doom.d/custom.el; };
+      config = lib.mkIf (enable && cfg.enable) {
+        home.packages = [
+          pkgs.fd
+          pkgs.ripgrep
+        ];
 
-             funcs-el = lib.mkStrOption
-               { default = builtins.readFile ../doom.d/funcs.el; };
+        programs.doom-emacs = {
+          enable = true;
 
-             packages-el = lib.mkStrOption
-               { default = builtins.readFile ../doom.d/packages.el; };
+          doomPrivateDir = doom-d;
+          emacsPackage = pkgs.emacsGcc;
 
-             user.name = lib.mkStrOption {};
-             user.email = lib.mkStrOption {};
-           };
+          emacsPackagesOverlay = self: super: {
+            ion-mode = self.melpaBuild {
+              pname = "ion-mode";
+              version = "1.0.0";
 
-         config = lib.mkIf cfg.enable
-           { home.packages =
-               [ pkgs.fd
-                 pkgs.ripgrep
-               ];
-
-             programs.doom-emacs =
-               { enable = true;
-
-                 doomPrivateDir = doom-d;
-                 emacsPackage = pkgs.emacsGcc;
-
-                 emacsPackagesOverlay = self: super:
-                   { ion-mode = self.melpaBuild
-                       { pname = "ion-mode";
-                         version = "1.0.0";
-
-                         src = inputs.ion-mode;
-                         recipe = builtins.toFile "recipe"
-                           ''
-                              (ion-mode
-                               :fetcher github
-                               :repo "iwahbe/ion-mode")
-                           '';
-                       };
-                   };
-               };
-             };
-       };
+              src = inputs.ion-mode;
+              recipe = builtins.toFile "recipe" ''
+                (ion-mode
+                 :fetcher github
+                 :repo "iwahbe/ion-mode")
+              '';
+            };
+          };
+        };
+      };
+    };
 }

@@ -1,10 +1,13 @@
 { pkgs, ... }:
 
-{ flags = [];
+{
+  default = true;
 
-  packages =
-    [ pkgs.gcc
-      pkgs.gnumake
-      pkgs.libvterm
-    ];
+  flags = {};
+
+  packages = [
+    pkgs.gcc
+    pkgs.gnumake
+    pkgs.libvterm
+  ];
 }

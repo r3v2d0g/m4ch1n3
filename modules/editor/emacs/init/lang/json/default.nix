@@ -1,6 +1,9 @@
 { ... }:
 
-{ flags = [ "lsp" ];
+{
+  default = true;
+
+  flags.lsp = false;
 
   packages = [];
 }

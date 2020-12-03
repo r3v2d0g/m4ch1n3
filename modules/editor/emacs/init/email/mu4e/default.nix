@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
-{ flags = [ "gmail" ];
+{
+  default = false;
 
-  packages =
-    [ pkgs.isync
-      pkgs.mu
-    ];
+  flags.gmail = false;
+
+  packages = [ pkgs.isync pkgs.mu ];
 }

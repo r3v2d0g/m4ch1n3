@@ -1,10 +1,13 @@
 { pkgs, ... }:
 
-{ flags = [ "grip" ];
+{
+  default = true;
 
-  packages =
-    [ pkgs.mdl
-      pkgs.pandoc
-      pkgs.proselint
-    ];
+  flags.grip = false;
+
+  packages = [
+    pkgs.mdl
+    pkgs.pandoc
+    pkgs.proselint
+  ];
 }

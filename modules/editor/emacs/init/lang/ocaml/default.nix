@@ -1,11 +1,14 @@
 { pkgs, ... }:
 
-{ flags = [];
+{
+  default = false;
 
-  packages =
-    [ pkgs.ocamlPackages.dune
-      pkgs.ocamlPackages.merlin
-      pkgs.ocamlPackage.ocamlformat
-      pkgs.ocamlPackages.utop
-    ];
+  flags = {};
+
+  packages = [
+    pkgs.ocamlPackages.dune
+    pkgs.ocamlPackages.merlin
+    pkgs.ocamlPackage.ocamlformat
+    pkgs.ocamlPackages.utop
+  ];
 }

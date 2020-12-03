@@ -1,6 +1,9 @@
 { ... }:
 
-{ flags = [ "forge" ];
+{
+  default = true;
+
+  flags.forge = false;
 
   packages = [];
 }

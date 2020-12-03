@@ -1,22 +1,23 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ucfg, ... }:
 
-let flags = config.m4ch1n3.editor.emacs.init.lang.org.flags;
+let
+  flags = ucfg.editor.emacs.init.lang.org.flags;
+in {
+  default = true;
 
-in { flags =
-       [ "brain"
-         "dragndrop"
-         "gnuplot"
-         "hugo"
-         "journal"
-         "noter"
-         "pandoc"
-         "pomodoro"
-         "present"
-         "pretty"
-         "roam"
-       ];
+  flags.brain = false;
+  flags.dragndrop = false;
+  flags.gnuplot = false;
+  flags.hugo = false;
+  flags.journal = false;
+  flags.noter = false;
+  flags.pandoc = false;
+  flags.pomodoro = false;
+  flags.present = false;
+  flags.pretty = true;
+  flags.roam = false;
 
-     packages = [ pkgs.texlive.combined.scheme-medium ]
-                ++ lib.optional flags.gnuplot pkgs.gnuplot
-                ++ lib.optional flags.roam pkgs.sqlite;
-   }
+  packages = [ pkgs.texlive.combined.scheme-medium ]
+             ++ lib.optional flags.gnuplot pkgs.gnuplot
+             ++ lib.optional flags.roam pkgs.sqlite;
+}

@@ -1,5 +1,6 @@
 args:
 
-{ macos = null;
+{
+  macos = null;
   tty = import ./tty args;
 }

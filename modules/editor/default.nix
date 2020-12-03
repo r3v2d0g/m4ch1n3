@@ -1,10 +1,5 @@
-{ machine = { inputs, ... }:
-    { nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
-    };
+{
+  machine = { ... }: {};
 
-  users = { config, inputs, lib, pkgs, ... }:
-    { imports = [ inputs.nix-doom-emacs.hmModule ];
-
-      home.packages = [ pkgs.vim ];
-    };
+  users = { pkgs, ... }: { home.packages = [ pkgs.vim ]; };
 }

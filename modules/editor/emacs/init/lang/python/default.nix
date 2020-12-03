@@ -1,24 +1,28 @@
-{ config, lib, ... }:
+{ lib, mcfg, pkgs, ucfg, ... }:
 
-let flags = config.m4ch1n3.editor.emacs.init.lang.python.flags;
-    pythonPackages = config.m4ch1n3.dev.python.packages;
+let
+  default = mcfg.dev.enable && ucfg.dev.enable
+            && ucfg.dev.python.enable;
+  flags = ucfg.editor.emacs.init.lang.python.flags;
+  pythonPackages = ucfg.dev.python.packages;
+in {
+  inherit default;
 
-in { flags =
-       [ "conda"
-         "cython"
-         "lsp"
-         "poetry"
-         "pyenv"
-         "pyright"
-       ];
+  flags.conda = false;
+  flags.cython = false;
+  flags.lsp = true;
+  flags.poetry = false;
+  flags.pyenv = false;
+  flags.pyright = false;
 
-     packages =
-       [ pythonPackages.isort
-         pythonPackages.nose
-         pythonPackages.pyflakes
-         pythonPackages.pytest
-       ]
-       ++ lib.optional flags.conda pythonPackages.conda
-       ++ lib.optional flags.cython pythonPackages.cython
-       ++ lib.optional flags.poetry pythonPackages.poetry;
-   }
+  packages = [
+    pythonPackages.isort
+    pythonPackages.nose
+    pythonPackages.pyflakes
+    pythonPackages.pytest
+  ]
+  ++ lib.optional flags.conda pythonPackages.conda
+  ++ lib.optional flags.cython pythonPackages.cython
+  ++ lib.optional flags.lsp pkgs.python-language-server
+  ++ lib.optional flags.poetry pythonPackages.poetry;
+}

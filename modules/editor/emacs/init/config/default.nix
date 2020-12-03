@@ -1,5 +1,6 @@
 args:
 
-{ default = import ./default args;
+{
+  default = import ./default args;
   literate = null;
 }

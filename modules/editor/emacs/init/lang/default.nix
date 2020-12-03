@@ -1,9 +1,10 @@
 args:
 
-{ agda = null;
+{
+  agda = null;
   cc = null;
   clojure = null;
-  common-lisp = null;
+  common-lisp = import ./common-lisp args;
   coq = null;
   crystal = null;
   csharp = null;
