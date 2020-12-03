@@ -1,72 +1,48 @@
-{ machine = { ... }: {};
+{
+  machine = { ... }: {};
 
-  users = { config, lib, mconfig,... }:
-    let cfg = config.m4ch1n3.theme.wm;
-        enable = mconfig.m4ch1n3.wm.enable
-                 && config.m4ch1n3.wm.enable;
-        colors = mconfig.m4ch1n3.theme.colors;
-        fonts = mconfig.m4ch1n3.theme.fonts;
+  users = { lib, mcfg, ucfg, ... }:
+    let
+      cfg = ucfg.theme.wm;
+      enable = mcfg.wm.enable && ucfg.wm.enable;
+      colors = mcfg.theme.colors;
+      fonts = mcfg.theme.fonts;
+    in {
+      options.m4ch1n3.theme.wm = lib.optionalAttrs enable {
+        colors = {
+          background = lib.mkOptColor "bg";
 
-    in { options.m4ch1n3.theme.wm = lib.optionalAttrs enable
-           { colors =
-               { background = lib.mkColorOption
-                   { default = "bg"; };
+          focused.fg = lib.mkOptColor "fg";
+          focused.bg = lib.mkOptColor "bg";
+          focused.border = lib.mkOptColor "blue";
 
-                 focused.fg = lib.mkColorOption
-                   { default = "fg"; };
+          focusedInactive.fg = lib.mkOptColor "fg";
+          focusedInactive.bg = lib.mkOptColor "bg";
+          focusedInactive.border = lib.mkOptColor "bg";
 
-                 focused.bg = lib.mkColorOption
-                   { default = "bg"; };
+          unfocused.fg = lib.mkOptColor "fg_alt";
+          unfocused.bg = lib.mkOptColor "bg_alt";
+          unfocused.border = lib.mkOptColor "bg_alt";
 
-                 focused.border = lib.mkColorOption
-                   { default = "blue"; };
+          urgent.fg = lib.mkOptColor "fg_alt";
+          urgent.bg = lib.mkOptColor "bg_alt";
+          urgent.border = lib.mkOptColor "bg_alt";
+        };
+      };
 
-                 focusedInactive.fg = lib.mkColorOption
-                   { default = "fg"; };
+      config.wayland.windowManager.sway.config = lib.mkIf enable {
+        fonts = [ "${fonts.default.name} 10" ];
 
-                 focusedInactive.bg = lib.mkColorOption
-                   { default = "bg"; };
+        colors = lib.mapFilterAttrs (_: c: {
+          border = colors.${c.bg};
+          background = colors.${c.bg};
+          text = colors.${c.fg};
+          indicator = colors.${c.bg};
+          childBorder = colors.${c.border};
+        }) (c: _: c != "background") cfg.colors;
 
-                 focusedInactive.border = lib.mkColorOption
-                   { default = "bg"; };
-
-                 unfocused.fg = lib.mkColorOption
-                   { default = "fg_alt"; };
-
-                 unfocused.bg = lib.mkColorOption
-                   { default = "bg_alt"; };
-
-                 unfocused.border = lib.mkColorOption
-                   { default = "bg_alt"; };
-
-                 urgent.fg = lib.mkColorOption
-                   { default = "fg_alt"; };
-
-                 urgent.bg = lib.mkColorOption
-                   { default = "bg_alt"; };
-
-                 urgent.border = lib.mkColorOption
-                   { default = "bg_alt"; };
-               };
-           };
-
-         config = lib.mkIf enable
-           { wayland.windowManager.sway.config =
-               { fonts = [ "${fonts.default.name} 10" ];
-
-                 colors = lib.mapFilterAttrs
-                   (_: c:
-                     { border = colors.${c.bg};
-                       background = colors.${c.bg};
-                       text = colors.${c.fg};
-                       indicator = colors.${c.bg};
-                       childBorder = colors.${c.border};
-                     }
-                   ) (c: _: c != "background") cfg.colors;
-
-                 output."*" = lib.optionalAttrs (! isNull cfg.colors.background)
-                   { bg = "${colors.${cfg.colors.background}} solid_color"; };
-               };
-           };
-       };
+        output."*".bg = lib.mkIf (! isNull cfg.colors.background)
+          "${colors.${cfg.colors.background}} solid_color";
+      };
+    };
 }

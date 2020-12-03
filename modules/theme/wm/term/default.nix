@@ -1,108 +1,60 @@
-{ machine = { ... }: {};
+{
+  machine = { ... }: {};
 
-  users = { config, lib, mconfig, ... }:
-    let cfg = config.m4ch1n3.theme.wm.term;
-        enable = mconfig.m4ch1n3.wm.enable
-                 && config.m4ch1n3.wm.enable
-                 && config.m4ch1n3.wm.term.enable;
-        colors = mconfig.m4ch1n3.theme.colors;
-        fonts = mconfig.m4ch1n3.theme.fonts;
+  users = { lib, mcfg, ucfg, ... }:
+    let
+      cfg = ucfg.theme.wm.term;
+      enable = mcfg.wm.enable && ucfg.wm.enable
+               && ucfg.wm.term.enable;
+      colors = mcfg.theme.colors;
+      fonts = mcfg.theme.fonts;
+    in {
+      options.m4ch1n3.theme.wm.term.colors = lib.optionalAttrs enable {
+        fg = lib.mkOptColor "fg";
+        bg = lib.mkOptColor "bg";
 
-    in { options.m4ch1n3.theme.wm.term = lib.optionalAttrs enable
-           { colors =
-               { fg = lib.mkColorOption
-                   { default = "fg"; };
+        tab-bar.bg = lib.mkOptColor "bg";
+        tab-bar.active.fg = lib.mkOptColor "base0";
+        tab-bar.active.bg = lib.mkOptColor "base0";
+        tab-bar.inactive.fg = lib.mkOptColor "base0";
+        tab-bar.inactive.bg = lib.mkOptColor "base0";
 
-                 bg = lib.mkColorOption
-                   { default = "bg"; };
+        console.color0 = lib.mkOptColor "base0";
+        console.color1 = lib.mkOptColor "red";
+        console.color2 = lib.mkOptColor "green";
+        console.color3 = lib.mkOptColor "yellow";
+        console.color4 = lib.mkOptColor "blue";
+        console.color5 = lib.mkOptColor "magenta";
+        console.color6 = lib.mkOptColor "cyan";
+        console.color7 = lib.mkOptColor "base8";
+        console.color8 = lib.mkOptColor "fg_alt";
+        console.color9 = lib.mkOptColor "red";
+        console.color10 = lib.mkOptColor "teal";
+        console.color11 = lib.mkOptColor "yellow";
+        console.color12 = lib.mkOptColor "blue";
+        console.color13 = lib.mkOptColor "violet";
+        console.color14 = lib.mkOptColor "cyan";
+        console.color15 = lib.mkOptColor "fg";
+      };
 
-                 tab-bar.bg = lib.mkColorOption
-                   { default = "bg"; };
+      config.programs.kitty = lib.mkIf enable {
+        font = fonts.code;
 
-                 tab-bar.active.fg = lib.mkColorOption
-                   { default = "base0"; };
+        settings = {
+          font_size = "11.0";
 
-                 tab-bar.active.bg = lib.mkColorOption
-                   { default = "base0"; };
+          foreground = colors.${cfg.colors.fg};
+          background = colors.${cfg.colors.bg};
 
-                 tab-bar.inactive.fg = lib.mkColorOption
-                   { default = "base0"; };
+          tab_bar_background = colors.${cfg.colors.tab-bar.bg};
 
-                 tab-bar.inactive.bg = lib.mkColorOption
-                   { default = "base0"; };
+          active_tab_foreground = colors.${cfg.colors.tab-bar.active.fg};
+          active_tab_background = colors.${cfg.colors.tab-bar.active.bg};
+          active_tab_font_style = "bold";
 
-                 console =
-                   { color0 = lib.mkColorOption
-                       { default = "base0"; };
-
-                     color1 = lib.mkColorOption
-                       { default = "red"; };
-
-                     color2 = lib.mkColorOption
-                       { default = "green"; };
-
-                     color3 = lib.mkColorOption
-                       { default = "yellow"; };
-
-                     color4 = lib.mkColorOption
-                       { default = "blue"; };
-
-                     color5 = lib.mkColorOption
-                       { default = "magenta"; };
-
-                     color6 = lib.mkColorOption
-                       { default = "cyan"; };
-
-                     color7 = lib.mkColorOption
-                       { default = "base8"; };
-
-                     color8 = lib.mkColorOption
-                       { default = "base1"; };
-
-                     color9 = lib.mkColorOption
-                       { default = "red"; };
-
-                     color10 = lib.mkColorOption
-                       { default = "teal"; };
-
-                     color11 = lib.mkColorOption
-                       { default = "yellow"; };
-
-                     color12 = lib.mkColorOption
-                       { default = "blue"; };
-
-                     color13 = lib.mkColorOption
-                       { default = "violet"; };
-
-                     color14 = lib.mkColorOption
-                       { default = "cyan"; };
-
-                     color15 = lib.mkColorOption
-                       { default = "fg"; };
-                   };
-               };
-           };
-
-         config = lib.mkIf enable
-           { programs.kitty =
-               { font = fonts.code;
-
-                 settings =
-                   { font_size = "11.0";
-
-                     foreground = colors.${cfg.colors.fg};
-                     background = colors.${cfg.colors.bg};
-
-                     tab_bar_background = colors.${cfg.colors.tab-bar.bg};
-
-                     active_tab_foreground = colors.${cfg.colors.tab-bar.active.fg};
-                     active_tab_background = colors.${cfg.colors.tab-bar.active.bg};
-                     active_tab_font_style = "bold";
-
-                     inactive_tab_foreground = colors.${cfg.colors.tab-bar.inactive.fg};
-                     inactive_tab_background = colors.${cfg.colors.tab-bar.inactive.bg};
-                   } // lib.mapAttrs (_: color: colors.${color}) cfg.colors.console;
-               };
-           };
-       };
+          inactive_tab_foreground = colors.${cfg.colors.tab-bar.inactive.fg};
+          inactive_tab_background = colors.${cfg.colors.tab-bar.inactive.bg};
+        } // lib.mapAttrs (_: color: colors.${color}) cfg.colors.console;
+      };
+    };
 }

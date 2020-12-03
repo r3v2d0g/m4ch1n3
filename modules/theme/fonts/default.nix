@@ -1,30 +1,32 @@
-{ machine = { config, lib, pkgs, ... }:
-    let cfg = config.m4ch1n3.theme.fonts;
+{
+  machine = { lib, mcfg, pkgs, ... }:
+    let
+      cfg = mcfg.theme.fonts;
+    in {
+      options.m4ch1n3.theme.fonts = {
+        default = lib.mkOptFont "Noto Sans Mono" pkgs.noto-fonts;
+        sans = lib.mkOptFont "Noto Sans" pkgs.noto-fonts;
+        serif = lib.mkOptFont "Noto Serif" pkgs.noto-fonts;
+        mono = lib.mkOptFont "Noto Sans Mono" pkgs.noto-fonts;
+        code = lib.mkOptFont "JetBrains Mono" pkgs.jetbrains-mono;
+        emoji = lib.mkOptFont "JoyPixels" pkgs.joypixels;
+      };
 
-    in { options.m4ch1n3.theme.fonts =
-           { default = lib.mkFontOption "Noto Sans Mono" pkgs.noto-fonts;
-             sans = lib.mkFontOption "Noto Sans" pkgs.noto-fonts;
-             serif = lib.mkFontOption "Noto Serif" pkgs.noto-fonts;
-             mono = lib.mkFontOption "Noto Sans Mono" pkgs.noto-fonts;
-             code = lib.mkFontOption "JetBrains Mono" pkgs.jetbrains-mono;
-             emoji = lib.mkFontOption "JoyPixels" pkgs.joypixels;
-           };
+      config.fonts = lib.mkIf mcfg.wm.enable {
+        fontconfig = {
+          enable = true;
 
-         config.fonts = lib.mkIf config.m4ch1n3.wm.enable
-           { fontconfig =
-               { enable = true;
+          defaultFonts.sansSerif = [ cfg.sans.name ];
+          defaultFonts.serif = [ cfg.serif.name ];
+          defaultFonts.monospace = [ cfg.mono.name ];
+          defaultFonts.emoji = [ cfg.emoji.name ];
+        };
 
-                 defaultFonts.sansSerif = [ cfg.sans.name ];
-                 defaultFonts.serif = [ cfg.serif.name ];
-                 defaultFonts.monospace = [ cfg.mono.name ];
-                 defaultFonts.emoji = [ cfg.emoji.name ];
-               };
+        fontDir.enable = true;
 
-             fontDir.enable = true;
-
-             fonts = lib.mapAttrsValues (_: font: font.package) cfg;
-           };
-       };
+        fonts = lib.mapAttrsValues (_: font: font.package) cfg;
+      };
+    };
 
   users = { ... }: {};
 }
