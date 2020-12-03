@@ -1,69 +1,75 @@
-let modules =
-      [ ./base
-        ./base/boot
-        ./base/console
-        ./base/fs
-        ./base/luks
-        ./base/net
+let
+  modules = [
+    ./base
+    ./base/boot
+    ./base/console
+    ./base/fs
+    ./base/luks
+    ./base/net
 
-        ./comm
-        ./comm/discord
-        ./comm/pm
-        ./comm/slack
+    ./comm
+    ./comm/discord
+    ./comm/pm
+    ./comm/slack
 
-        ./dev
-        ./dev/docker
-        ./dev/haskell
-        ./dev/jetbrains
-        ./dev/nodejs
-        ./dev/python
-        ./dev/rust
-        ./dev/typescript
-        ./dev/vuejs
+    ./dev
+    ./dev/cypress
+    ./dev/docker
+    ./dev/haskell
+    ./dev/jetbrains
+    ./dev/lisp
+    ./dev/nodejs
+    ./dev/python
+    ./dev/rust
+    ./dev/typescript
+    ./dev/vuejs
 
-        ./editor
-        ./editor/emacs
-        ./editor/emacs/init
+    ./editor
+    ./editor/emacs
+    ./editor/emacs/init
 
-        ./gpg
+    ./security
+    ./security/gpg
+    ./security/pass
+    ./security/ssh
+    ./security/yubico
 
-        ./security
-        ./security/pass
-        ./security/ssh
-        ./security/yubico
+    ./shell
+    ./shell/git
 
-        ./shell
-        ./shell/git
-        ./shell/ssh
+    ./theme
+    ./theme/console
+    ./theme/fonts
+    ./theme/grub
+    ./theme/wm
+    ./theme/wm/1password
+    ./theme/wm/bar
+    ./theme/wm/term
 
-        ./theme
-        ./theme/console
-        ./theme/fonts
-        ./theme/grub
-        ./theme/wm
-        ./theme/wm/1password
-        ./theme/wm/bar
-        ./theme/wm/term
+    ./wm
+    ./wm/1password
+    ./wm/audio
+    ./wm/bar
+    ./wm/browser
+    ./wm/term
+  ];
+in {
+  machine = { inputs, lib, ... }: {
+    imports = builtins.map (mod: { config, pkgs, ... }@args:
+        (import mod).machine (args // {
+            inherit inputs lib;
+            mcfg = config.m4ch1n3;
+        })
+    ) modules;
+  };
 
-        ./wm
-        ./wm/1password
-        ./wm/audio
-        ./wm/bar
-        ./wm/browser
-        ./wm/term
-      ];
-
-in { machine = { inputs, lib, ... }:
-       { imports = builtins.map
-           (mod: { pkgs, ... }@args:
-             (import mod).machine (args // { inherit inputs lib; })
-           ) modules;
-       };
-
-     users = { inputs, lib, mconfig, ... }:
-       { imports = builtins.map
-           (mod: { pkgs, ... }@args:
-             (import mod).users (args // { inherit inputs lib mconfig; })
-           ) modules;
-       };
-   }
+  users = { config, inputs, lib, mconfig, ... }: {
+    imports = builtins.map (mod: { pkgs, ... }@args:
+        (import mod).users (args // {
+            inherit inputs lib mconfig;
+            ucfg = config.m4ch1n3;
+            mcfg = mconfig.m4ch1n3;
+        })
+    ) modules;
+  };
+}
