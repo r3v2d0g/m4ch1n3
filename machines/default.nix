@@ -1,9 +1,9 @@
-{ inputs, lib, ... }:
+{ inputs, lib, pkgs, ... }:
 
-let modules = args:
-      (import ../modules).machine (args // { inherit inputs lib; });
+let
+  modules = args: (import ../modules).machine (args // { inherit inputs lib; });
+in {
+  imports = [ modules ];
 
-in { imports = [ modules ];
-
-     nixpkgs.overlays = [ (import ../overlays inputs) ];
-   }
+  nixpkgs.overlays = [ (import ../overlays inputs) ];
+}
