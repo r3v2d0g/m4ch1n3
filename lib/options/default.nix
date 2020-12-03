@@ -2,142 +2,105 @@
 
 with lib;
 
+let
+  mkOpt = type: default:
+    mkOption { inherit type; } // optionalAttrs (! isNull default) { inherit default; };
+
+  mkOptList = type: mkOpt (types.listOf type);
+  mkOptAttrs = type: mkOpt (types.attrsOf type);
+
+  mkOptNull = type: default: mkOption {
+    inherit default;
+    type = types.nullOr type;
+  };
+
+  submodType = submod: types.submodule ({ name, ... }: {
+    options = {
+      name = mkOption {
+        type = types.str;
+        default = name;
+        visible = false;
+      };
+    } // submod;
+  });
+
+  colorNames = [
+    "bg"
+    "bg_alt"
+    "base0"
+    "base1"
+    "base2"
+    "base3"
+    "base4"
+    "base5"
+    "base6"
+    "base7"
+    "base8"
+    "fg_alt"
+    "fg"
+
+    "grey"
+    "red"
+    "orange"
+    "green"
+    "teal"
+    "yellow"
+    "blue"
+    "dark_blue"
+    "magenta"
+    "violet"
+    "cyan"
+    "dark_cyan"
+  ];
+in
 rec {
-  colorNames =
-    [ "bg"
-      "bg_alt"
-      "base0"
-      "base1"
-      "base2"
-      "base3"
-      "base4"
-      "base5"
-      "base6"
-      "base7"
-      "base8"
-      "fg_alt"
-      "fg"
+  inherit colorNames;
 
-      "grey"
-      "red"
-      "orange"
-      "green"
-      "teal"
-      "yellow"
-      "blue"
-      "dark_blue"
-      "magenta"
-      "violet"
-      "cyan"
-      "dark_cyan"
-    ];
+  mkOptAny = default: mkOption { inherit default; };
 
-  mkDisableOption = name:
-    (mkEnableOption name)
-    // { default = true; };
+  mkOptBool = mkOpt types.bool;
+  mkOptInt = mkOpt types.int;
+  mkOptStr = mkOpt types.str;
+  mkOptPath = mkOpt types.path;
+  mkOptPkg = mkOpt types.package;
+  mkOptEnum = enum: mkOpt (types.enum enum);
+  mkOptEnumFrom = from: mkOptEnum (attrNames from);
 
-  mkIntOption = attrs:
-    mkOption { type = types.int; }
-    // attrs;
+  mkOptBoolList = mkOptList types.bool;
+  mkOptIntList = mkOptList types.int;
+  mkOptStrList = mkOptList types.str;
+  mkOptPathList = mkOptList types.path;
+  mkOptPkgList = mkOptList types.package;
+  mkOptEnumList = enum: mkOptList (types.enum enum);
+  mkOptEnumFromList = from: mkOptEnumList (attrNames from);
 
-  mkStrOption = attrs:
-    mkOption { type = types.str; }
-    // attrs;
+  mkOptBoolAttrs = mkOptAttrs types.bool;
+  mkOptIntAttrs = mkOptAttrs types.int;
+  mkOptStrAttrs = mkOptAttrs types.str;
+  mkOptPathAttrs = mkOptAttrs types.path;
+  mkOptPkgAttrs = mkOptAttrs types.pkg;
+  mkOptEnumAttrs = enum: mkOptAttrs (types.enum enum);
+  mkOptEnumFromAttrs = from: mkOptEnumAttrs (attrNames from);
 
-  mkPathOption = attrs:
-    mkOption { type = types.path; }
-    // attrs;
+  mkOptBoolNull = mkOptNull types.bool;
+  mkOptIntNull = mkOptNull types.int;
+  mkOptStrNull = mkOptNull types.str;
+  mkOptPathNull = mkOptNull types.path;
+  mkOptPkgNull = mkOptNull types.pkg;
+  mkOptEnumNull = enum: mkOptNull (types.enum enum);
+  mkOptEnumFromNull = from: mkOptEnumNull (attrNames from);
 
-  mkPackageOption = attrs:
-    mkOption { type = types.package; }
-    // attrs;
+  mkOptSubmod = submod: mkOpt (submodType submod);
+  mkOptSubmodAttrs = submod: mkOptAttrs (submodType submod);
 
-  mkListOfStrOption = attrs:
-    mkOption { type = types.listOf types.str; }
-    // attrs;
+  mkOptFont = name: pkg: {
+    name = mkOptStr name;
+    package = mkOptPkg pkg;
+  };
 
-  mkListOfPathOption = attrs:
-    mkOption { type = types.listOf types.path; }
-    // attrs;
+  mkOptFontPath = name: pkg: path:
+    mkOptFont name pkg // { path = mkOptStr path; };
 
-  mkAttrsOfStrOption = attrs:
-    mkOption { type = types.attrsOf types.str; }
-    // attrs;
-
-  mkAttrsOfPackageOption = attrs:
-    mkOption { type = types.attrsOf types.package; }
-    // attrs;
-
-  mkAttrsOfSubmoduleOption = attrs: options:
-    mkOption
-      { type = types.attrsOf
-          (types.submodule ({ name, ... }:
-            { options =
-                { name = lib.mkOption
-                    { type = types.str;
-                      default = name;
-                      visible = false;
-                    };
-                } // options;
-            }
-          ));
-      } // attrs;
-
-  mkEnumOption = enum: attrs:
-    mkOption { type = types.enum enum; }
-    // attrs;
-
-  mkEnumFromAttrNamesOption = attrs: from:
-    mkEnumOption (attrNames from) attrs;
-
-  mkNullOrBoolOption = attrs:
-    mkOption { type = types.nullOr types.bool; }
-    // attrs;
-
-  mkNullOrIntOption = attrs:
-    mkOption { type = types.nullOr types.int; }
-    // attrs;
-
-  mkNullOrStrOption = attrs:
-    mkOption { type = types.nullOr types.str; }
-    // attrs;
-
-  mkNullOrEnumOption = enum: attrs:
-    mkOption { type = types.nullOr (types.enum enum); }
-    // attrs;
-
-  mkNullOrEnumFromAttrNamesOption = attrs: from:
-    mkNullOrEnumOption (attrNames from) attrs;
-
-  mkFontOption = name: package:
-    { name = lib.mkOption
-        { type = types.str;
-          default = name;
-        };
-
-      package = lib.mkOption
-        { type = types.package;
-          default = package;
-        };
-    };
-
-  mkFontWithPathOption = name: package: path:
-    (mkFontOption name package)
-    // { path = lib.mkOption
-           { type = types.str;
-             default = path;
-           };
-       };
-
-  mkColorOption = attrs:
-    mkOption { type = types.enum colorNames; }
-    // attrs;
-
-  mkListOfColorsOption = attrs:
-    mkOption { type = types.listOf (types.enum colorNames); }
-    // attrs;
-
-  mkInternalOption = attrs:
-    mkOption { internal = true; }
-    // attrs;
+  mkOptColor = mkOptEnum colorNames;
+  mkOptColorList = mkOptEnumList colorNames;
 }
