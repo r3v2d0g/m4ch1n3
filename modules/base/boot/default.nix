@@ -1,46 +1,39 @@
-{ machine = { config, lib, modulesPath, ... }:
-    let cfg = config.m4ch1n3.base.boot;
+{
+  machine = { lib, modulesPath, mcfg, ... }:
+    let
+      cfg = mcfg.base.boot;
+    in {
+      options.m4ch1n3.base.boot = {
+        bootloader = lib.mkOptBool true;
+        device = lib.mkOptStr null;
+        modules = lib.mkOptStrList [];
+        packages = lib.mkOptPkgList [];
+      };
 
-    in { options.m4ch1n3.base.boot =
-           { bootloader = lib.mkDisableOption "bootloader";
+      imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-             device = lib.mkStrOption {};
+      config.boot = lib.mkIf cfg.bootloader {
+        loader.efi.canTouchEfiVariables = true;
+        loader.grub = {
+          enable = true;
+          enableCryptodisk = true;
 
-             modules = lib.mkListOfStrOption
-                 { default = []; };
+          copyKernels = true;
+          efiSupport = true;
+          zfsSupport = true;
 
-             packages = lib.mkListOfStrOption
-                 { default = []; };
-           };
+          device = cfg.device;
+        };
 
-         imports =
-           [ (modulesPath + "/installer/scan/not-detected.nix") ];
+        initrd.availableKernelModules = [
+          "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
+          "aes_x86_64" "aesni_intel"
+        ];
 
-         config =
-           { boot.loader = lib.mkIf cfg.bootloader
-               { efi.canTouchEfiVariables = true;
-
-                 grub =
-                     { enable = true;
-                       enableCryptodisk = true;
-
-                       copyKernels = true;
-                       efiSupport = true;
-                       zfsSupport = true;
-
-                       device = cfg.device;
-                     };
-               };
-
-             boot.initrd.availableKernelModules = lib.mkIf cfg.bootloader
-               [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
-                 "aes_x86_64" "aesni_intel"
-               ];
-
-             boot.kernelModules =
-               [ "kvm-intel" ];
-           };
-       };
+        kernelModules = [ "kvm-intel" ] ++ cfg.modules;
+        extraModulePackages = cfg.packages;
+      };
+    };
 
   users = { ... }: {};
 }

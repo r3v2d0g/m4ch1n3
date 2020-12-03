@@ -1,18 +1,23 @@
-{ machine = { inputs, pkgs, ... }:
-    { time.timeZone = "Europe/Paris";
+{
+  machine = { lib, pkgs, mcfg, ... }:
+    let
+      cfg = mcfg.base;
+    in {
+      options.m4ch1n3.base = { trustedUsers = lib.mkOptStrList [ "@wheel" ]; };
 
-      nixpkgs.config.allowUnfree = true;
-      nixpkgs.config.joypixels.acceptLicense = true;
+      config = {
+        time.timeZone = "Europe/Paris";
 
-      nix =
-        { package = pkgs.nixFlakes;
-          extraOptions =
-            ''
-               experimental-features = nix-command flakes
-            '';
+        nix.package = pkgs.nixFlakes;
+        nix.extraOptions = "experimental-features = nix-command flakes";
+        nix.trustedUsers = [ "root" ] ++ cfg.trustedUsers;
+
+        nixpkgs.config = {
+          allowUnfree = true;
+          joypixels.acceptLicense = true;
         };
+      };
     };
 
-  users = { ... }:
-    { home.language.base = "en_US.UTF-8"; };
+  users = { ... }: { home.language.base = "en_US.UTF-8"; };
 }

@@ -1,30 +1,36 @@
-{ machine = { config, lib, ... }:
-    let cfg = config.m4ch1n3.base.net;
+{
+  machine = { lib, mcfg, pkgs, ... }:
+    let
+      cfg = mcfg.base.net;
+    in {
+      options.m4ch1n3.base.net = {
+        host.name = lib.mkOptStr null;
+        host.id = lib.mkOptStr null;
 
-    in { options.m4ch1n3.base.net =
-           { host.name = lib.mkStrOption {};
-             host.id = lib.mkStrOption {};
+        ipv6 = lib.mkOptBool false;
+        dhcp = lib.mkOptBool true;
 
-             ipv6 = lib.mkEnableOption "ipv6 support";
-             dhcp = lib.mkDisableOption "dhcp support";
+        interfaces = lib.mkOptStrList [];
 
-             interfaces = lib.mkListOfStrOption
-               { default = []; };
-           };
+        netman = lib.mkOptBool false;
+        idevice = lib.mkOptBool false;
+      };
 
-         config =
-           { networking =
-               { hostName = cfg.host.name;
-                 hostId = cfg.host.id;
+      config = {
+        networking = {
+          hostName = cfg.host.name;
+          hostId = cfg.host.id;
 
-                 enableIPv6 = cfg.ipv6;
+          enableIPv6 = cfg.ipv6;
 
-                 interfaces = lib.genAttrs
-                   cfg.interfaces
-                   (_: { useDHCP = cfg.dhcp; });
-               };
-           };
-       };
+          interfaces = lib.genAttrs cfg.interfaces (_: { useDHCP = cfg.dhcp; });
+
+          networkmanager.enable = cfg.netman;
+        };
+
+        environment.systemPackages = lib.optional cfg.idevice pkgs.libimobiledevice;
+      };
+    };
 
   users = { ... }: {};
 }
