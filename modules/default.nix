@@ -4,6 +4,7 @@ let
     ./base/boot
     ./base/console
     ./base/fs
+    ./base/kb
     ./base/luks
     ./base/net
 
