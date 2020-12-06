@@ -41,44 +41,59 @@
       cfg = ucfg.wm;
       wmcfg = mcfg.wm;
 
-      workspace-prev-or-new = pkgs.writeTextFile {
-        name = "workspace-prev-or-new";
-        destination = "/bin/workspace-prev-or-new";
+      workspace = pkgs.writeTextFile {
+        name = "workspace";
+        destination = "/bin/workspace";
         executable = true;
 
         text = ''
           #! ${pkgs.zsh}/bin/zsh
 
-          workspaces=$(swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq 'map({num, focused, representation, output}) | sort_by(.num)')
-          output=$(echo $workspaces | ${pkgs.jq}/bin/jq -r 'map(select(.focused).output)[]')
-          first_on_output=($(echo $workspaces | jq "map(select(.output == \"$output\"))[0][]"))
-          last_num=($(echo $workspaces | jq -r '.[-1].num'))
+          all=$(swaymsg -t get_workspaces \
+            | ${pkgs.jq}/bin/jq 'map({num, focused, representation, output}) | sort_by(.num)')
+          output=$(echo $all | ${pkgs.jq}/bin/jq -r 'map(select(.focused).output)[]')
 
-          if [[ ''${first_on_output[2]} == "true" ]]; then
-              swaymsg workspace $(( $last_num + 1 ))
+          case $2 in
+          "next")
+              workspace=($(echo $all | jq "map(select(.output == \"$output\"))[-1][]"))
+              ;;
+          "prev")
+              workspace=($(echo $all | jq "map(select(.output == \"$output\"))[0][]"))
+              ;;
+          *)
+              exit 1
+          esac
+
+          if [[ ''${workspace[2]} == "true" && ''${workspace[3]} != "null" ]]; then
+              num=$(( $(echo $all | jq -r '.[-1].num') + 1 ))
+
+              case $1 in
+              "focus")
+                  swaymsg workspace $num
+                  ;;
+              "move")
+                  swaymsg move workspace $num
+                  ;;
+              *)
+                  exit 1
+              esac
           else
-              swaymsg workspace prev_on_output
-          fi
-        '';
-      };
-
-      workspace-next-or-new = pkgs.writeTextFile {
-        name = "workspace-next-or-new";
-        destination = "/bin/workspace-next-or-new";
-        executable = true;
-
-        text = ''
-          #! ${pkgs.zsh}/bin/zsh
-
-          workspaces=$(swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq 'map({num, focused, representation, output}) | sort_by(.num)')
-          output=$(echo $workspaces | ${pkgs.jq}/bin/jq -r 'map(select(.focused).output)[]')
-          last_on_output=($(echo $workspaces | jq "map(select(.output == \"$output\"))[-1][]"))
-          last_num=($(echo $workspaces | jq -r '.[-1].num'))
-
-          if [[ ''${last_on_output[2]} == "true" && ''${last_on_output[3]} != "null" ]]; then
-              swaymsg workspace $(( $last_num + 1 ))
-          else
-              swaymsg workspace next_on_output
+              case "$1 $2" in
+              "focus next")
+                  swaymsg workspace next_on_output
+                  ;;
+              "focus prev")
+                  swaymsg workspace prev_on_output
+                  ;;
+              "move next")
+                  swaymsg move workspace next_on_output
+                  ;;
+              "move prev")
+                  swaymsg move workspace prev_on_output
+                  ;;
+              *)
+                  exit 1
+              esac
           fi
         '';
       };
@@ -156,9 +171,6 @@
 
           config.floating.modifier = cfg.mod;
           config.keybindings = {
-            "${cfg.mod}+Tab"       = "exec ${workspace-next-or-new}/bin/workspace-next-or-new";
-            "${cfg.mod}+Shift+Tab" = "exec ${workspace-prev-or-new}/bin/workspace-prev-or-new";
-
             "${cfg.mod}+h" = "focus left";
             "${cfg.mod}+j" = "focus down";
             "${cfg.mod}+k" = "focus up";
@@ -181,6 +193,12 @@
             "${cfg.mod}+Mod1+Shift+j" = "move output down";
             "${cfg.mod}+Mod1+Shift+k" = "move output up";
             "${cfg.mod}+Mod1+Shift+l" = "move output right";
+
+            "${cfg.mod}+Ctrl+h" = "exec ${workspace}/bin/workspace focus prev";
+            "${cfg.mod}+Ctrl+l" = "exec ${workspace}/bin/workspace focus next";
+
+            "${cfg.mod}+Ctrl+Shift+h" = "exec ${workspace}/bin/workspace move prev";
+            "${cfg.mod}+Ctrl+Shift+l" = "exec ${workspace}/bin/workspace move next";
 
             "${cfg.mod}+Return"       = "focus mode_toggle";
             "${cfg.mod}+Shift+Return" = "floating toggle";
