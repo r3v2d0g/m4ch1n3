@@ -29,6 +29,8 @@
     net.host.name = "a5k4";
     net.host.id = "a0abe6f6";
     net.interfaces = [ "enp60s0" ];
+
+    kb.ergodox = true;
   };
 
   dev.enable = true;
