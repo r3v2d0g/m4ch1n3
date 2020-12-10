@@ -8,7 +8,7 @@
 
       config.services.postgresql = lib.mkIf (enable && cfg.enable) {
         enable = true;
-        packages = pkgs.postgresql_10;
+        package = pkgs.postgresql_10;
         enableTCPIP = true;
         authentication = pkgs.lib.mkOverride 10 ''
           local all all trust
