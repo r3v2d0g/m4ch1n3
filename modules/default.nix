@@ -13,6 +13,8 @@ let
     ./comm/pm
     ./comm/slack
 
+    ./db
+
     ./dev
     ./dev/cypress
     ./dev/docker
