@@ -1,99 +1,106 @@
 {
   machine = { ... }: {};
 
-  users = { inputs, lib, mcfg, pkgs, ucfg, ... }: {
-    home.packages = [
-      pkgs.bat
-      pkgs.bottom
-      pkgs.du-dust
-      pkgs.exa
-      pkgs.fzf
-      pkgs.htop
-      pkgs.jq
-      pkgs.p7zip
-      pkgs.wget
-    ];
+  users = { inputs, lib, mcfg, pkgs, ucfg, ... }:
+    let
+      cfg = ucfg.shell;
+    in {
+      options.m4ch1n3.shell.enable = lib.mkOptBool true;
 
-    home.sessionVariables = {
-      "ALTERNATE_EDITOR" = "emacs";
-      "EDITOR" = "emacsclient -c";
-    };
+      config = lib.mkIf cfg.enable {
+        home.packages = [
+          pkgs.bat
+          pkgs.bottom
+          pkgs.du-dust
+          pkgs.exa
+          pkgs.fzf
+          pkgs.htop
+          pkgs.jq
+          pkgs.p7zip
+          pkgs.wget
+        ];
 
-    programs.zsh = {
-      enable = true;
-      enableAutosuggestions = true;
-      enableCompletion = true;
+        home.sessionVariables = {
+          "ALTERNATE_EDITOR" = "emacs";
+          "EDITOR" = "emacsclient -c";
+        };
 
-      autocd = true;
-      defaultKeymap = "emacs";
+        programs.zsh = {
+          enable = true;
+          enableAutosuggestions = true;
+          enableCompletion = true;
 
-      history.ignoreDups = true;
-      history.ignoreSpace = true;
+          autocd = true;
+          defaultKeymap = "emacs";
 
-      oh-my-zsh.enable = true;
+          history.ignoreDups = true;
+          history.ignoreSpace = true;
 
-      plugins = [
-        {
-          name = "jq-zsh-plugin";
-          file = "jq.plugin.zsh";
-          src = inputs.jq-zsh-plugin;
-        }
+          oh-my-zsh.enable = true;
 
-        {
-          name = "zsh-autopair";
-          file = "autopair.plugin.zsh";
-          src = inputs.zsh-autopair;
-        }
+          plugins = [
+            {
+              name = "jq-zsh-plugin";
+              file = "jq.plugin.zsh";
+              src = inputs.jq-zsh-plugin;
+            }
 
-        {
-          name = "zsh-bd";
-          file = "bd.zsh";
-          src = inputs.zsh-bd;
-        }
+            {
+              name = "zsh-autopair";
+              file = "autopair.plugin.zsh";
+              src = inputs.zsh-autopair;
+            }
 
-        {
-          name = "zsh-nix-shell";
-          file = "nix-shell.plugin.zsh";
-          src = inputs.zsh-nix-shell;
-        }
+            {
+              name = "zsh-bd";
+              file = "bd.zsh";
+              src = inputs.zsh-bd;
+            }
 
-        {
-          name = "zsh-syntax-highlighting";
-          src = inputs.zsh-syntax-highlighting;
-        }
-      ];
+            {
+              name = "zsh-nix-shell";
+              file = "nix-shell.plugin.zsh";
+              src = inputs.zsh-nix-shell;
+            }
 
-      envExtra = ''
-        PATH="$HOME/.yarn/bin:$PATH";
-      '';
+            {
+              name = "zsh-syntax-highlighting";
+              src = inputs.zsh-syntax-highlighting;
+            }
+          ];
 
-      initExtraBeforeCompInit = ''
-        setopt PROMPT_SUBST
-      '';
+          envExtra = ''
+            PATH="$HOME/.yarn/bin:$PATH";
+          '';
 
-      sessionVariables = {
-        "PROMPT"  = " %B%F{11}%n%f@%F{13}%M%f:%F{12}%3~ %f%b ";
-        "RPROMPT" = "%F{12}\\\${IN_NIX_SHELL[1]} %(?.%F{7}.%F{9})\\$(printf \"%03d\" \\$?)%f ";
+          initExtraBeforeCompInit = ''
+            setopt PROMPT_SUBST
+          '';
 
-        "ZSH_AUTOSUGGEST_USE_ASYNC" = true;
-        "ZSH_AUTOSUGGEST_STRATEGY" = [ "match_prev_cmd" "completion" ];
-        "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE" = "fg=7";
+          sessionVariables = {
+            "PROMPT"  = " %B%F{11}%n%f@%F{13}%M%f:%F{12}%3~ %f%b ";
+            "RPROMPT" = "%F{12}\\\${IN_NIX_SHELL[1]} %(?.%F{7}.%F{9})\\$(printf \"%03d\" \\$?)%f ";
+
+            "ZSH_AUTOSUGGEST_USE_ASYNC" = true;
+            "ZSH_AUTOSUGGEST_STRATEGY" = [ "match_prev_cmd" "completion" ];
+            "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE" = "fg=7";
+          };
+
+          shellAliases = {
+            "c" = "clear";
+            "em" = "emacs";
+            "emc" = "emacsclient --no-wait";
+            "emt" = "emacs -nw";
+
+            "du" = "${pkgs.du-dust}/bin/dust";
+            "l"    = "${pkgs.exa}/bin/exa -l";
+            "ls"   = "${pkgs.exa}/bin/exa";
+            "quit" = "exit";
+            "tree" = "${pkgs.exa}/bin/exa -T";
+          }
+          // lib.optionalAttrs (mcfg.wm.enable && ucfg.wm.enable && ucfg.wm.term.enable)
+            { "icat" = "kitty +kitten icat"; };
+        };
       };
-
-      shellAliases = {
-        "c" = "clear";
-        "em" = "emacs";
-        "emc" = "emacsclient --no-wait";
-        "emt" = "emacs -nw";
-
-        "du" = "${pkgs.du-dust}/bin/dust";
-        "l"    = "${pkgs.exa}/bin/exa -l";
-        "ls"   = "${pkgs.exa}/bin/exa";
-        "quit" = "exit";
-        "tree" = "${pkgs.exa}/bin/exa -T";
-      }
-      // lib.optionalAttrs (mcfg.wm.enable && ucfg.wm.enable && ucfg.wm.term.enable)
-        { "icat" = "kitty +kitten icat"; };
     };
-  };
 }
