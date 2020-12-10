@@ -30,6 +30,7 @@ let
     ./editor/emacs/init
 
     ./security
+    ./security/fw
     ./security/gpg
     ./security/pass
     ./security/ssh

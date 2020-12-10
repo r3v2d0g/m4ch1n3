@@ -40,6 +40,8 @@
 
     ssh.server = true;
     ssh.addr = "192.168.1.2";
+
+    fw.ports = [ 5900 ];
   };
 
   users.eqs.enable = true;
