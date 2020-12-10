@@ -8,8 +8,12 @@ in {
 
   config = lib.mkIf (enable && cfg.enable) {
     home-manager.users.eqs.m4ch1n3 = {
+      comm.enable = false;
       dev.docker.enable = true;
       editor.emacs.enable = false;
+      security.gpg.enable = false;
+      security.ssh.enable = false;
+      shell.enable = false;
     };
 
     users.extraUsers.eqs = {
