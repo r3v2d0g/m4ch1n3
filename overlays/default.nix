@@ -1,4 +1,5 @@
-{ proton-bridge
+{ nixpkgs-mesa
+, proton-bridge
 , rtl8723de
 , waybar
 , ...
@@ -11,6 +12,8 @@ self: super:
     patches = (prev.patches or [])
               ++ [ ./patches/emacsGcc/0001-emacsgcc-fix-doom-emacs-install.patch ];
   });
+
+  mesa_drivers = (import nixpkgs-mesa { system = "x86_64-linux"; }).mesa_drivers;
 
   protonmail-bridge = self.callPackage ./protonmail-bridge { source = proton-bridge; };
 

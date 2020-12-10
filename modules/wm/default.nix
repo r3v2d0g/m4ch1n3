@@ -1,5 +1,5 @@
 {
-  machine = { lib, mcfg, pkgs, ... }:
+  machine = { inputs, lib, mcfg, pkgs, ... }:
     let
       cfg = mcfg.wm;
     in {
@@ -21,12 +21,17 @@
       config = lib.mkIf cfg.enable {
         hardware.opengl = {
           enable = true;
+          package = pkgs.mesa_drivers;
+
           extraPackages = [
             pkgs.intel-media-driver
             pkgs.vaapiIntel
             pkgs.vaapiVdpau
             pkgs.libvdpau-va-gl
           ];
+
+          driSupport = true;
+          driSupport32Bit = true;
         };
 
         environment.systemPackages = [

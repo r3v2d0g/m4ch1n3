@@ -3,6 +3,8 @@
   inputs =
     { nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+      nixpkgs-mesa.url = "github:nixos/nixpkgs/1857b270f7570471945fe9a15d3abbacb7fd6abf";
+
       emacs-overlay.url = "github:nix-community/emacs-overlay";
       home-manager.url = "github:r3v2d0g/home-manager"; # NOTE: forked
       home-manager.inputs.nixpkgs.follows = "nixpkgs";

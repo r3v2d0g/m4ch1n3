@@ -262,6 +262,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-mesa": {
+      "locked": {
+        "lastModified": 1594992104,
+        "narHash": "sha256-z2wjgvZWju6XEox8okOktupC8JqoB5oimYZ3SHJUKCg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1857b270f7570471945fe9a15d3abbacb7fd6abf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1857b270f7570471945fe9a15d3abbacb7fd6abf",
+        "type": "github"
+      }
+    },
     "nose": {
       "flake": false,
       "locked": {
@@ -383,6 +399,7 @@
         "jq-zsh-plugin": "jq-zsh-plugin",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-mesa": "nixpkgs-mesa",
         "proton-bridge": "proton-bridge",
         "rtl8723de": "rtl8723de",
         "waybar": "waybar",
