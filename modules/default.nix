@@ -14,6 +14,7 @@ let
     ./comm/slack
 
     ./db
+    ./db/pg
 
     ./dev
     ./dev/cypress

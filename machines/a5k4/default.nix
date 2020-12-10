@@ -35,6 +35,9 @@
 
   dev.enable = true;
 
+  db.enable = true;
+  db.pg.enable = true;
+
   security = {
     yubico.enable = true;
 
