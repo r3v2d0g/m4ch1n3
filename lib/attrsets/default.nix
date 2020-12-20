@@ -37,5 +37,13 @@ rec {
 
   # {a = b} -> [{a = b}] -> {a = b}
   recursiveUpdates = attrs: list:
-    foldr recursiveUpdate attrs list;
+    foldr recursiveUpdate;
+
+  # {a = b} -> [{path = [string]; override = ({a = b} -> {c = d})}] -> {c = d}
+  overrides =
+    foldr ({ path, override, ... }: prev:
+      if hasAttrByPath path prev
+      then recursiveUpdate prev (setAttrByPath path (override (getAttrFromPath path prev)))
+      else prev
+    );
 }
