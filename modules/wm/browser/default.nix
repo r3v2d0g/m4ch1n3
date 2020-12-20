@@ -40,10 +40,8 @@
         enable = true;
 
         package = ungoogled-chromium.override (_: {
-          useOzone = true;
           enableVaapi = true;
           enableWideVine = true;
-          proprietaryCodecs = true;
         });
       };
     };
