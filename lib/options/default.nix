@@ -93,6 +93,13 @@ rec {
   mkOptSubmod = submod: mkOpt (submodType submod);
   mkOptSubmodAttrs = submod: mkOptAttrs (submodType submod);
 
+  mkOptSubmodSubst = submod: subst: mkOpt (
+    submod.substSubModules (builtins.map subst submod.getSubModules)
+  );
+
+  mkOptSubmodListSubst = mkOptSubmodSubst;
+  mkOptSubmodAttrsSubst = mkOptSubmodSubst;
+
   mkOptFont = name: pkg: {
     name = mkOptStr name;
     package = mkOptPkg pkg;
