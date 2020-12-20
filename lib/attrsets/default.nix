@@ -41,9 +41,11 @@ rec {
 
   # {a = b} -> [{path = [string]; override = ({a = b} -> {c = d})}] -> {c = d}
   overrides =
-    foldr ({ path, override, ... }: prev:
-      if hasAttrByPath path prev
-      then recursiveUpdate prev (setAttrByPath path (override (getAttrFromPath path prev)))
-      else prev
-    );
+    foldr (lib.flip override);
+
+  # {a = b} -> {path = [string]; override = ({a = b} -> {c = d})} -> {c = d}
+  override = attrs: { path, override, ... }:
+    if hasAttrByPath path attrs
+    then recursiveUpdate attrs (setAttrByPath path (override (getAttrFromPath path attrs)))
+    else attrs;
 }
