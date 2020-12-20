@@ -22,12 +22,13 @@ self: super:
     kernel = self.linux;
   };
 
-  waybar = super.waybar .overrideAttrs (prev: {
+  waybar = super.waybar.overrideAttrs (prev: {
     src = waybar;
     version = "0.9.5";
 
-    patches = (prev.patches or [])
-              ++ [ ./patches/waybar/0001-no-exclusive-zone-for-overlay.patch ];
+    patches = (prev.patches or []) ++ [
+      ./patches/waybar/0001-no-exclusive-zone-for-overlay.patch
+    ];
 
     mesonFlags = prev.mesonFlags ++ [ "-Dsndio=disabled" ];
   });
