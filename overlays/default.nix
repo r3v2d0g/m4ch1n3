@@ -1,5 +1,6 @@
 { fmt
 , nixpkgs-mesa
+, paper-icon-theme
 , rtl8723de
 , waybar
 , ...
@@ -19,6 +20,11 @@ self: super:
   });
 
   mesa_drivers = (import nixpkgs-mesa { system = "x86_64-linux"; }).mesa_drivers;
+
+  paper-icon-theme = super.paper-icon-theme.overrideAttrs (_: {
+    src = paper-icon-theme;
+    version = "2020-03-12";
+  });
 
   rtl8723de = self.callPackage ./rtl8723de {
     source = rtl8723de;

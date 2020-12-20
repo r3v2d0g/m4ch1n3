@@ -38,6 +38,11 @@
       flake = false;
     };
 
+    paper-icon-theme = {
+      url = "github:snwh/paper-icon-theme";
+      flake = false;
+    };
+
     rtl8723de = {
       url = "github:smlinux/rtl8723de";
       flake = false;

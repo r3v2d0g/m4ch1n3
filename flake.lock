@@ -366,6 +366,22 @@
         "type": "github"
       }
     },
+    "paper-icon-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1584025520,
+        "narHash": "sha256-57RVYt+rf8Z5kc3A03bH940kjUiOtbBydIjlTCD72HQ=",
+        "owner": "snwh",
+        "repo": "paper-icon-theme",
+        "rev": "aa3e8af7a1f0831a51fd7e638a4acb077a1e5188",
+        "type": "github"
+      },
+      "original": {
+        "owner": "snwh",
+        "repo": "paper-icon-theme",
+        "type": "github"
+      }
+    },
     "php-extras": {
       "flake": false,
       "locked": {
@@ -410,6 +426,7 @@
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs",
         "nixpkgs-mesa": "nixpkgs-mesa",
+        "paper-icon-theme": "paper-icon-theme",
         "rtl8723de": "rtl8723de",
         "waybar": "waybar",
         "zsh-autopair": "zsh-autopair",
