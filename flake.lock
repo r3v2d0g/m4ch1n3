@@ -3,34 +3,34 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1603964530,
-        "narHash": "sha256-NUT1oaMiiO4GMOUN/9UxMJDsT8MYG4rhFQVJseoYXP8=",
+        "lastModified": 1605144807,
+        "narHash": "sha256-vt2Dw2/4W4dfl7m+9Gx7gNr5BiaDlHnKpx2S4TBoI3g=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "57ef63d6ba8432067a2c32cca3f5ccd369d21099",
+        "rev": "f7293fb67ef701244a421fd3bfc04b8e12689edc",
         "type": "github"
       },
       "original": {
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "57ef63d6ba8432067a2c32cca3f5ccd369d21099",
+        "rev": "f7293fb67ef701244a421fd3bfc04b8e12689edc",
         "type": "github"
       }
     },
     "doom-snippets": {
       "flake": false,
       "locked": {
-        "lastModified": 1602477354,
-        "narHash": "sha256-x4/Wi3ghyDQ23ZplHIqTsZTThlVxaNbwXAE6bSiosSU=",
+        "lastModified": 1604476860,
+        "narHash": "sha256-vOixwEODxxGYc8MGerpydErUBDXmYRctkzR3qUBp9zY=",
         "owner": "hlissner",
         "repo": "doom-snippets",
-        "rev": "d97c65eec3ba9a920432761acdcd8b5e851c9c0d",
+        "rev": "e1cbbdf526224066f6bb67f95672d329323ecb1c",
         "type": "github"
       },
       "original": {
         "owner": "hlissner",
         "repo": "doom-snippets",
-        "rev": "d97c65eec3ba9a920432761acdcd8b5e851c9c0d",
+        "rev": "e1cbbdf526224066f6bb67f95672d329323ecb1c",
         "type": "github"
       }
     },
@@ -50,31 +50,14 @@
         "type": "github"
       }
     },
-    "emacs-overlay-2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1604017485,
-        "narHash": "sha256-7Ln0bg35ysQGGEZ2KinQLHRgqakud6vxkBxwZEzghMQ=",
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "rev": "489f44aa462cea641d344e6b744296b3c07427a6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "rev": "489f44aa462cea641d344e6b744296b3c07427a6",
-        "type": "github"
-      }
-    },
     "emacs-overlay_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1608121729,
-        "narHash": "sha256-aGjyp+wG/LHGoEHKktLMlwlvYPUrzt0mI1UGe8YagdM=",
+        "lastModified": 1608481165,
+        "narHash": "sha256-BaQDFh2eE+5S+fqz6PGuWLO8eN18VpCAx5ZaLYohdqQ=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "33dcedab062a2ac2035ba805d3e8e5e5915aa3f2",
+        "rev": "ce0e53038d6c74d7e169ee933e097651d3fd9bc4",
         "type": "github"
       },
       "original": {
@@ -256,16 +239,17 @@
         "rotate-text.el": "rotate-text.el"
       },
       "locked": {
-        "lastModified": 1608122484,
-        "narHash": "sha256-mOpsSTVhWqVsxoCo3g3zy1iK20aVDDAiygXlk+Rqo94=",
-        "owner": "r3v2d0g",
+        "lastModified": 1606861298,
+        "narHash": "sha256-2jcdekT7GinK7L5G80qt9rnuDVqme2OVDWfASG63LT4=",
+        "owner": "vlaci",
         "repo": "nix-doom-emacs",
-        "rev": "a26c013925d81570b74e4225cc3c9c6ab7b74e68",
+        "rev": "6c90469de3388e65083b579c1d1f41079936fd8d",
         "type": "github"
       },
       "original": {
-        "owner": "r3v2d0g",
+        "owner": "vlaci",
         "repo": "nix-doom-emacs",
+        "rev": "6c90469de3388e65083b579c1d1f41079936fd8d",
         "type": "github"
       }
     },
@@ -353,11 +337,11 @@
     "org-mode": {
       "flake": false,
       "locked": {
-        "lastModified": 1608097531,
-        "narHash": "sha256-f0bunfm+3sBjcof1KgCX0pjwagEgZpdW3k2mv9Wlksg=",
+        "lastModified": 1608187095,
+        "narHash": "sha256-u+vHw1hCptRMNfj3tMNUHQ4Ek35Gc0sSkhBjzNCLJeM=",
         "owner": "emacs-straight",
         "repo": "org-mode",
-        "rev": "b1dc45424212031b451a568e5ea4938585aa6edb",
+        "rev": "6b83c6e4eaec4af47a90d05c3410d4637d8cb8da",
         "type": "github"
       },
       "original": {
@@ -419,7 +403,6 @@
         "doom-emacs": "doom-emacs",
         "doom-snippets": "doom-snippets",
         "emacs-overlay": "emacs-overlay",
-        "emacs-overlay-2": "emacs-overlay-2",
         "fmt": "fmt",
         "home-manager": "home-manager",
         "ion-mode": "ion-mode",

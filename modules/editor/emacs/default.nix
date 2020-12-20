@@ -26,6 +26,12 @@
         echo "$initel" > $out/init.el
         echo "$packagesel" > $out/packages.el
       '';
+
+      doom-emacs = { pkgs, ... }@args: lib.recursiveUpdate
+        (inputs.nix-doom-emacs.hmModule args)
+        {
+          options.programs.doom-emacs.doomPrivateDir.apply = lib.id;
+        };
     in {
       options.m4ch1n3.editor.emacs = lib.optionalAttrs enable {
         enable = lib.mkOptBool true;
@@ -41,7 +47,7 @@
         user.email = lib.mkOptStr null;
       };
 
-      imports = lib.optional enable inputs.nix-doom-emacs.hmModule;
+      imports = lib.optional enable doom-emacs;
 
       config = lib.mkIf (enable && cfg.enable) {
         home.packages = [

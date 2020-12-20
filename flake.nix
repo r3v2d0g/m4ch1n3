@@ -9,23 +9,17 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay/0b93526e09d3dae90144eadda1b8e80aad7e0333";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:r3v2d0g/nix-doom-emacs"; # NOTE: forked
+    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/6c90469de3388e65083b579c1d1f41079936fd8d";
     nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
     nix-doom-emacs.inputs.doom-snippets.follows = "doom-snippets";
-    nix-doom-emacs.inputs.emacs-overlays.follows = "emacs-overlay-2";
 
     doom-emacs = {
-      url = "github:hlissner/doom-emacs/57ef63d6ba8432067a2c32cca3f5ccd369d21099";
+      url = "github:hlissner/doom-emacs/f7293fb67ef701244a421fd3bfc04b8e12689edc";
       flake = false;
     };
 
     doom-snippets = {
-      url = "github:hlissner/doom-snippets/d97c65eec3ba9a920432761acdcd8b5e851c9c0d";
-      flake = false;
-    };
-
-    emacs-overlay-2 = {
-      url = "github:nix-community/emacs-overlay/489f44aa462cea641d344e6b744296b3c07427a6";
+      url = "github:hlissner/doom-snippets/e1cbbdf526224066f6bb67f95672d329323ecb1c";
       flake = false;
     };
 
