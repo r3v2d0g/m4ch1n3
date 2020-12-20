@@ -7,7 +7,7 @@
     nixpkgs-mesa.url = "github:nixos/nixpkgs/1857b270f7570471945fe9a15d3abbacb7fd6abf";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay/0b93526e09d3dae90144eadda1b8e80aad7e0333";
-    home-manager.url = "github:r3v2d0g/home-manager"; # NOTE: forked
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.url = "github:r3v2d0g/nix-doom-emacs"; # NOTE: forked
     nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";

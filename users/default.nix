@@ -1,4 +1,4 @@
-{ config, inputs, lib, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 let
   user = path: { pkgs, ... }@args: import path (args // {
@@ -12,8 +12,6 @@ let
   });
 in {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
-
     (user ./eqs)
     (user ./r3v2d0g)
     (user ./root)

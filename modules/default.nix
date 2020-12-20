@@ -4,6 +4,7 @@ let
     ./base/boot
     ./base/console
     ./base/fs
+    ./base/hm
     ./base/kb
     ./base/luks
     ./base/net
@@ -60,7 +61,7 @@ let
   ];
 in {
   machine = { inputs, lib, ... }: {
-    imports = builtins.map (mod: { config, pkgs, ... }@args:
+    imports = builtins.map (mod: { config, pkgs, utils, ... }@args:
         (import mod).machine (args // {
             inherit inputs lib;
             mcfg = config.m4ch1n3;
