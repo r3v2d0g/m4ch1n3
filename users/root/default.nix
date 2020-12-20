@@ -8,7 +8,7 @@ in {
   config = lib.mkIf cfg.enable {
     home-manager.users.root.m4ch1n3 = {
       comm.enable = false;
-      editor.emacs.enable = true;
+      editor.emacs.enable = false;
       wm.enable = false;
     };
 
