@@ -32,6 +32,7 @@ let
     ./editor
     ./editor/emacs
     ./editor/emacs/init
+    ./editor/vim
 
     ./security
     ./security/fw
