@@ -30,19 +30,33 @@
       enable = mcfg.wm.enable && mcfg.wm.browser.enable
                && ucfg.wm.enable;
 
-      ungoogled-chromium = pkgs.ungoogled-chromium.overrideAttrs (_: {
-        name = "chromium";
+      ungoogled-chromium = pkgs.ungoogled-chromium.override (_: {
+        enableVaapi = true;
+        #enableWideVine = true;
       });
+
+      chromium = pkgs.runCommandLocal "ungoogled-chromium" {
+        buildInputs = [ pkgs.makeWrapper ];
+      } ''
+        mkdir -p $out
+        ln -s ${ungoogled-chromium}/* $out
+
+        rm $out/bin
+        mkdir $out/bin
+
+        makeWrapper ${ungoogled-chromium}/bin/chromium $out/bin/chromium \
+          --add-flags "--enable-features=UseOzonePlatform" \
+          --add-flags "--ozone-platform=wayland"
+
+        ln -s $out/bin/chromium $out/bin/chromium-browser
+      '';
     in {
       options.m4ch1n3.wm.browser = lib.optionalAttrs enable { enable = lib.mkOptBool true; };
 
       config.programs.chromium = lib.mkIf (enable && cfg.enable) {
         enable = true;
 
-        package = ungoogled-chromium.override (_: {
-          enableVaapi = true;
-          enableWideVine = true;
-        });
+        package = chromium;
       };
     };
 }
