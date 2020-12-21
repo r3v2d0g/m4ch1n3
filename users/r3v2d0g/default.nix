@@ -132,16 +132,16 @@ in {
       openssh.authorizedKeys.keys = cfg.keys.ssh;
     };
 
-    m4ch1n3.wm.browser.extensions = lib.mkIf (mcfg.wm.enable && cfg.wm.enable) [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx" # uBlock Origin
-      "ogfcmafjalglgifnmanfmnieipoejdcf;https://clients2.google.com/service/update2/crx" # uMatrix
-      "doojmbjmlfjjnbmnoijecmcbfeoakpjm;https://clients2.google.com/service/update2/crx" # NoScript
-      "aeblfdkhhhdcdjpifhhbdiojplfjncoa;https://clients2.google.com/service/update2/crx" # 1Password X
-      "bigefpfhnfcobdlfbedofhhaibnlghod;https://clients2.google.com/service/update2/crx" # MEGA
-      "ennpfpdlaclocpomkiablnmbppdnlhoh;https://clients2.google.com/service/update2/crx" # Rust Search Extension
-      "npeicpdbkakmehahjeeohfdhnlpdklia;https://clients2.google.com/service/update2/crx" # WebRTC Network Limiter
-      "nkgllhigpcljnhoakjkgaieabnkmgdkb;https://clients2.google.com/service/update2/crx" # Don't Fuck With Paste
-      "godiecgffnchndlihlpaajjcplehddca;https://clients2.google.com/service/update2/crx" # GhostText
-    ];
+    # m4ch1n3.wm.browser.extensions = lib.mkIf (mcfg.wm.enable && cfg.wm.enable) [
+    #   "cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx" # uBlock Origin
+    #   "ogfcmafjalglgifnmanfmnieipoejdcf;https://clients2.google.com/service/update2/crx" # uMatrix
+    #   "doojmbjmlfjjnbmnoijecmcbfeoakpjm;https://clients2.google.com/service/update2/crx" # NoScript
+    #   "aeblfdkhhhdcdjpifhhbdiojplfjncoa;https://clients2.google.com/service/update2/crx" # 1Password X
+    #   "bigefpfhnfcobdlfbedofhhaibnlghod;https://clients2.google.com/service/update2/crx" # MEGA
+    #   "ennpfpdlaclocpomkiablnmbppdnlhoh;https://clients2.google.com/service/update2/crx" # Rust Search Extension
+    #   "npeicpdbkakmehahjeeohfdhnlpdklia;https://clients2.google.com/service/update2/crx" # WebRTC Network Limiter
+    #   "nkgllhigpcljnhoakjkgaieabnkmgdkb;https://clients2.google.com/service/update2/crx" # Don't Fuck With Paste
+    #   "godiecgffnchndlihlpaajjcplehddca;https://clients2.google.com/service/update2/crx" # GhostText
+    # ];
   };
 }
