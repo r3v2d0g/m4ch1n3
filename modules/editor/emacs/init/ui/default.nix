@@ -22,7 +22,7 @@ args:
   unicode = null;
   vc-gutter = import ./vc-gutter args;
   vi-tilde-fringe = import ./vi-tilde-fringe args;
-  window-select = null;
   workspaces = null;
+  window-select = import ./window-select args;
   zen = null;
 }
