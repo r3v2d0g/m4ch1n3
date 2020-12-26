@@ -19,5 +19,11 @@
       };
     };
 
-  users = { ... }: { home.language.base = "en_US.UTF-8"; };
+  users = { inputs, options, lib, ... }: {
+    home.language.base = "en_US.UTF-8";
+
+    home.file.".config/nixpkgs/config.nix".text = ''
+      { allowUnfree = true; }
+    '';
+  };
 }
