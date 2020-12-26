@@ -13,51 +13,85 @@
 (defun irc-pass (_server)
   (fetch-password :login "r3v2d0g" :machine "irc.r3vd5u3d.network" :port "6697"))
 
-(defun documentation-box (box-size lines)
-  (insert (concat "/* ┌" (make-string (- box-size 8) ?─) "┐ *\\"))
-  (dolist (line lines)
-    (newline)
-    (insert (concat " * │ " line (make-string (- box-size (string-width line) 9) ?\s) "│ *")))
-  (newline)
-  (insert (concat "\\* └" (make-string (- box-size 8) ?─) "┘ */")))
-(defun documentation-copyright ()
-    (interactive)
-    (documentation-box 100 '("Copyright (c) 2020"
-                              "All Rights Reserved to Matthieu Le brazidec"
-                              "Unauthorized copying of this file, via any medium is stricly prohibited"
-                              "Proprietary and confidential")))
+;; ┌────────────────────────────────────────────────────────────────────────────────────────────┐ ;;
+;; │                                     Copyright Commands                                     │ ;;
+;; └────────────────────────────────────────────────────────────────────────────────────────────┘ ;;
+
 (defun documentation-mpl ()
   (interactive)
-  (documentation-box 100 '(""
-                            "This Source Code Form is subject to the terms of the Mozilla Public"
-                            "License, v. 2.0. If a copy of the MPL was not distributed with this"
-                            "file, You can obtain one at http://mozilla.org/MPL/2.0/."
-                            "")))
+  (documentation-box
+   100 0
+   '(""
+     "This Source Code Form is subject to the terms of the Mozilla Public"
+     "License, v. 2.0. If a copy of the MPL was not distributed with this"
+     "file, You can obtain one at http://mozilla.org/MPL/2.0/."
+     "")
+   nil))
 
-(defun documentation-separator (text size)
+(defun documentation-copyright ()
+  (interactive)
+  (documentation-box
+   100 0
+   '("Copyright (c) 2020"
+     "All Rights Reserved to Matthieu Le brazidec"
+     "Unauthorized copying of this file, via any medium is stricly prohibited"
+     "Proprietary and confidential")
+   nil))
+
+;; ┌────────────────────────────────────────────────────────────────────────────────────────────┐ ;;
+;; │                               Documentation Section Command                                │ ;;
+;; └────────────────────────────────────────────────────────────────────────────────────────────┘ ;;
+
+(defun documentation-section (text size)
   (interactive "sText:
 nSize: ")
   (delete-trailing-whitespace (line-beginning-position) (line-end-position))
-  (let* ((spaces (- display-fill-column-indicator-column (+ size 6)))
-         (rem (mod spaces 2))
-         (left (/ spaces 2))
-         (right (+ left rem))
-         (inner (- size (string-width text) 4))
-         (irem (mod inner 2))
-         (ileft (/ inner 2))
-         (iright (+ ileft irem)))
-    (insert (concat "/* " (make-string left ?\s)))
-    (insert (concat "┌" (make-string (- size 2) ?─) "┐ "))
-    (insert (concat (make-string right ?\s) "*\\"))
-    (newline)
+  (documentation-box fill-column (- fill-column size 4) (list text) t))
 
-    (insert (concat " *" (make-string left ?\s)))
-    (insert (concat " │ " (make-string ileft ?\s)))
-    (insert text)
-    (insert (concat (make-string iright ?\s) " │ "))
-    (insert (concat (make-string right ?\s) "*"))
 
-    (newline)
-    (insert (concat "\\* " (make-string left ?\s)))
-    (insert (concat "└" (make-string (- size 2) ?─) "┘"))
-    (insert (concat (make-string right ?\s) " */"))))
+;; ┌────────────────────────────────────────────────────────────────────────────────────────────┐ ;;
+;; │                                 Documentation Box Helpers                                  │ ;;
+;; └────────────────────────────────────────────────────────────────────────────────────────────┘ ;;
+
+(defun documentation-box-start (len offset)
+  (let ((start (cond ((eq major-mode 'rustic-mode) "/*")
+                     ((eq major-mode 'emacs-lisp-mode) ";;")
+                     (t "  ")))
+        (end (cond ((eq major-mode 'rustic-mode) "*\\")
+                   ((eq major-mode 'emacs-lisp-mode) ";;")
+                   (t "  "))))
+    (insert (concat start (make-string offset ?\s) " ┌"
+                    (make-string (- len (* 2 offset) 8) ?─)
+                    "┐ " (make-string offset ?\s) end))))
+
+(defun documentation-box-line (len offset text center)
+  (let* ((start (cond ((eq major-mode 'rustic-mode) " *")
+                      ((eq major-mode 'emacs-lisp-mode) ";;")
+                      (t "  ")))
+         (end (cond ((eq major-mode 'rustic-mode) "*")
+                    ((eq major-mode 'emacs-lisp-mode) ";;")
+                    (t "  ")))
+
+         (inner (- len (* 2 offset) 10 (string-width text)))
+         (rem (if center (mod inner 2) 0))
+         (left (if center (/ inner 2) 0))
+         (right (if center (+ left rem) inner)))
+    (insert (concat start (make-string offset ?\s) " │ "
+                    (make-string left ?\s) text (make-string right ?\s)
+                    " │ " (make-string offset ?\s) end))))
+
+(defun documentation-box-end (len offset)
+  (let ((start (cond ((eq major-mode 'rustic-mode) "\\*")
+                     ((eq major-mode 'emacs-lisp-mode) ";;")
+                     (t "  ")))
+        (end (cond ((eq major-mode 'rustic-mode) "*/")
+                   ((eq major-mode 'emacs-lisp-mode) ";;")
+                   (t "  "))))
+    (insert (concat start (make-string offset ?\s) " └"
+                    (make-string (- len (* 2 offset) 8) ?─)
+                    "┘ " (make-string offset ?\s) end))))
+
+(defun documentation-box (len offset lines center)
+  (documentation-box-start len offset)
+  (dolist (line lines) (newline) (documentation-box-line len offset line center))
+  (newline) (documentation-box-end len offset))
