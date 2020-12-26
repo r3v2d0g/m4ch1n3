@@ -69,6 +69,10 @@
             }
           ];
 
+          initExtraFirst = ''
+            __HM_SESS_VARS_SOURCED=
+          '';
+
           envExtra = ''
             PATH="$HOME/.yarn/bin:$PATH";
           '';
