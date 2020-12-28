@@ -32,7 +32,7 @@
 
       ungoogled-chromium = pkgs.ungoogled-chromium.override (_: {
         enableVaapi = true;
-        #enableWideVine = true;
+        enableWideVine = true;
       });
 
       chromium = pkgs.runCommandLocal "ungoogled-chromium" {
