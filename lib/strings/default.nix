@@ -4,12 +4,16 @@ with lib;
 
 rec {
   # [string] -> string
-  concatStringsNl = strings:
-    concatStringsSep "\n" strings;
+  concatStringsNl =
+    concatStringsSep "\n";
 
   # [string] -> string
-  concatStringsWs = strings:
-    concatStringsSep " " strings;
+  concatStringsWs =
+    concatStringsSep " ";
+
+  # [string] -> string
+  concatStringsColon =
+    concatStringsSep ":";
 
   # {a = b} -> string
   concatAttrNamesNl = attrs:
