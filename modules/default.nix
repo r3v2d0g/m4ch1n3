@@ -21,6 +21,7 @@ let
     ./dev/build
     ./dev/cypress
     ./dev/docker
+    ./dev/gtk
     ./dev/haskell
     ./dev/jetbrains
     ./dev/lisp
