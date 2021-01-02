@@ -110,4 +110,7 @@ rec {
 
   mkOptColor = mkOptEnum colorNames;
   mkOptColorList = mkOptEnumList colorNames;
+
+  mkOptInternal = default:
+    mkOption { internal = true; } // optionalAttrs (! isNull default) { inherit default; };
 }
