@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  lang = config.m4ch1n3.editor.emacs.init.lang;
+  lang = config.m4ch1n3.editor.emacs.modules.lang;
 in {
   default = true;
 

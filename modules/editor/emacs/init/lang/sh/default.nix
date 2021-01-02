@@ -1,7 +1,7 @@
 { lib, pkgs, ucfg, ... }:
 
 let
-  flags = ucfg.editor.emacs.init.lang.sh.flags;
+  flags = ucfg.editor.emacs.modules.lang.sh.flags;
 in {
   default = true;
 

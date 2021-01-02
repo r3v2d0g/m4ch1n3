@@ -3,7 +3,7 @@
 let
   default = mcfg.dev.enable && ucfg.dev.enable
             && ucfg.dev.haskell.enable;
-  flags = ucfg.editor.emacs.init.lang.haskell.flags;
+  flags = ucfg.editor.emacs.modules.lang.haskell.flags;
 in {
   inherit default;
 

@@ -3,7 +3,7 @@
 let
   default = mcfg.dev.enable && ucfg.dev.enable
             && ucfg.dev.python.enable;
-  flags = ucfg.editor.emacs.init.lang.python.flags;
+  flags = ucfg.editor.emacs.modules.lang.python.flags;
   pythonPackages = ucfg.dev.python.packages;
 in {
   inherit default;

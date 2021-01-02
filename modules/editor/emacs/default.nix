@@ -36,7 +36,7 @@
       options.m4ch1n3.editor.emacs = lib.optionalAttrs enable {
         enable = lib.mkOptBool true;
 
-        initel = lib.mkOption { internal = true; };
+        initel = lib.mkOptInternal null;
 
         configel = lib.mkOptStr (builtins.readFile ./config.el);
         customel = lib.mkOptStr (builtins.readFile ./custom.el);

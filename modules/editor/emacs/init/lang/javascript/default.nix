@@ -3,7 +3,7 @@
 let
   default = mcfg.dev.enable && ucfg.dev.enable
             && (ucfg.dev.nodejs.enable || ucfg.dev.typescript.enable || ucfg.dev.vuejs.enable);
-  flags = ucfg.editor.emacs.init.lang.javascript.flags;
+  flags = ucfg.editor.emacs.modules.lang.javascript.flags;
 in {
   inherit default;
 

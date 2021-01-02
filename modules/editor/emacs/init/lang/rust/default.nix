@@ -3,7 +3,7 @@
 let
   default = mcfg.dev.enable && ucfg.dev.enable
             && ucfg.dev.rust.enable;
-  flags = ucfg.editor.emacs.init.lang.rust.flags;
+  flags = ucfg.editor.emacs.modules.lang.rust.flags;
 in {
   inherit default;
 

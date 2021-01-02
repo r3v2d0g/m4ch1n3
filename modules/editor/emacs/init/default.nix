@@ -3,7 +3,7 @@
 
   users = { lib, mcfg, ucfg, ... }@args:
     let
-      cfg = ucfg.editor.emacs.init;
+      cfg = ucfg.editor.emacs;
       enable = mcfg.editor.emacs.enable && ucfg.editor.emacs.enable;
 
       modules = {
@@ -46,32 +46,32 @@
       '';
 
       module = cat: mod:
-        if (isNull modules.${cat}.${mod}) || (! cfg.${cat}.${mod}.enable)
+        if (isNull modules.${cat}.${mod}) || (! cfg.modules.${cat}.${mod}.enable)
         then ";;${mod}"
         else flags cat mod;
 
       flags = cat: mod:
         let
-          enabled = lib.filterAttrsNames (_: flag: flag) cfg.${cat}.${mod}.flags;
+          enabled = lib.filterAttrsNames (_: flag: flag) cfg.modules.${cat}.${mod}.flags;
         in
           if enabled == []
           then mod
           else ''(${mod} ${lib.concatMapStringsWs (flag: "+${flag}") enabled})'';
     in {
-      options.m4ch1n3.editor.emacs.init = lib.optionalAttrs enable (lib.mapFilterAttrsAttrs
-        (cat: mod: { default, flags, ... }: {
+      options.m4ch1n3.editor.emacs.modules = lib.mapFilterAttrsAttrs
+        (_: _: { default, flags, packages }: {
           enable = lib.mkOptBool default;
           flags = lib.mapAttrs (_: default: lib.mkOptBool default) flags;
-        }) (_: _: val: ! isNull val) modules
-      );
+          packages = lib.mkOptInternal packages;
+        }) (_: _: val: ! isNull val) modules;
 
-      config = lib.mkIf enable {
+      config = lib.mkIf cfg.enable {
         m4ch1n3.editor.emacs.initel = initel;
 
         home.packages = lib.flatten (lib.mapFilterAttrsAttrsValues
-          (cat: mod: _: modules.${cat}.${mod}.packages)
+          (_: _: { packages, ... }: packages)
           (_: _: { enable, ... }: enable)
-          cfg
+          cfg.modules
         );
       };
     };
