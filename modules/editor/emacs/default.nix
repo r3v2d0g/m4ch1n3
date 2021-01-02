@@ -37,11 +37,11 @@
         enable = lib.mkOptBool true;
 
         initel = lib.mkOptInternal null;
+        packagesel = lib.mkOptInternal null;
 
         configel = lib.mkOptStr (builtins.readFile ./config.el);
         customel = lib.mkOptStr (builtins.readFile ./custom.el);
         funcsel = lib.mkOptStr (builtins.readFile ./funcs.el);
-        packagesel = lib.mkOptStr (builtins.readFile ./packages.el);
 
         user.name = lib.mkOptStr null;
         user.email = lib.mkOptStr null;

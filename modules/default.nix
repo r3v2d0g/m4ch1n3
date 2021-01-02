@@ -34,6 +34,7 @@ let
     ./editor
     ./editor/emacs
     ./editor/emacs/init
+    ./editor/emacs/packages
     ./editor/vim
 
     ./security

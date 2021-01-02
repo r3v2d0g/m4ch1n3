@@ -1,0 +1,9 @@
+{ ... }:
+
+{
+  default = true;
+
+  recipe = "";
+
+  packages = [];
+}
