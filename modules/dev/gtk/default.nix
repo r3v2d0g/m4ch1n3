@@ -14,9 +14,11 @@
           "${pkgs.cairo.dev}/lib/pkgconfig"
           "${pkgs.gdk-pixbuf.dev}/lib/pkgconfig"
           "${pkgs.glib.dev}/lib/pkgconfig"
+          "${pkgs.graphene}/lib/pkgconfig"
           "${pkgs.gtk3.dev}/lib/pkgconfig"
           "${pkgs.harfbuzz.dev}/lib/pkgconfig"
           "${pkgs.pango.dev}/lib/pkgconfig"
+          "${pkgs.wayland}/lib/pkgconfig"
         ];
       };
     };
