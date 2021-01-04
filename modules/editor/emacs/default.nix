@@ -13,7 +13,13 @@
       enable = mcfg.editor.emacs.enable;
 
       doom-d = pkgs.runCommand "doom.d" {
-        inherit (cfg) configel customel funcsel initel packagesel;
+        inherit (cfg) customel initel packagesel;
+
+        configel = ''
+          ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+          (load! "config.el" "~/.doom.d")
+        '';
 
         preferLocalBuild = true;
         allowSubstitutes = false;
@@ -22,7 +28,6 @@
 
         echo "$configel" > $out/config.el
         echo "$customel" > $out/custom.el
-        echo "$funcsel" > $out/funcs.el
         echo "$initel" > $out/init.el
         echo "$packagesel" > $out/packages.el
       '';
@@ -54,6 +59,9 @@
           pkgs.fd
           pkgs.ripgrep
         ];
+
+        home.file.".doom.d/config.el".text = cfg.configel;
+        home.file.".doom.d/funcs.el".text = cfg.funcsel;
 
         programs.doom-emacs = {
           enable = true;
