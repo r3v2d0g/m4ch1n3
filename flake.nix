@@ -2,24 +2,25 @@
   description = "m4ch1n3";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:r3v2d0g/nixpkgs/develop";
 
     nixpkgs-mesa.url = "github:nixos/nixpkgs/1857b270f7570471945fe9a15d3abbacb7fd6abf";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay/0b93526e09d3dae90144eadda1b8e80aad7e0333";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/4d7fdb786637213e2ff45bb868e27eb21a234f06";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/6c90469de3388e65083b579c1d1f41079936fd8d";
+    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/c879675c82ff58be42cec7106cd5c6a35fd3da85";
     nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
     nix-doom-emacs.inputs.doom-snippets.follows = "doom-snippets";
+    nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
 
     doom-emacs = {
-      url = "github:hlissner/doom-emacs/f7293fb67ef701244a421fd3bfc04b8e12689edc";
+      url = "github:hlissner/doom-emacs/d88e0795b68bd0a261872b2c1e80b7b567a862ae";
       flake = false;
     };
 
     doom-snippets = {
-      url = "github:hlissner/doom-snippets/e1cbbdf526224066f6bb67f95672d329323ecb1c";
+      url = "github:hlissner/doom-snippets/33eb93ba6a6f307ceb89e4e80554a1db328c3e26";
       flake = false;
     };
 
