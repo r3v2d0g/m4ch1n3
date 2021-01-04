@@ -14,6 +14,37 @@
   (fetch-password :login "r3v2d0g" :machine "irc.r3vd5u3d.network" :port "6697"))
 
 ;; ┌────────────────────────────────────────────────────────────────────────────────────────────┐ ;;
+;; │                                    LSP Toggle Commands                                     │ ;;
+;; └────────────────────────────────────────────────────────────────────────────────────────────┘ ;;
+
+(defun lsp-rust-analyzer-server-display-inlay-hints-toggle ()
+  (interactive)
+  (setq lsp-rust-analyzer-server-display-inlay-hints
+        (not lsp-rust-analyzer-server-display-inlay-hints))
+  (cond (lsp-rust-analyzer-server-display-inlay-hints
+         (lsp-rust-analyzer-inlay-hints-mode 1)
+         (message "Inlay hints enabled"))
+        (t
+         (lsp-rust-analyzer-inlay-hints-mode -1)
+         (message "Inlay hints disabled"))))
+
+(defun lsp-rust-analyzer-display-parameter-hints-toggle ()
+  (interactive)
+  (setq lsp-rust-analyzer-display-parameter-hints
+        (not lsp-rust-analyzer-display-parameter-hints))
+  (if lsp-rust-analyzer-display-parameter-hints
+      (message "Parameter hints enabled")
+    (message "Parameter hints disabled")))
+
+(defun lsp-rust-analyzer-display-chaining-hints-toggle ()
+  (interactive)
+  (setq lsp-rust-analyzer-display-chaining-hints
+        (not lsp-rust-analyzer-display-chaining-hints))
+  (if lsp-rust-analyzer-display-chaining-hints
+      (message "Chaining hints enabled")
+    (message "Chaining hints disabled")))
+
+;; ┌────────────────────────────────────────────────────────────────────────────────────────────┐ ;;
 ;; │                                     Copyright Commands                                     │ ;;
 ;; └────────────────────────────────────────────────────────────────────────────────────────────┘ ;;
 

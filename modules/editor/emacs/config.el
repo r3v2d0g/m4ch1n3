@@ -1,63 +1,16 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;;; config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
+;; Basic configuration
 (setq user-full-name "Matthieu Le brazidec (r3v2d0g)"
-      user-mail-address "r3v2d0g@jesus.gg")
+      user-mail-address "r3v2d0g@jesus.gg"
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font "JetBrains Mono-12")
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-outrun-electric
+      doom-theme 'doom-outrun-electric
+      doom-font "JetBrains Mono-12"
       doom-outrun-electric-brighter-modeline t
-      doom-outrun-electric-brighter-comments t)
+      doom-outrun-electric-brighter-comments t
+      display-line-numbers-type t
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-;; Local config
-(load! "config.el" "~/emacs")
+      org-directory "~/org/")
 
 ;; Helpers
 (load! "funcs.el")
@@ -66,24 +19,39 @@
 (add-hook! prog-mode #'display-fill-column-indicator-mode)
 (setq-hook! prog-mode fill-column 100)
 
+;; Local leader key
+(setq! doom-localleader-key ",")
+
 ;; js-mode
 (setq-hook! js-mode
   js-indent-level 2)
 
+;; typescript-mode
+(setq-hook! typescript-mode
+  typescript-indent-level 2)
+
+;; css-mode
+(setq-hook! css-mode
+  css-indent-offset 2)
+
 ;; web-mode
 (setq-hook! web-mode
   js-indent-level 2
+  ;; padding
   web-mode-part-padding nil
   web-mode-script-padding nil
+  web-mode-style-padding nil
+  ;; indent-offset
   web-mode-attr-indent-offset 2
-  web-mode-markup-indent-offset 2
-  web-mode-code-indent-offset 2)
+  web-mode-code-indent-offset 2
+  web-mode-css-indent-offset 2
+  web-mode-markup-indent-offset 2)
 
 ;; rustic-mode
 (setq-hook! rustic-mode
   rustic-lsp-server 'rust-analyzer
   rustic-match-angle-brackets nil
-  lsp-enable-semantic-highlighting t
+  ;;lsp-enable-semantic-highlighting t
   ;; TODO: lsp-rust-analyzer-max-inlay-hint-length
   lsp-rust-analyzer-server-display-inlay-hints t
   lsp-rust-analyzer-display-parameter-hints t
@@ -102,16 +70,18 @@
   lsp-rust-analyzer-call-info-full t ;; TODO: investigate
   lsp-rust-analyzer-proc-macro-enable t
   lsp-rust-analyzer-import-merge-behaviour "last"
-  lsp-rust-analyzer-import-prefix "by_self"
+  lsp-rust-analyzer-import-prefix "by_self")
   ;; TODO: lsp-rust-analyzer-inlay-type{,space-}-format
   ;; TODO: lsp-rust-analyzer-inlay-param{,space-}-format
   ;; TODO: lsp-rust-analyzer-inlay-chain{,space-}-format
-  )
 (map! :map rustic-mode-map
       :localleader :prefix ("i" . "inlay hints")
       :desc "Toggle inlay hints"     "i" #'lsp-rust-analyzer-server-display-inlay-hints-toggle
       :desc "Toggle parameter hints" "p" #'lsp-rust-analyzer-display-parameter-hints-toggle
       :desc "Toggle chaining hints"  "c" #'lsp-rust-analyzer-display-chaining-hints-toggle)
+
+;; org-mode
+(use-package! ox-gfm :after-call org-export-dispatch)
 
 ;; Re-map evil newline keys
 (map! :n "o" #'+default/newline-below
@@ -151,9 +121,6 @@
 ;; ;;  (push 'ejc-company-backend company-backends)
 ;; ;;  (add-hook! ejc-sql-minor-mode
 ;; ;;             (cmd! (company-mode t))))
-;;
-;; ;;(use-package! ox-gfm
-;; ;;  :after-call org-export-dispatch)
 ;;
 ;; (setq! +mu4e-mu4e-mail-path "~/email")
 ;; (set-email-account!
