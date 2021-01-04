@@ -67,7 +67,8 @@
           enable = true;
 
           doomPrivateDir = doom-d;
-          emacsPackage = pkgs.emacsGcc;
+          emacsPackage = pkgs.emacsGit;
+          # TODO: emacsPackage = pkgs.emacsGcc;
 
           emacsPackagesOverlay = self: super: {
             ion-mode = self.melpaBuild {
