@@ -15,10 +15,10 @@
       packagesel = ''
         ;; -*- no-byte-compile: t; -*-
 
-        ${lib.concatStringsWs (lib.mapAttrsValues package cfg.packages)}
-        ${lib.concatStringsWs (lib.mapAttrsValues package cfg.extraPackages)}
+        ${lib.concatStringsNl (lib.mapAttrsValues package cfg.packages)}
+        ${lib.concatStringsNl (lib.mapAttrsValues package cfg.extraPackages)}
 
-        ${lib.concatMapStringsWs (pkg: "(unpin! ${pkg})") cfg.unpinPackages}
+        ${lib.concatMapStringsNl (pkg: "(unpin! ${pkg})") cfg.unpinPackages}
       '';
 
       package = pkg: { enable, recipe, ... }:
