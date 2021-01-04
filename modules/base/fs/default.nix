@@ -1,5 +1,5 @@
 {
-  machine = { lib, mcfg, ... }:
+  machine = { lib, mcfg, pkgs, ... }:
     let
       cfg = mcfg.base.fs;
 
@@ -19,12 +19,16 @@
         boot = lib.mkOptStr null;
       };
 
-      config.boot.supportedFilesystems = [ "zfs" ];
-      config.fileSystems = {
-        "/" = zfs "${cfg.pool}/${cfg.root}";
-        "/home" = zfs "${cfg.pool}/${cfg.home}";
-        "/nix" = zfs "${cfg.pool}/${cfg.nix}";
-        "/boot" = vfat cfg.boot;
+      config = {
+        boot.supportedFilesystems = [ "zfs" ];
+        fileSystems = {
+          "/" = zfs "${cfg.pool}/${cfg.root}";
+          "/home" = zfs "${cfg.pool}/${cfg.home}";
+          "/nix" = zfs "${cfg.pool}/${cfg.nix}";
+          "/boot" = vfat cfg.boot;
+        };
+
+        environment.systemPackages = [ pkgs.fuse3 ];
       };
     };
 
