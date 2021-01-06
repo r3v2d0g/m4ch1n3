@@ -8,6 +8,7 @@
         device = lib.mkOptStr null;
         modules = lib.mkOptStrList [];
         packages = lib.mkOptPkgList [];
+        amd = lib.mkOptBool false;
       };
 
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -26,11 +27,14 @@
         };
 
         initrd.availableKernelModules = [
-          "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
-          "aes_x86_64" "aesni_intel"
-        ];
+          "nvme" "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
+          "aes_x86_64"
+        ] ++ lib.optional (! cfg.amd) "aesni_intel";
 
-        kernelModules = [ "kvm-intel" ] ++ cfg.modules;
+        kernelModules = cfg.modules
+                        ++ (if cfg.amd
+                            then [ "kvm-amd" ]
+                            else [ "kvm-intel" ]);
         extraModulePackages = cfg.packages;
       };
     };

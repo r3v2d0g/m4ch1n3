@@ -4,7 +4,6 @@
   users = { lib, mcfg, ucfg, ... }@args:
     let
       cfg = ucfg.editor.emacs;
-      enable = mcfg.editor.emacs.enable && ucfg.editor.emacs.enable;
 
       modules = {
         app = import ./app args;

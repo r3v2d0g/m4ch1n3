@@ -45,6 +45,7 @@
     let
       cfg = ucfg.wm;
       wmcfg = mcfg.wm;
+      enable = wmcfg.enable && cfg.enable;
 
       workspace = pkgs.writeTextFile {
         name = "workspace";
@@ -103,7 +104,7 @@
         '';
       };
     in {
-      options.m4ch1n3.wm = lib.optionalAttrs wmcfg.enable {
+      options.m4ch1n3.wm = {
         enable = lib.mkOptBool false;
 
         autostart = {
@@ -114,7 +115,7 @@
         mod = lib.mkOptStr "Mod4";
       };
 
-      config = lib.mkIf (wmcfg.enable && cfg.enable) {
+      config = lib.mkIf enable {
         home.packages = [ pkgs.light ];
 
         gtk = {

@@ -5,7 +5,8 @@
     let
       cfg = ucfg.dev.jetbrains;
       enable = mcfg.dev.enable && ucfg.dev.enable
-               && mcfg.wm.enable && ucfg.wm.enable;
+               && mcfg.wm.enable && ucfg.wm.enable
+               && cfg.enable;
 
       webstorm = lib.overrideDerivation pkgs.jetbrains.webstorm (_:
         lib.optionalAttrs cfg.webstorm.eap {
@@ -17,13 +18,13 @@
         }
       );
     in {
-      options.m4ch1n3.dev.jetbrains = lib.optionalAttrs enable {
+      options.m4ch1n3.dev.jetbrains = {
         enable = lib.mkOptBool false;
 
         webstorm.enable = lib.mkOptBool true;
         webstorm.eap = lib.mkOptBool false;
       };
 
-      config.home.packages = lib.optional (enable && cfg.enable && cfg.webstorm.enable) webstorm;
+      config.home.packages = lib.optional (enable && cfg.webstorm.enable) webstorm;
     };
 }

@@ -4,7 +4,7 @@ let
   cfg = mcfg.users.r3v2d0g;
 in {
   options.m4ch1n3.users.r3v2d0g = {
-    enable = lib.mkOptBool true;
+    enable = lib.mkOptBool false;
 
     name = lib.mkOptStr "Matthieu Le brazidec (r3v2d0g)";
     email = lib.mkOptStr "r3v2d0g@jesus.gg";
@@ -31,7 +31,7 @@ in {
       slack = lib.mkOptBool false;
     };
 
-    dev = lib.optionalAttrs mcfg.dev.enable {
+    dev = {
       enable = lib.mkOptBool true;
 
       cypress = lib.mkOptBool false;
@@ -45,7 +45,7 @@ in {
       vuejs = lib.mkOptBool true;
     };
 
-    wm = lib.optionalAttrs mcfg.wm.enable {
+    wm = {
       enable = lib.mkOptBool true;
 
       autostart = lib.mkOptBool false;
@@ -67,42 +67,43 @@ in {
         signing.signByDefault = true;
       };
 
-      m4ch1n3.comm = { enable = cfg.comm.enable; }
-                     // lib.optionalAttrs cfg.comm.enable {
-                       discord.enable = cfg.comm.discord;
-                       pm.enable = cfg.comm.pm;
-                       slack.enable = cfg.comm.slack;
-                     };
+      m4ch1n3.comm = {
+        enable = cfg.comm.enable;
 
-      m4ch1n3.dev = lib.mkIf mcfg.dev.enable
-        ({ enable = cfg.dev.enable; }
-         // lib.optionalAttrs cfg.dev.enable {
-           cypress.enable = lib.mkIf (mcfg.wm.enable && cfg.wm.enable) cfg.dev.cypress;
-           docker.enable = lib.mkIf mcfg.dev.docker.enable cfg.dev.docker;
+        discord.enable = cfg.comm.discord;
+        pm.enable = cfg.comm.pm;
+        slack.enable = cfg.comm.slack;
+      };
 
-           haskell.enable = cfg.dev.haskell;
-           nodejs.enable = cfg.dev.nodejs;
-           python.enable = cfg.dev.python;
-           rust.enable = cfg.dev.rust;
-           typescript.enable = cfg.dev.typescript;
-           vuejs.enable = cfg.dev.vuejs;
-         });
+      m4ch1n3.dev = {
+        enable = cfg.dev.enable;
+
+        cypress.enable = cfg.dev.cypress;
+        docker.enable = cfg.dev.docker;
+
+        haskell.enable = cfg.dev.haskell;
+        nodejs.enable = cfg.dev.nodejs;
+        python.enable = cfg.dev.python;
+        rust.enable = cfg.dev.rust;
+        typescript.enable = cfg.dev.typescript;
+        vuejs.enable = cfg.dev.vuejs;
+      };
 
       m4ch1n3.security = {
         gpg.agent.enable = true;
         pass.enable = true;
       };
 
-      m4ch1n3.wm = lib.mkIf mcfg.wm.enable
-        ({ enable = cfg.wm.enable; }
-         // lib.optionalAttrs cfg.wm.enable {
-           autostart.enable = cfg.wm.autostart;
+      m4ch1n3.wm = {
+        enable = cfg.wm.enable;
 
-           audio.enable = lib.mkIf mcfg.wm.audio.enable cfg.wm.audio;
-           browser.enable = lib.mkIf mcfg.wm.browser.enable cfg.wm.browser;
-           onepassword.enable = cfg.wm.onepassword;
-           term.enable = cfg.wm.term;
-         });
+        autostart.enable = cfg.wm.autostart;
+
+        audio.enable = cfg.wm.audio;
+        browser.enable = cfg.wm.browser;
+        onepassword.enable = cfg.wm.onepassword;
+        term.enable = cfg.wm.term;
+      };
     };
 
     users.extraUsers.r3v2d0g = {
@@ -111,10 +112,13 @@ in {
       uid = cfg.uid;
 
       group = "users";
-      extraGroups = cfg.groups
-                    ++ lib.optional cfg.wheel "wheel"
-                    ++ lib.optional (mcfg.dev.enable && mcfg.dev.docker.enable
-                                     && cfg.dev.docker) "docker";
+      extraGroups =
+        cfg.groups
+        ++ lib.optional cfg.wheel "wheel"
+        ++ lib.optional (
+          mcfg.dev.enable && mcfg.dev.docker.enable
+          && cfg.dev.docker
+        ) "docker";
 
       home = cfg.home.path;
       createHome = cfg.home.create;

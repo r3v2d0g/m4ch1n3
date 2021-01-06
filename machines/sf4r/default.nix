@@ -29,7 +29,6 @@
     ssh.addr = "192.168.1.2";
   };
 
-  users.eqs.enable = true;
   users.r3v2d0g = {
     enable = true;
     password = "local";

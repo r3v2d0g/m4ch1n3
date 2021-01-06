@@ -2,11 +2,11 @@
   machine = { lib, pkgs, mcfg, ... }:
     let
       cfg = mcfg.db.pg;
-      enable = mcfg.db.enable;
+      enable = mcfg.db.enable && cfg.enable;
     in {
-      options.m4ch1n3.db.pg = lib.optionalAttrs enable { enable = lib.mkOptBool false; };
+      options.m4ch1n3.db.pg.enable = lib.mkOptBool false;
 
-      config.services.postgresql = lib.mkIf (enable && cfg.enable) {
+      config.services.postgresql = lib.mkIf enable {
         enable = true;
         package = pkgs.postgresql_10;
         enableTCPIP = true;

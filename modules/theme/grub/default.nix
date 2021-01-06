@@ -52,7 +52,7 @@
         '';
       };
     in {
-      options.m4ch1n3.theme.grub = lib.optionalAttrs enable {
+      options.m4ch1n3.theme.grub = {
         colors = {
           background = lib.mkOptColor "bg";
           progress = lib.mkOptColor "blue";

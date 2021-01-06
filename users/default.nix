@@ -12,7 +12,6 @@ let
   });
 in {
   imports = [
-    (user ./eqs)
     (user ./r3v2d0g)
     (user ./root)
   ];

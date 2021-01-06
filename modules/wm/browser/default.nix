@@ -1,15 +1,15 @@
 { machine = { lib, mcfg, ... }:
     let
       cfg = mcfg.wm.browser;
-      enable = mcfg.wm.enable;
+      enable = mcfg.wm.enable && cfg.enable;
     in {
-      options.m4ch1n3.wm.browser = lib.optionalAttrs enable {
+      options.m4ch1n3.wm.browser = {
         enable = lib.mkOptBool true;
 
         extensions = lib.mkOptStrList [];
       };
 
-      config.programs.chromium = lib.mkIf (enable && cfg.enable) {
+      config.programs.chromium = lib.mkIf enable {
         enable = true;
 
         defaultSearchProviderSearchURL = "https://duckduckgo.com/?q={searchTerms}";
@@ -28,7 +28,8 @@
     let
       cfg = ucfg.wm.browser;
       enable = mcfg.wm.enable && mcfg.wm.browser.enable
-               && ucfg.wm.enable;
+               && ucfg.wm.enable
+               && cfg.enable;
 
       ungoogled-chromium = pkgs.ungoogled-chromium.override (_: {
         enableVaapi = true;
@@ -51,9 +52,9 @@
         ln -s $out/bin/chromium $out/bin/chromium-browser
       '';
     in {
-      options.m4ch1n3.wm.browser = lib.optionalAttrs enable { enable = lib.mkOptBool true; };
+      options.m4ch1n3.wm.browser.enable = lib.mkOptBool true;
 
-      config.programs.chromium = lib.mkIf (enable && cfg.enable) {
+      config.programs.chromium = lib.mkIf enable {
         enable = true;
 
         package = chromium;

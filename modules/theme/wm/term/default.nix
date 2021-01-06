@@ -9,7 +9,7 @@
       colors = mcfg.theme.colors;
       fonts = mcfg.theme.fonts;
     in {
-      options.m4ch1n3.theme.wm.term.colors = lib.optionalAttrs enable {
+      options.m4ch1n3.theme.wm.term.colors = {
         fg = lib.mkOptColor "fg";
         bg = lib.mkOptColor "bg";
 

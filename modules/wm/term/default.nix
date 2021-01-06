@@ -3,11 +3,12 @@
   users = { lib, mcfg, ucfg, ... }:
     let
       cfg = ucfg.wm.term;
-      enable = mcfg.wm.enable && ucfg.wm.enable;
+      enable = mcfg.wm.enable && ucfg.wm.enable
+               && cfg.enable;
     in {
-      options.m4ch1n3.wm.term = lib.optionalAttrs enable { enable = lib.mkOptBool true; };
+      options.m4ch1n3.wm.term.enable = lib.mkOptBool true;
 
-      config.programs.kitty = lib.mkIf (enable && cfg.enable) {
+      config.programs.kitty = lib.mkIf enable {
         enable = true;
 
         keybindings = {

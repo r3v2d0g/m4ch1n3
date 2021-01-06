@@ -10,7 +10,7 @@
   users = { inputs, lib, mcfg, pkgs, ucfg, ... }:
     let
       cfg = ucfg.editor.emacs;
-      enable = mcfg.editor.emacs.enable;
+      enable = mcfg.editor.emacs.enable && cfg.enable;
 
       doom-d = pkgs.runCommand "doom.d" {
         inherit (cfg) customel initel packagesel;
@@ -38,7 +38,7 @@
           options.programs.doom-emacs.doomPrivateDir.apply = lib.id;
         };
     in {
-      options.m4ch1n3.editor.emacs = lib.optionalAttrs enable {
+      options.m4ch1n3.editor.emacs = {
         enable = lib.mkOptBool true;
 
         initel = lib.mkOptInternal null;
@@ -52,9 +52,9 @@
         user.email = lib.mkOptStr null;
       };
 
-      imports = lib.optional enable doom-emacs;
+      imports = lib.optional mcfg.editor.emacs.enable doom-emacs;
 
-      config = lib.mkIf (enable && cfg.enable) {
+      config = lib.mkIf enable {
         home.packages = [
           pkgs.fd
           pkgs.ripgrep

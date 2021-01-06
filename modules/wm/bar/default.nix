@@ -3,7 +3,9 @@
   users = { inputs, lib, mcfg, pkgs, ucfg, ... }:
     let
       cfg = ucfg.wm.bar;
-      enable = mcfg.wm.enable && ucfg.wm.enable;
+      enable = mcfg.wm.enable && ucfg.wm.enable
+               && cfg.enable;
+
       colors = mcfg.theme.colors;
       theme = ucfg.theme.wm.bar;
 
@@ -27,9 +29,9 @@
         '';
       };
     in {
-      options.m4ch1n3.wm.bar = lib.optionalAttrs enable { enable = lib.mkOptBool true; };
+      options.m4ch1n3.wm.bar.enable = lib.mkOptBool true;
 
-      config = lib.mkIf (enable && cfg.enable) {
+      config = lib.mkIf enable {
         programs.waybar = {
           enable = true;
 

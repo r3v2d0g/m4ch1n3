@@ -1,14 +1,16 @@
 {
   machine = { ... }: {};
 
-  users = { config, lib, ucfg, pkgs, ... }:
+  users = { config, lib, mcfg, ucfg, pkgs, ... }:
     let
       cfg = ucfg.dev.gtk;
-      enable = ucfg.dev.enable && ucfg.dev.build.enable;
+      enable = mcfg.dev.enable && ucfg.dev.enable
+               && ucfg.dev.build.enable
+               && cfg.enable;
     in {
-      options.m4ch1n3.dev.gtk = lib.optionalAttrs enable { enable = lib.mkOptBool true; };
+      options.m4ch1n3.dev.gtk.enable = lib.mkOptBool true;
 
-      config = lib.mkIf (enable && cfg.enable) {
+      config = lib.mkIf enable {
         m4ch1n3.dev.build.extraPkgConfigPaths = [
           "${pkgs.atk.dev}/lib/pkgconfig"
           "${pkgs.cairo.dev}/lib/pkgconfig"

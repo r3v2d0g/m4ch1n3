@@ -17,15 +17,21 @@
         home = lib.mkOptStr "safe/home";
         nix = lib.mkOptStr "local/nix";
         boot = lib.mkOptStr null;
+        efi = lib.mkOptStrNull null;
       };
 
       config = {
+        boot.loader.efi.efiSysMountPoint = lib.mkIf (! isNull cfg.efi) "/efi";
         boot.supportedFilesystems = [ "zfs" ];
         fileSystems = {
           "/" = zfs "${cfg.pool}/${cfg.root}";
           "/home" = zfs "${cfg.pool}/${cfg.home}";
           "/nix" = zfs "${cfg.pool}/${cfg.nix}";
-          "/boot" = vfat cfg.boot;
+
+          "/efi" = lib.mkIf (! isNull cfg.efi) (vfat cfg.efi);
+          "/boot" = if (isNull cfg.efi)
+                    then (vfat cfg.boot)
+                    else (zfs cfg.boot);
         };
 
         environment.systemPackages = [ pkgs.fuse3 ];

@@ -1,61 +1,61 @@
 { config, ... }:
 
 {
-  base = {
-    boot.device = "/dev/disk/by-id/ata-HGST_HTS721010A9E630_JR10006P0RLBSF";
-    boot.modules = [ "wl" ];
-    boot.packages = [ config.boot.kernelPackages.broadcom_sta ];
+  base.boot.device = "/dev/disk/by-id/nvme-eui.00253857019e8522";
 
-    luks.keys."a5k4-keys".device = "/dev/disk/by-partlabel/a5k4-keys";
+  base.fs = {
+    pool = "a5k4-root";
+    boot = "a5k4-boot/boot";
+    efi = "/dev/disk/by-id/nvme-eui.00253857019e8522-part2";
+  };
 
-    luks.devices."a5k4-part-1" = {
-      device = "/dev/disk/by-partlabel/a5k4-part-1";
+  base.luks =
+    let
+      a5k4-root = n: {
+        device = "/dev/disk/by-partlabel/a5k4-root-${toString n}";
 
-      key.name = "a5k4-keys";
-      key.size = 4096;
-      key.offset = 0;
+        key.name = "a5k4-keys";
+        key.size = 4096;
+        key.offset = n * 4096;
+      };
+    in {
+      keys."a5k4-keys".device = "/dev/disk/by-partlabel/a5k4-keys";
+
+      devices."a5k4-root-0" = a5k4-root 0;
+      devices."a5k4-root-1" = a5k4-root 1;
+      devices."a5k4-root-2" = a5k4-root 2;
     };
 
-    luks.devices."a5k4-part-2" = {
-      device = "/dev/disk/by-partlabel/a5k4-part-2";
-
-      key.name = "a5k4-keys";
-      key.size = 4096;
-      key.offset = 4096;
-    };
-
-    fs.boot = "/dev/disk/by-uuid/436A-302E";
-
-    net.host.name = "a5k4";
-    net.host.id = "a0abe6f6";
-    net.interfaces = [ "enp60s0" ];
-
-    kb.ergodox = true;
+  base.net = {
+    host.name = "a5k4";
+    host.id = "7fabb554";
+    interfaces = [ "enp4s0" "wlp7s0" ];
+    netman = true;
   };
 
   dev.enable = true;
 
-  db.enable = true;
-  db.pg.enable = true;
-
-  security = {
-    yubico.enable = true;
-
-    ssh.server = true;
-    ssh.addr = "192.168.1.2";
-
-    fw.ports = [ 5900 ];
+  db = {
+    enable = true;
+    pg.enable = true;
   };
 
-  users.eqs.enable = true;
+  security.yubico.enable = true;
+
   users.r3v2d0g = {
     enable = true;
+
+    uid = 100;
     password = "local";
 
-    comm.enable = true;
-    comm.discord = true;
-    comm.slack = true;
+    comm = {
+      enable = true;
+      discord = true;
+      slack = true;
+    };
+
     dev.cypress = true;
+
     wm.autostart = true;
   };
 
@@ -69,24 +69,6 @@
 
       position.x = 0;
       position.y = 0;
-    };
-
-    outputs."HDMI-A-2" = {
-      resolution.width = 1920;
-      resolution.height = 1080;
-
-      rotation = 90;
-
-      position.x = 3840;
-      position.y = 2160 - 1920;
-    };
-
-    outputs."eDP-1" = {
-      resolution.width = 1920;
-      resolution.height = 1080;
-
-      position.x = 3840 / 2 - 1920 / 2;
-      position.y = 2160;
     };
   };
 }

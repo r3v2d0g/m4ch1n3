@@ -8,7 +8,7 @@
       colors = mcfg.theme.colors;
       fonts = mcfg.theme.fonts;
     in {
-      options.m4ch1n3.theme.wm = lib.optionalAttrs enable {
+      options.m4ch1n3.theme.wm = {
         colors = {
           background = lib.mkOptColor "bg";
 

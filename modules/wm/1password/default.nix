@@ -4,9 +4,10 @@
     let
       cfg = ucfg.wm.onepassword;
       theme = ucfg.theme.wm.onepassword;
-      enable = mcfg.wm.enable && ucfg.wm.enable;
+      enable = mcfg.wm.enable && ucfg.wm.enable
+               && cfg.enable;
     in {
-      options.m4ch1n3.wm.onepassword = lib.optionalAttrs enable {
+      options.m4ch1n3.wm.onepassword = {
         enable = lib.mkOptBool false;
 
         autolock.minutes = lib.mkOptIntNull null;
@@ -18,7 +19,7 @@
         clipboard.clearAfter = lib.mkOptIntNull 30;
       };
 
-      config = lib.mkIf (enable && cfg.enable) {
+      config = lib.mkIf enable {
         home.packages = [ pkgs._1password-gui ];
 
         home.file.".config/1Password/settings/settings.json".text = builtins.toJSON ({

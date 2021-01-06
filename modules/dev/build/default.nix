@@ -1,18 +1,19 @@
 {
   machine = { ... }: {};
 
-  users = { config, lib, ucfg, pkgs, ... }:
+  users = { config, lib, mcfg, ucfg, pkgs, ... }:
     let
       cfg = ucfg.dev.build;
-      enable = ucfg.dev.enable;
+      enable = mcfg.dev.enable && ucfg.dev.enable
+               && cfg.enable;
     in {
-      options.m4ch1n3.dev.build = lib.optionalAttrs enable {
+      options.m4ch1n3.dev.build = {
         enable = lib.mkOptBool true;
 
         extraPkgConfigPaths = lib.mkOptStrList [];
       };
 
-      config.home = lib.mkIf (enable && cfg.enable) {
+      config.home = lib.mkIf enable {
         packages = [
           pkgs.cmake
           pkgs.meson

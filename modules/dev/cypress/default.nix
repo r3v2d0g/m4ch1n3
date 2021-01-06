@@ -5,7 +5,8 @@
     let
       cfg = ucfg.dev.cypress;
       enable = mcfg.dev.enable && ucfg.dev.enable
-               && mcfg.wm.enable && ucfg.wm.enable;
+               && mcfg.wm.enable && ucfg.wm.enable
+               && cfg.enable;
 
       cypress = pkgs.cypress.overrideAttrs (_: {
         version = "6.0.0";
@@ -15,9 +16,9 @@
         };
       });
     in {
-      options.m4ch1n3.dev.cypress = lib.optionalAttrs enable { enable = lib.mkOptBool false; };
+      options.m4ch1n3.dev.cypress.enable = lib.mkOptBool false;
 
-      config = lib.mkIf (enable && cfg.enable) {
+      config = lib.mkIf enable {
         home.packages = [ cypress ];
 
         programs.zsh.sessionVariables = {
