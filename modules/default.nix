@@ -61,6 +61,7 @@ let
     ./wm/audio
     ./wm/bar
     ./wm/browser
+    ./wm/mpv
     ./wm/term
   ];
 in {
