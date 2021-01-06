@@ -46,6 +46,7 @@ let
 
     ./shell
     ./shell/git
+    ./shell/p7zip
 
     ./theme
     ./theme/console

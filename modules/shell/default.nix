@@ -16,7 +16,6 @@
           pkgs.fzf
           pkgs.htop
           pkgs.jq
-          pkgs.p7zip
           pkgs.wget
         ];
 
