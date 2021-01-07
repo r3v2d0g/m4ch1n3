@@ -50,11 +50,13 @@
               "custom/clock" = {
                 exec = "${clock}/bin/clock";
                 interval = 1;
+                tooltip = false;
               };
 
               "network" = {
                 format = "{ifname}: {ipaddr}";
                 format-disconnected = "{ifname}: disconnected";
+                tooltip = false;
               };
 
               "pulseaudio" = {
