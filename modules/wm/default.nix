@@ -103,6 +103,27 @@
           fi
         '';
       };
+
+      sysmon = pkgs.writeTextFile {
+        name = "sysmon";
+        destination = "/bin/sysmon";
+        executable = true;
+
+        text = ''
+          #! ${pkgs.zsh}/bin/zsh
+
+          if [ -z "$(swaymsg --type get_tree | grep 'sysmon')" ]; then
+              swaymsg -- exec kitty --class=sysmon ${pkgs.bottom}/bin/btm
+
+              for i in {0..10}; do
+                  swaymsg "[app_id=sysmon] move to scratchpad" && break
+                  sleep 0.1
+              done
+          fi
+
+          swaymsg -- '[app_id=sysmon]' scratchpad show
+        '';
+      };
     in {
       options.m4ch1n3.wm = {
         enable = lib.mkOptBool false;
@@ -223,7 +244,10 @@
           }
           // lib.optionalAttrs cfg.bar.enable
             { "${cfg.mod}+Shift+Escape" = "exec pkill -SIGUSR1 waybar"; }
-          // lib.optionalAttrs cfg.term.enable { "${cfg.mod}+q" = "exec kitty"; }
+          // lib.optionalAttrs cfg.term.enable {
+            "${cfg.mod}+q"   = "exec kitty";
+            "Ctrl+Mod1+Home" = "exec ${sysmon}/bin/sysmon";
+          }
           // lib.optionalAttrs ucfg.editor.emacs.enable { "${cfg.mod}+e" = "exec emacs"; }
           // lib.optionalAttrs cfg.browser.enable { "${cfg.mod}+c" = "exec chromium"; }
           // lib.optionalAttrs cfg.onepassword.enable { "${cfg.mod}+1" = "exec 1password"; }
