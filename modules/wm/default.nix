@@ -113,7 +113,7 @@
           #! ${pkgs.zsh}/bin/zsh
 
           if [ -z "$(swaymsg --type get_tree | grep 'sysmon')" ]; then
-              swaymsg -- exec kitty --class=sysmon ${pkgs.bottom}/bin/btm
+              swaymsg -- exec kitty --class=sysmon ${pkgs.bottom}/bin/btm -aT
 
               for i in {0..10}; do
                   swaymsg "[app_id=sysmon] move to scratchpad" && break
