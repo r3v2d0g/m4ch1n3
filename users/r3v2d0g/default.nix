@@ -45,6 +45,10 @@ in {
       vuejs = lib.mkOptBool true;
     };
 
+    theme = {
+      wm.term.fontSize = lib.mkOptStrNull null;
+    };
+
     wm = {
       enable = lib.mkOptBool true;
 
@@ -92,6 +96,10 @@ in {
       m4ch1n3.security = {
         gpg.agent.enable = true;
         pass.enable = true;
+      };
+
+      m4ch1n3.theme = {
+        wm.term.fontSize = lib.mkIf (! isNull cfg.theme.wm.term.fontSize) cfg.theme.wm.term.fontSize;
       };
 
       m4ch1n3.wm = {
