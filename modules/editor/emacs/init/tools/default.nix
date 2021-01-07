@@ -13,7 +13,7 @@ args:
   lookup = null;
   lsp = import ./lsp args;
   magit = import ./magit args;
-  make = null;
+  make = import ./make args;
   pass = null;
   pdf = null;
   prodigy = null;
