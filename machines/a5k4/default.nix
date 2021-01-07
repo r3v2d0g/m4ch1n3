@@ -57,6 +57,8 @@
     dev.cypress = true;
 
     wm.autostart = true;
+
+    theme.wm.term.fontSize = "9.0";
   };
 
   wm = {
