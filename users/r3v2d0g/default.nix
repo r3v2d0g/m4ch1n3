@@ -45,6 +45,10 @@ in {
       vuejs = lib.mkOptBool true;
     };
 
+    shell = {
+      mega = lib.mkOptBool false;
+    };
+
     theme = {
       wm.term.fontSize = lib.mkOptStrNull null;
     };
@@ -96,6 +100,10 @@ in {
       m4ch1n3.security = {
         gpg.agent.enable = true;
         pass.enable = true;
+      };
+
+      m4ch1n3.shell = {
+        mega.enable = cfg.shell.mega;
       };
 
       m4ch1n3.theme = {

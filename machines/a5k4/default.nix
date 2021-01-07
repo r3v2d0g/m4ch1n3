@@ -57,10 +57,9 @@
     };
 
     dev.cypress = true;
-
-    wm.autostart = true;
-
+    shell.mega = true;
     theme.wm.term.fontSize = "9.0";
+    wm.autostart = true;
   };
 
   wm = {
