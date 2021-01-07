@@ -9,6 +9,8 @@
     efi = "/dev/disk/by-id/nvme-eui.00253857019e8522-part2";
   };
 
+  base.kb.ergodox = true;
+
   base.luks =
     let
       a5k4-root = n: {
