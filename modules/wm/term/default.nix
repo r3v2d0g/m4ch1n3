@@ -13,7 +13,7 @@
 
         keybindings = {
           "ctrl+tab"       = "next_tab";
-          "ctrl+shift+tab" = "next_tab";
+          "ctrl+shift+tab" = "prev_tab";
           "ctrl+shift+t"   = "new_tab";
           "ctrl+shift+w"   = "close_tab";
         };
