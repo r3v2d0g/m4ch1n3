@@ -240,6 +240,7 @@
             "${cfg.mod}+Shift+b" = "split horizontal";
 
             "${cfg.mod}+Shift+q" = "kill";
+            "${cfg.mod}+Mod1+r"  = "reload";
             "${cfg.mod}+Mod1+e"  = "exit";
           }
           // lib.optionalAttrs cfg.bar.enable
