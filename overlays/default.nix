@@ -35,9 +35,8 @@ self: super:
     src = waybar;
     version = "0.9.5";
 
-    patches = (prev.patches or []) ++ [
-      ./patches/waybar/0001-no-exclusive-zone-for-overlay.patch
-    ];
+    patches = (prev.patches or [])
+              ++ [ ./patches/waybar/0001-no-exclusive-zone-for-overlay.patch ];
 
     mesonFlags = prev.mesonFlags ++ [ "-Dsndio=disabled" ];
   });
