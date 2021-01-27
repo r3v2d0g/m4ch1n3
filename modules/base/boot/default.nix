@@ -35,6 +35,8 @@
                             then [ "kvm-amd" ]
                             else [ "kvm-intel" ]);
         extraModulePackages = cfg.packages;
+
+        kernel.sysctl = { "fs.inotify.max_user_watches" = 524288; };
       };
     };
 
