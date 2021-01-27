@@ -280,8 +280,8 @@
             for_window [class="Emacs"] border pixel 2
 
             ${lib.optionalString cfg.bar.enable ''
-              bindsym --no-repeat ${cfg.mod}+Escape exec pkill -SIGUSR1 way
-              bindsym --release ${cfg.mod}+Escape exec pkill -SIGUSR1 way
+              bindsym --no-repeat ${cfg.mod}+Escape exec pkill -SIGUSR1 waybar
+              bindsym --release ${cfg.mod}+Escape exec pkill -SIGUSR1 waybar
             ''}
           '';
         };
