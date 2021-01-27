@@ -9,10 +9,10 @@
                && cfg.enable;
 
       cypress = pkgs.cypress.overrideAttrs (_: {
-        version = "6.0.0";
+        version = "6.2.1";
         src = pkgs.fetchurl {
-          url = "https://cdn.cypress.io/desktop/6.0.0/linux-x64/cypress.zip";
-          sha256 = "1qsp3lc98sl4bcj2g61ydv3q08b9jkqgd1asy9pk31h9r5ribfpa";
+          url = "https://cdn.cypress.io/desktop/6.3.0/linux-x64/cypress.zip";
+          sha256 = "0jdlm700l515jhva9rdm9219fv20h1kwzdc1d5k6zvzafpq4fd1s";
         };
       });
     in {
