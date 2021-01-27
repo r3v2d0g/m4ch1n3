@@ -9,5 +9,5 @@ in {
 
   flags.lsp = true;
 
-  packages = lib.optional flags.lsp pkgs.rust-analyzer;
+  packages = [];
 }

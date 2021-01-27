@@ -39,6 +39,11 @@
       flake = false;
     };
 
+    nixpkgs-mozilla = {
+      url = "github:mozilla/nixpkgs-mozilla";
+      flake = false;
+    };
+
     paper-icon-theme = {
       url = "github:snwh/paper-icon-theme";
       flake = false;
