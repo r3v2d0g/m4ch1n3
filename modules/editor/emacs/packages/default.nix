@@ -8,6 +8,7 @@
       packages = {
         atomic-chrome = import ./atomic-chrome args;
         evil-snipe = import ./evil-snipe args;
+        feature-mode = import ./feature-mode args;
         ion-mode = import ./ion-mode args;
         ox-gfm = import ./ox-gfm args;
       };
