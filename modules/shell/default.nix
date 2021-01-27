@@ -14,7 +14,6 @@
           pkgs.du-dust
           pkgs.exa
           pkgs.fzf
-          pkgs.htop
           pkgs.jq
           pkgs.wget
         ];
