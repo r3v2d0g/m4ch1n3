@@ -28,7 +28,6 @@
 
         initrd.availableKernelModules = [
           "nvme" "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
-          "aes_x86_64"
         ] ++ lib.optional (! cfg.amd) "aesni_intel";
 
         kernelModules = cfg.modules
