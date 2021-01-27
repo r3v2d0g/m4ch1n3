@@ -1,7 +1,7 @@
 {
   machine = { ... }: {};
 
-  users = { config, lib, mcfg, ucfg, pkgs, ... }:
+  users = { lib, mcfg, ucfg, pkgs, ... }:
     let
       cfg = ucfg.dev.gtk;
       enable = mcfg.dev.enable && ucfg.dev.enable
