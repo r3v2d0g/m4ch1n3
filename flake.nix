@@ -2,8 +2,7 @@
   description = "m4ch1n3";
 
   inputs = {
-    nixpkgs.url = "github:r3v2d0g/nixpkgs/develop";
-
+    nixpkgs.url = "github:nixos/nixpkgs";
     nixpkgs-mesa.url = "github:nixos/nixpkgs/1857b270f7570471945fe9a15d3abbacb7fd6abf";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay/4d7fdb786637213e2ff45bb868e27eb21a234f06";
