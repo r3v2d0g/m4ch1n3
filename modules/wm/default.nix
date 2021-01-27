@@ -137,7 +137,10 @@
       };
 
       config = lib.mkIf enable {
-        home.packages = [ pkgs.light ];
+        home.packages = [
+          pkgs.light
+          pkgs.sway-contrib.grimshot
+        ];
 
         gtk = {
           enable = true;
