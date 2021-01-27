@@ -1,8 +1,8 @@
-{ bc, kernel, source, stdenv }:
+{ bc, kernel, src, stdenv }:
 
 stdenv.mkDerivation {
   name = "rtl8723de";
-  src = source;
+  inherit src;
 
   hardeningDisable = [ "pic" ];
   enableParallelBuilding = true;

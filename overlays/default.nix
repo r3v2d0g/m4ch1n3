@@ -27,7 +27,7 @@ self: super:
   });
 
   rtl8723de = self.callPackage ./rtl8723de {
-    source = rtl8723de;
+    src = rtl8723de;
     kernel = self.linux;
   };
 
