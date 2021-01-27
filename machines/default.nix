@@ -5,5 +5,8 @@ let
 in {
   imports = [ modules ];
 
-  nixpkgs.overlays = [ (import ../overlays inputs) ];
+  nixpkgs.overlays = [
+    (import inputs.nixpkgs-mozilla)
+    (import ../overlays inputs)
+  ];
 }
