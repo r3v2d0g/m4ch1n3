@@ -221,6 +221,11 @@
             "${cfg.mod}+Mod1+Shift+k" = "move output up";
             "${cfg.mod}+Mod1+Shift+l" = "move output right";
 
+            "${cfg.mod}+Ctrl+Mod1+h" = "resize grow width";
+            "${cfg.mod}+Ctrl+Mod1+k" = "resize grow height";
+            "${cfg.mod}+Ctrl+Mod1+j" = "resize shrink height";
+            "${cfg.mod}+Ctrl+Mod1+l" = "resize shrink width";
+
             "${cfg.mod}+Ctrl+h" = "exec ${workspace}/bin/workspace focus prev";
             "${cfg.mod}+Ctrl+l" = "exec ${workspace}/bin/workspace focus next";
 
