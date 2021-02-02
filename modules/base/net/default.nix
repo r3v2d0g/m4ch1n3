@@ -21,12 +21,12 @@
           hostName = cfg.host.name;
           hostId = cfg.host.id;
 
-          enableIPv6 = cfg.ipv6;
-
           interfaces = lib.genAttrs cfg.interfaces (_: { useDHCP = cfg.dhcp; });
 
           networkmanager.enable = cfg.netman;
         };
+
+        boot.kernel.sysctl."net.ipv6.conf.enp4s0.disable_ipv6" = !cfg.ipv6;
 
         environment.systemPackages = lib.optional cfg.idevice pkgs.libimobiledevice;
       };
