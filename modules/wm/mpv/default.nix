@@ -9,6 +9,12 @@
     in {
       options.m4ch1n3.wm.mpv.enable = lib.mkOptBool true;
 
-      config.home.packages = lib.optional enable pkgs.mpv;
+      config.programs.mpv = lib.mkIf enable {
+        enable = true;
+
+        config = {
+          audio-channels = "stereo";
+        };
+      };
     };
 }
