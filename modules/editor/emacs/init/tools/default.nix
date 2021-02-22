@@ -15,7 +15,7 @@ args:
   magit = import ./magit args;
   make = import ./make args;
   pass = null;
-  pdf = null;
+  pdf = import ./pdf args;
   prodigy = null;
   rgb = null;
   taskrunner = null;
