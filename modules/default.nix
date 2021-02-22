@@ -43,6 +43,7 @@ let
     ./security/gpg
     ./security/pass
     ./security/ssh
+    ./security/tor
     ./security/yubico
 
     ./shell
