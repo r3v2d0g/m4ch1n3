@@ -1,6 +1,6 @@
 {
   machine = { config, ... }: {
-    services.mingetty = {
+    services.getty = {
       greetingLine = ''<<< \l on \n running NixOS ${config.system.nixos.version} >>>'';
       helpLine = "";
     };
