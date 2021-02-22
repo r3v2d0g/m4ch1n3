@@ -29,7 +29,7 @@ args:
   json = import ./json args;
   julia = null;
   kotlin = null;
-  latex = null;
+  latex = import ./latex args;
   lean = null;
   ledger = import ./ledger args;
   lua = null;
