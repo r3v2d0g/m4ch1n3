@@ -15,11 +15,14 @@
 
       config.home = lib.mkIf enable {
         packages = [
+          pkgs.clang
           pkgs.cmake
           pkgs.meson
           pkgs.ninja
           pkgs.pkg-config
         ];
+
+        sessionVariables."LIBCLANG_PATH" = "${pkgs.llvmPackages.libclang}/lib";
 
         sessionVariables."PKG_CONFIG_PATH" = lib.concatStringsColon ([
           "/run/current-system/sw/lib/pkgconfig"
