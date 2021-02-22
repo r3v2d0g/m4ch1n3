@@ -80,6 +80,10 @@
       :desc "Toggle parameter hints" "p" #'lsp-rust-analyzer-display-parameter-hints-toggle
       :desc "Toggle chaining hints"  "c" #'lsp-rust-analyzer-display-chaining-hints-toggle)
 
+;; python-mode
+(setq!
+  lsp-python-ms-executable (executable-find "python-language-server"))
+
 ;; org-mode
 (use-package! ox-gfm :after-call org-export-dispatch)
 
@@ -196,26 +200,6 @@
 ;; (map! "C-S-v" #'evil-paste-after)
 ;;
 ;; (map! :n "TAB" #'+fold/toggle)
-;;
-;; (map! :leader
-;;
-;;       ;;; <leader> o --- open
-;;       (:prefix "o"
-;;        ;;:desc "IRC"                          "i" #'=irc
-;;        :desc "Ledger"                       "l" (cmd! (find-file "~/ledger/ledger.dat"))
-;;        :desc "Toggle vterm pop up"          "t" #'+vterm/toggle
-;;        :desc "Open vterm in current window" "T" #'+vterm/here
-;;
-;;        ;;; <leader> o o --- ~/org
-;;        (:prefix ("o" . "~/org")
-;;         :desc "~/org/books.org" "b" (cmd! (find-file "~/org/books.org"))
-;;         :desc "~/org/links.org" "l" (cmd! (find-file "~/org/links.org"))))
-;;
-;;       ;;; <leader> d --- documentation
-;;       (:prefix ("d" . "documentation")
-;;        :desc "Copyright" "c" #'documentation-copyright
-;;        :desc "MPL-2.0"   "p" #'documentation-mpl
-;;        :desc "Separator" "s" #'documentation-separator))
 ;;
 ;; (after! ledger-mode
 ;;   (map! :localleader
