@@ -9,9 +9,5 @@ in {
 
   flags.lsp = true;
 
-  packages = [
-    pkgs.nodejs
-    pkgs.nodePackages.npm
-    pkgs.yarn
-  ] ++ lib.optional flags.lsp pkgs.nodePackages.typescript-language-server;
+  packages = lib.optional flags.lsp pkgs.nodePackages.typescript-language-server;
 }
