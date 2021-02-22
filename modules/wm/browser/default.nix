@@ -45,7 +45,8 @@
         rm $out/bin
         mkdir $out/bin
 
-        makeWrapper ${ungoogled-chromium}/bin/chromium $out/bin/chromium \
+        makeWrapper ${ungoogled-chromium}/bin/chromium \
+          $out/bin/chromium \
           --add-flags "--enable-features=UseOzonePlatform" \
           --add-flags "--ozone-platform=wayland"
 
