@@ -27,7 +27,7 @@ args:
   java = null;
   javascript = import ./javascript args;
   json = import ./json args;
-  julia = null;
+  julia = import ./julia args;
   kotlin = null;
   latex = import ./latex args;
   lean = null;

@@ -25,6 +25,7 @@ let
     ./dev/gtk
     ./dev/haskell
     ./dev/jetbrains
+    ./dev/julia
     ./dev/lisp
     ./dev/nodejs
     ./dev/python

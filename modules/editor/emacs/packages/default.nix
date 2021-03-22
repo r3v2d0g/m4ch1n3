@@ -10,6 +10,7 @@
         evil-snipe = import ./evil-snipe args;
         feature-mode = import ./feature-mode args;
         ion-mode = import ./ion-mode args;
+        lsp-julia = import ./lsp-julia args;
         ox-gfm = import ./ox-gfm args;
       };
 
