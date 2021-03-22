@@ -1,42 +1,60 @@
 { config, pkgs, ... }:
 
 {
-  base = {
-    boot.device = "/dev/disk/by-id/ata-INTEL_SSDSCKKF256G8H_BTLA7452075L256J";
-    boot.modules = [ "rtl8723de" ];
-    boot.packages = [ pkgs.rtl8723de ];
+  base.boot = {
+    device = "/dev/disk/by-id/ata-INTEL_SSDSCKKF256G8H_BTLA7452075L256J";
 
-    luks.devices."sf4r".device = "/dev/disk/by-partlabel/sf4r";
+    modules = [ "rtl8723de" ];
+    packages = [ pkgs.rtl8723de ];
+  };
 
-    fs.boot = "/dev/disk/by-uuid/CBCB-4D7F";
+  base.fs = {
+    pool = "sf4r-root";
+    boot = "/dev/disk/by-uuid/CBCB-4D7F";
+  }
 
-    net.host.name = "sf4r";
-    net.host.id = "41b22822";
-    net.interfaces = [ "eno1" ];
-    net.netman = true;
-    net.idevice = true;
+  base.kb.planck = true;
+
+  base.luks.devices."sf4r".device = "/dev/disk/by-partlabel/sf4r";
+
+  base.net = {
+    host.name = "sf4r";
+    host.id = "41b22822";
+    interfaces = [ "eno1" ];
+    netman = true;
+    idevice = true;
   };
 
   dev.enable = true;
 
-  db.enable = true;
-  db.pg.enable = true;
+  db = {
+    enable = true;
+    pg.enable = true;
+  };
 
-  security = {
-    yubico.enable = true;
+  security.ledger.enable = true;
+  security.yubico.enable = true;
 
-    ssh.server = true;
-    ssh.addr = "192.168.1.2";
+  security.ssh = {
+    server = true;
+    addr = "192.168.1.3";
   };
 
   users.r3v2d0g = {
     enable = true;
+
+    uid = 100;
     password = "local";
 
-    comm.enable = true;
-    comm.discord = true;
-    comm.slack = true;
+    comm = {
+      enable = true;
+      discord = true;
+      slack = true;
+    };
+
     dev.cypress = true;
+    shell.mega = true;
+    theme.wm.term.fontSize = "9.0";
     wm.autostart = true;
   };
 
@@ -49,7 +67,7 @@
       resolution.height = 1080;
 
       position.x = 0;
-          position.y = 0;
+      position.y = 0;
     };
   };
 }
