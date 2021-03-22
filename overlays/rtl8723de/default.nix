@@ -1,8 +1,13 @@
-{ bc, kernel, src, stdenv }:
+{ bc, fetchFromGitHub, kernel, stdenv }:
 
 stdenv.mkDerivation {
   name = "rtl8723de";
-  inherit src;
+  src = fetchFromGitHub {
+    owner = "smlinux";
+    repo = "rtl8723de";
+    rev = "0be0a4a5113e0e60e866da77da3b3c7dd03c86ef";
+    sha256 = "1w02jkss0ic0wbba2hbfvakqjhjy0x7ifr8dg9dqcr82rjrhfrlf";
+  };
 
   hardeningDisable = [ "pic" ];
   enableParallelBuilding = true;

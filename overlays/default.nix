@@ -1,43 +1,39 @@
 { fmt
 , nixpkgs-mesa
-, paper-icon-theme
-, rtl8723de
-, waybar
 , ...
 }:
 
 self: super:
 
 {
-  emacsGcc = super.emacsGcc .overrideAttrs (prev: {
-    patches = (prev.patches or [])
-              ++ [ ./patches/emacsGcc/0001-emacsgcc-fix-doom-emacs-install.patch ];
-  });
+  cypress = import ./cypress { inherit (super) cypress fetchurl; };
 
   fmt = super.fmt.overrideAttrs (prev: {
     src = fmt;
     version = "7.0.3";
   });
 
+  megacmd = import ./megacmd { inherit (super) fetchFromGitHub megacmd; };
+
   mesa_drivers = (import nixpkgs-mesa { system = "x86_64-linux"; }).mesa_drivers;
 
-  paper-icon-theme = super.paper-icon-theme.overrideAttrs (_: {
-    src = paper-icon-theme;
-    version = "2020-03-12";
-  });
+  nodejs-latest = super.nodejs-15_x;
 
-  rtl8723de = self.callPackage ./rtl8723de {
-    src = rtl8723de;
-    kernel = self.linux;
+  yarn-latest = super.yarn.overrideAttrs (prev: { buildInputs = [ self.nodejs-latest ]; });
+
+  p7zip = super.p7zip.override { enableUnfree = true; };
+
+  paper-icon-theme = import ./paper-icon-theme {
+    inherit (super) fetchFromGitHub paper-icon-theme;
   };
 
-  waybar = super.waybar.overrideAttrs (prev: {
-    src = waybar;
-    version = "0.9.5";
+  rtl8723de = import ./rtl8723de { inherit (super) bc fetchFromGitHub kernel stdenv; };
 
-    patches = (prev.patches or [])
-              ++ [ ./patches/waybar/0001-no-exclusive-zone-for-overlay.patch ];
+  rust-nightly = import ./rust-nightly { inherit (super) rustChannelOf; };
 
-    mesonFlags = prev.mesonFlags ++ [ "-Dsndio=disabled" ];
+  ungoogled-chromium = super.ungoogled-chromium.override (prev: {
+    enableWideVine = true;
   });
+
+  waybar = import ./waybar { inherit (super) fetchFromGitHub waybar; };
 }
