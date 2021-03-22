@@ -1,5 +1,5 @@
 {
-  machine = { lib, pkgs, mcfg, ... }:
+  machine = { inputs, lib, pkgs, mcfg, ... }:
     let
       cfg = mcfg.base;
     in {
@@ -11,6 +11,11 @@
         nix.package = pkgs.nixFlakes;
         nix.extraOptions = "experimental-features = nix-command flakes";
         nix.trustedUsers = [ "root" ] ++ cfg.trustedUsers;
+
+        nix.nixPath = lib.mkForce [
+          "nixpkgs=${inputs.nixpkgs}"
+          "${inputs.nixpkgs}"
+        ];
 
         nixpkgs.config = {
           allowUnfree = true;
