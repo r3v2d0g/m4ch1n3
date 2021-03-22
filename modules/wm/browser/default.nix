@@ -31,21 +31,16 @@
                && ucfg.wm.enable
                && cfg.enable;
 
-      ungoogled-chromium = pkgs.ungoogled-chromium.override (_: {
-        enableVaapi = true;
-        enableWideVine = true;
-      });
-
       chromium = pkgs.runCommandLocal "ungoogled-chromium" {
         buildInputs = [ pkgs.makeWrapper ];
       } ''
         mkdir -p $out
-        ln -s ${ungoogled-chromium}/* $out
+        ln -s ${pkgs.ungoogled-chromium}/* $out
 
         rm $out/bin
         mkdir $out/bin
 
-        makeWrapper ${ungoogled-chromium}/bin/chromium \
+        makeWrapper ${pkgs.ungoogled-chromium}/bin/chromium \
           $out/bin/chromium \
           --add-flags "--enable-features=UseOzonePlatform" \
           --add-flags "--ozone-platform=wayland"
