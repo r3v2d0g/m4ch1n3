@@ -5,23 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs";
     nixpkgs-mesa.url = "github:nixos/nixpkgs/1857b270f7570471945fe9a15d3abbacb7fd6abf";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay/4d7fdb786637213e2ff45bb868e27eb21a234f06";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/daa4b15755f6cccb462efed696abceee0994bb96";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/c879675c82ff58be42cec7106cd5c6a35fd3da85";
-    nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
-    nix-doom-emacs.inputs.doom-snippets.follows = "doom-snippets";
+    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/7f1a9a4abf4b88256455e17129b5779a7176b4eb";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
-
-    doom-emacs = {
-      url = "github:hlissner/doom-emacs/d88e0795b68bd0a261872b2c1e80b7b567a862ae";
-      flake = false;
-    };
-
-    doom-snippets = {
-      url = "github:hlissner/doom-snippets/33eb93ba6a6f307ceb89e4e80554a1db328c3e26";
-      flake = false;
-    };
 
     fmt = {
       url = "github:fmtlib/fmt/7.0.3";
@@ -45,16 +33,6 @@
 
     paper-icon-theme = {
       url = "github:snwh/paper-icon-theme";
-      flake = false;
-    };
-
-    rtl8723de = {
-      url = "github:smlinux/rtl8723de";
-      flake = false;
-    };
-
-    waybar = {
-      url = "github:Alexays/Waybar";
       flake = false;
     };
 
