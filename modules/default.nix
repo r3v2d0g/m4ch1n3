@@ -42,6 +42,7 @@ let
     ./security
     ./security/fw
     ./security/gpg
+    ./security/ledger
     ./security/pass
     ./security/ssh
     ./security/tor

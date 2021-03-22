@@ -42,6 +42,7 @@
     pg.enable = true;
   };
 
+  security.ledger.enable = true;
   security.yubico.enable = true;
 
   users.r3v2d0g = {
