@@ -11,7 +11,7 @@
   base.fs = {
     pool = "sf4r-root";
     boot = "/dev/disk/by-uuid/CBCB-4D7F";
-  }
+  };
 
   base.kb.planck = true;
 
