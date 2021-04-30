@@ -41,7 +41,7 @@ args:
   org = import ./org args;
   php = null;
   plantuml = null;
-  purescript = null;
+  purescript = import ./purescript args;
   python = import ./python args;
   qt = null;
   racket = null;
