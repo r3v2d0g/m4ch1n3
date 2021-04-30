@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  default = true;
+  default = false;
 
   flags.latexmk = false;
   flags.cdlatex = true;
