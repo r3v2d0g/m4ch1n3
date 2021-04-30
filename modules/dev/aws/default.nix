@@ -7,8 +7,8 @@
       enable = mcfg.dev.enable && ucfg.dev.enable
                && cfg.enable;
     in {
-      options.m4ch1n3.dev.aws = lib.mkOptBool true;
+      options.m4ch1n3.dev.aws.enable = lib.mkOptBool true;
 
-      config.hom.packages = lib.mkIf enable [ pkgs.awscli2 ];
+      config.home.packages = lib.mkIf enable [ pkgs.awscli2 ];
     };
 }

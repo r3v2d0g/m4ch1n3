@@ -21,7 +21,6 @@
       config = lib.mkIf cfg.enable {
         hardware.opengl = {
           enable = true;
-          package = pkgs.mesa_drivers;
 
           extraPackages = [
             pkgs.intel-media-driver

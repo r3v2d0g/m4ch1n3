@@ -3,13 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
-    nixpkgs-mesa.url = "github:nixos/nixpkgs/1857b270f7570471945fe9a15d3abbacb7fd6abf";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay/daa4b15755f6cccb462efed696abceee0994bb96";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/d9530a7048f4b1c0f65825202a0ce1d111a1d39a";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/7f1a9a4abf4b88256455e17129b5779a7176b4eb";
+    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/51645030623075a50f0f2fb8e95d113336fa109f";
+    nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
+
+    doom-emacs = {
+      url = "github:rgrinberg/doom-emacs/dhall-mode";
+      flake = false;
+    };
 
     fmt = {
       url = "github:fmtlib/fmt/7.0.3";

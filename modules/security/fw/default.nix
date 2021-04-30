@@ -4,11 +4,17 @@
       cfg = mcfg.security.fw;
     in {
       options.m4ch1n3.security.fw = {
-        ports = lib.mkOptIntList [];
+        ports = {
+          tcp = lib.mkOptIntList [];
+          udp = lib.mkOptIntList [];
+        };
       };
 
       config.networking.firewall = {
-        allowedTCPPorts = cfg.ports;
+        enable = true;
+
+        allowedTCPPorts = cfg.ports.tcp;
+        allowedUDPPorts = cfg.ports.udp;
       };
     };
 

@@ -1,5 +1,4 @@
 { fmt
-, nixpkgs-mesa
 , ...
 }:
 
@@ -15,8 +14,6 @@ self: super:
 
   megacmd = import ./megacmd { inherit (super) fetchFromGitHub megacmd; };
 
-  mesa_drivers = (import nixpkgs-mesa { system = "x86_64-linux"; }).mesa_drivers;
-
   nodejs-latest = super.nodejs-15_x;
 
   yarn-latest = super.yarn.overrideAttrs (prev: { buildInputs = [ self.nodejs-latest ]; });
@@ -27,7 +24,10 @@ self: super:
     inherit (super) fetchFromGitHub paper-icon-theme;
   };
 
-  rtl8723de = import ./rtl8723de { inherit (super) bc fetchFromGitHub kernel stdenv; };
+  rtl8723de = import ./rtl8723de {
+    inherit (super) bc fetchFromGitHub stdenv;
+    kernel = self.linux;
+  };
 
   rust-nightly = import ./rust-nightly { inherit (super) rustChannelOf; };
 

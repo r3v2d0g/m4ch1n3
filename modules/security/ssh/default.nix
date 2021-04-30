@@ -13,8 +13,13 @@
       config.services.openssh = lib.mkIf cfg.server {
         enable = true;
 
-        permitRootLogin = "no";
+        passwordAuthentication = false;
+        challengeResponseAuthentication = false;
+        permitRootLogin = "prohibit-password";
         listenAddresses = [{ inherit (cfg) addr port; }];
+
+        ciphers = [ "chacha20-poly1305@openssh.com" ];
+        kexAlgorithms = [ "curve25519-sha256" ];
       };
     };
 

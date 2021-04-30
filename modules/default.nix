@@ -47,6 +47,7 @@ let
     ./security/ledger
     ./security/pass
     ./security/ssh
+    ./security/tailscale
     ./security/tor
     ./security/yubico
 

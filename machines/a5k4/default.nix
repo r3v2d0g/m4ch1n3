@@ -45,6 +45,12 @@
   security.ledger.enable = true;
   security.yubico.enable = true;
 
+  security.fw.ports.tcp = [ 1105 ];
+  security.ssh = {
+    server = true;
+    addr = "0.0.0.0";
+  };
+
   users.r3v2d0g = {
     enable = true;
 
