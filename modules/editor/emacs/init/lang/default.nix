@@ -10,6 +10,7 @@ args:
   csharp = null;
   dart = null;
   data = import ./data args;
+  dhall = import ./dhall args;
   elixir = null;
   elm = null;
   emacs-lisp = import ./emacs-lisp args;
