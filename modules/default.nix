@@ -18,6 +18,7 @@ let
     ./db/pg
 
     ./dev
+    ./dev/aws
     ./dev/build
     ./dev/cypress
     ./dev/docker
