@@ -29,6 +29,7 @@ let
     ./dev/julia
     ./dev/lisp
     ./dev/nodejs
+    ./dev/purescript
     ./dev/python
     ./dev/rust
     ./dev/typescript
