@@ -72,12 +72,22 @@
   wm = {
     enable = true;
 
-    primary = "DP-1";
-    outputs."DP-1" = {
+    primary = "DP-3";
+    outputs."DP-3" = {
       resolution.width = 3840;
       resolution.height = 2160;
 
       position.x = 0;
+      position.y = 0;
+    };
+
+    outputs."HDMI-A-1" = {
+      rotation = 90;
+
+      resolution.width = 1920;
+      resolution.height = 1080;
+
+      position.x = 3840;
       position.y = 0;
     };
   };
