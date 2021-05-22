@@ -44,6 +44,7 @@ let
     ./security
     ./security/fw
     ./security/gpg
+    ./security/keyring
     ./security/ledger
     ./security/pass
     ./security/ssh
