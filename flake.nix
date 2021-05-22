@@ -3,11 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
+    nix-ld.url = "github:Mic92/nix-ld";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay/d9530a7048f4b1c0f65825202a0ce1d111a1d39a";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/51645030623075a50f0f2fb8e95d113336fa109f";
+    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/746c847149f3d40ea952038f7fe78ce0d7808138";
     nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
 
@@ -62,7 +63,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, nix-ld, ... }@inputs:
     let
       withInputsAndLib = path: { pkgs, ... }@args:
         let lib = import ./lib { lib = args.lib; };
@@ -76,6 +77,8 @@
             (withInputsAndLib ./users)
 
             (args: { config.m4ch1n3 = import ./machines/a5k4 args; })
+
+            nix-ld.nixosModules.nix-ld
           ];
         };
 
@@ -86,6 +89,8 @@
             (withInputsAndLib ./users)
 
             ({ pkgs, ... }@args: { config.m4ch1n3 = import ./machines/sf4r args; })
+
+            nix-ld.nixosModules.nix-ld
           ];
         };
       };
