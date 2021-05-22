@@ -31,7 +31,10 @@
       };
 
       config.wayland.windowManager.sway.config = lib.mkIf enable {
-        fonts = [ "${fonts.default.name} 10" ];
+        fonts = {
+          names = [ fonts.default.name ];
+          size = 10.0;
+        };
 
         colors = lib.mapFilterAttrs (_: c: {
           border = colors.${c.bg};
