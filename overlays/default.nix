@@ -14,7 +14,7 @@ self: super:
 
   megacmd = import ./megacmd { inherit (super) fetchFromGitHub megacmd; };
 
-  nodejs-latest = super.nodejs-15_x;
+  nodejs-latest = super.nodejs-16_x;
 
   yarn-latest = super.yarn.overrideAttrs (prev: { buildInputs = [ self.nodejs-latest ]; });
 
