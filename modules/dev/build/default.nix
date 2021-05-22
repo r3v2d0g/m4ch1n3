@@ -27,6 +27,7 @@
         sessionVariables."PKG_CONFIG_PATH" = lib.concatStringsColon ([
           "/run/current-system/sw/lib/pkgconfig"
           "${config.home.profileDirectory}/lib/pkgconfig"
+          "$PKG_CONFIG_PATH"
         ] ++ cfg.extraPkgConfigPaths);
       };
     };
