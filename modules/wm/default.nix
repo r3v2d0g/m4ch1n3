@@ -52,6 +52,20 @@
       wmcfg = mcfg.wm;
       enable = wmcfg.enable && cfg.enable;
 
+      primaryOutput =
+        if (isNull wmcfg.primary)
+        then null
+        else (rec {
+          name = wmcfg.primary;
+
+          inherit (wmcfg.outputs."${wmcfg.primary}") resolution position;
+
+          center = {
+            x = resolution.width / 2 + position.x;
+            y = resolution.height / 2 + position.y;
+          };
+        });
+
       workspace = pkgs.writeTextFile {
         name = "workspace";
         destination = "/bin/workspace";
@@ -285,14 +299,18 @@
             "${cfg.mod}+Shift+down" = "exec pamixer --default-source -d 5";
           };
 
-          config.startup = lib.optional (! isNull wmcfg.primary)
-            { command = "swaymsg focus output ${wmcfg.primary}"; };
-
           extraConfig = ''
             seat * hide_cursor 5000
 
             for_window [app_id="kitty"] border pixel 2
             for_window [class="Emacs"] border pixel 2
+
+            ${lib.optionalString (! isNull primaryOutput) ''
+              exec_always swaymsg focus output ${primaryOutput.name} && \
+                            swaymsg seat seat0 cursor set \
+                            ${toString primaryOutput.center.x} \
+                            ${toString primaryOutput.center.y}
+            ''}
 
             ${lib.optionalString cfg.bar.enable ''
               bindsym --no-repeat ${cfg.mod}+Escape exec pkill -SIGUSR1 waybar
