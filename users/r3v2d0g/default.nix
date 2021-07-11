@@ -19,7 +19,7 @@ in {
 
     password = lib.mkOptEnum [ "local" "remote" ] null;
 
-    keys.git = lib.mkOptStr "0x14D54AAE149D1DC9";
+    keys.git = lib.mkOptStr "8B64DC0D7B9E60DC";
     keys.ssh = lib.mkOptStrList
       [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICWlbkVr1wDQIkEcgXOrBAMBSE+W5UR2uvL4Sj9mMJoc" ];
 
