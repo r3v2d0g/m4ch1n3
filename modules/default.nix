@@ -35,6 +35,7 @@ let
     ./dev/python
     ./dev/rust
     ./dev/typescript
+    ./dev/vm
     ./dev/vuejs
 
     ./editor
