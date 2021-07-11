@@ -11,7 +11,7 @@ args:
   dart = null;
   data = import ./data args;
   dhall = import ./dhall args;
-  elixir = null;
+  elixir = import ./elixir args;
   elm = null;
   emacs-lisp = import ./emacs-lisp args;
   erlang = null;
