@@ -16,10 +16,10 @@
           "ctrl+shift+tab"   = "prev_tab";
 
           "ctrl+t"           = "new_tab";
-          "ctrl+w"           = "close_tab";
+          "ctrl+shift+w"     = "close_tab";
 
           "ctrl+enter"       = "new_window";
-          "ctrl+shift+w"     = "close_window";
+          "ctrl+w"           = "close_window";
 
           "ctrl+shift+enter" = "detach_window";
           "ctrl+shift+t"     = "detach_window tab";
