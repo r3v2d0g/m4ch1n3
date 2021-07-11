@@ -49,6 +49,7 @@
 
 ;; rustic-mode
 (setq-hook! rustic-mode
+  rustic-indent-offset 4
   rustic-lsp-server 'rust-analyzer
   rustic-match-angle-brackets nil
   ;;lsp-enable-semantic-highlighting t
@@ -63,7 +64,6 @@
   lsp-rust-analyzer-diagnostics-enable t
   lsp-rust-analyzer-diagnostics-enable-experimental t
   ;; TODO: lsp-rust-analyzer-diagnostics-disabled
-  lsp-rust-analyzer-cargo-load-out-dirs-from-check t
   lsp-rust-analyzer-completion-add-call-parenthesis t ;; TODO: investigate
   lsp-rust-analyzer-completion-add-call-argument-snippets t 
   lsp-rust-analyzer-completion-postfix-enable t ;; TODO: investigate
