@@ -19,4 +19,4 @@ in {
              ]
              ++ lib.optional flags.ghcide pkgs.haskellPackages.ghcide
              ++ lib.optional flags.lsp pkgs.haskellPackages.haskell-language-server;
-   }
+}
