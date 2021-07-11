@@ -36,10 +36,12 @@
   };
 
   dev.enable = true;
+  dev.vm.enable = true;
 
   db = {
     enable = true;
     pg.enable = true;
+    redis.enable = true;
   };
 
   security.ledger.enable = true;
