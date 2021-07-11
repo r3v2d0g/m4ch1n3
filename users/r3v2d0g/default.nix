@@ -42,6 +42,7 @@ in {
       python = lib.mkOptBool true;
       rust = lib.mkOptBool true;
       typescript = lib.mkOptBool true;
+      vm = lib.mkOptBool true;
       vuejs = lib.mkOptBool true;
     };
 
@@ -134,7 +135,11 @@ in {
         ++ lib.optional (
           mcfg.dev.enable && mcfg.dev.docker.enable
           && cfg.dev.docker
-        ) "docker";
+        ) "docker"
+        ++ lib.optional (
+          mcfg.dev.enable && mcfg.dev.vm.enable
+          && cfg.dev.vm
+        ) "vboxusers";
 
       home = cfg.home.path;
       createHome = cfg.home.create;
