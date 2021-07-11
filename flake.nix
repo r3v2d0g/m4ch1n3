@@ -17,11 +17,6 @@
       flake = false;
     };
 
-    fmt = {
-      url = "github:fmtlib/fmt/7.0.3";
-      flake = false;
-    };
-
     ion-mode = {
       url = "github:iwahbe/ion-mode";
       flake = false;

@@ -144,23 +144,6 @@
         "type": "github"
       }
     },
-    "fmt": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1596729061,
-        "narHash": "sha256-Ks3UG3V0Pz6qkKYFhy71ZYlZ9CPijO6GBrfMqX5zAp8=",
-        "owner": "fmtlib",
-        "repo": "fmt",
-        "rev": "cd4af11efc9c622896a3e4cb599fa28668ca3d05",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fmtlib",
-        "ref": "7.0.3",
-        "repo": "fmt",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [

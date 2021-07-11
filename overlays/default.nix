@@ -1,16 +1,9 @@
-{ fmt
-, ...
-}:
+{ ... }:
 
 self: super:
 
 {
   cypress = import ./cypress { inherit (super) cypress fetchurl; };
-
-  fmt = super.fmt.overrideAttrs (prev: {
-    src = fmt;
-    version = "7.0.3";
-  });
 
   megacmd = import ./megacmd { inherit (super) fetchFromGitHub megacmd; };
 
