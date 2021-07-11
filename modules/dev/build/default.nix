@@ -22,7 +22,7 @@
           pkgs.pkg-config
         ];
 
-        sessionVariables."LIBCLANG_PATH" = "${pkgs.llvmPackages.libclang}/lib";
+        sessionVariables."LIBCLANG_PATH" = "${pkgs.llvmPackages.libclang.lib}/lib";
 
         sessionVariables."PKG_CONFIG_PATH" = lib.concatStringsColon ([
           "/run/current-system/sw/lib/pkgconfig"
