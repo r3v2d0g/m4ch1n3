@@ -3,7 +3,7 @@
 let
   channel = rustChannelOf {
     channel = "nightly";
-    date = "2021-02-26";
-    sha256 = "0j2pd8b9pbwgysray9fz7fhdihffqdrghyp1xaxzsy0lzknghf45";
+    date = "2021-06-15";
+    sha256 = "1hrgvv48zd479jkn3lpb78miycy8m347pn5gvb7lz9lsxmzhyiw4";
   };
 in channel.rust.override { extensions = ["rust-src"]; }
