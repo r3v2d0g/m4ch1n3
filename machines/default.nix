@@ -7,6 +7,7 @@ in {
 
   nixpkgs.overlays = [
     (import inputs.nixpkgs-mozilla)
+    (import inputs.emacs-overlay)
     (import ../overlays inputs)
   ];
 }
