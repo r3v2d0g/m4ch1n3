@@ -1,8 +1,6 @@
 {
   machine = { lib, pkgs, mcfg, ... }:
-    let
-      cfg = mcfg.db.pg;
-      enable = mcfg.db.enable && cfg.enable;
+    let enable = mcfg.db.enable && mcfg.db.pg.enable;
     in {
       options.m4ch1n3.db.pg.enable = lib.mkOptBool false;
 
