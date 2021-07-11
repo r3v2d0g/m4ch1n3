@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
-    nix-ld.url = "github:Mic92/nix-ld";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay/d9530a7048f4b1c0f65825202a0ce1d111a1d39a";
     home-manager.url = "github:nix-community/home-manager";
@@ -58,7 +57,7 @@
     };
   };
 
-  outputs = { nixpkgs, nix-ld, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let
       withInputsAndLib = path: { pkgs, ... }@args:
         let lib = import ./lib { lib = args.lib; };
@@ -72,8 +71,6 @@
             (withInputsAndLib ./users)
 
             (args: { config.m4ch1n3 = import ./machines/a5k4 args; })
-
-            nix-ld.nixosModules.nix-ld
           ];
         };
 
@@ -84,8 +81,6 @@
             (withInputsAndLib ./users)
 
             ({ pkgs, ... }@args: { config.m4ch1n3 = import ./machines/sf4r args; })
-
-            nix-ld.nixosModules.nix-ld
           ];
         };
       };
