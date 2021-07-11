@@ -22,6 +22,7 @@ let
     ./dev/build
     ./dev/cypress
     ./dev/docker
+    ./dev/elixir
     ./dev/ffmpeg
     ./dev/gtk
     ./dev/haskell
