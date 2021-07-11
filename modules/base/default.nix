@@ -12,6 +12,8 @@
         nix.extraOptions = "experimental-features = nix-command flakes";
         nix.trustedUsers = [ "root" ] ++ cfg.trustedUsers;
 
+        nix.sandboxPaths = ["/bin/sh=${pkgs.bash}/bin/sh"];
+
         nix.nixPath = lib.mkForce [
           "nixpkgs=${inputs.nixpkgs}"
           "${inputs.nixpkgs}"
