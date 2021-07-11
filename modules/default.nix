@@ -16,6 +16,7 @@ let
 
     ./db
     ./db/pg
+    ./db/redis
 
     ./dev
     ./dev/aws
